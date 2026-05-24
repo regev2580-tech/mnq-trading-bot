@@ -116,6 +116,19 @@
   .rule { display:flex; align-items:flex-start; gap:12px; padding:12px 14px; background:rgba(255,255,255,0.02); border-radius:10px; border:1px solid rgba(255,255,255,0.04); }
   .rule-num { background:var(--blue); color:#fff; border-radius:8px; padding:3px 10px; font-size:12px; font-weight:800; white-space:nowrap; min-width:32px; text-align:center; }
   .rule-text { color:var(--text); font-size:13px; line-height:1.5; }
+  .rule-why  { color:var(--muted); font-size:11px; margin-top:4px; }
+
+  /* MISTAKES SECTION */
+  .mistakes-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:22px; }
+  .mistakes-card h3 { font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
+  .mistakes-card h3 span { width:4px; height:14px; border-radius:2px; display:inline-block; background:var(--red); }
+  .mistake-row { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); }
+  .mistake-row:last-child { border-bottom:none; }
+  .mistake-count { background:rgba(255,71,87,0.15); color:var(--red); border-radius:6px; padding:2px 8px; font-size:11px; font-weight:800; white-space:nowrap; }
+  .mistake-text { color:var(--text); font-size:13px; }
+  .what-works { background:rgba(0,255,136,0.06); border:1px solid rgba(0,255,136,0.2); border-radius:10px; padding:14px 16px; margin-top:16px; }
+  .what-works-title { color:var(--green); font-size:12px; font-weight:700; margin-bottom:8px; }
+  .what-works p { color:var(--text); font-size:13px; line-height:1.6; }
 
   .footer { text-align:center; color:var(--muted); font-size:11px; padding:24px; border-top:1px solid var(--border); margin-top:8px; }
   .footer b { color:var(--blue); }
@@ -126,50 +139,52 @@
 <div class="header">
   <div class="header-left">
     <h1><span class="live-dot"></span> דשבורד מסחר — <span>MNQ1!</span></h1>
-    <div class="subtitle">Micro E-mini Nasdaq-100 Futures &nbsp;|&nbsp; ניתוח Claude AI</div>
+    <div class="subtitle">Micro E-mini Nasdaq-100 Futures &nbsp;|&nbsp; ICT 2022 &nbsp;|&nbsp; Lucid Trader Prop Eval</div>
   </div>
   <div class="header-right">
     <b>Lucid Trader Prop Eval</b><br>
-    Tradovate &nbsp;|&nbsp; שווי נקודה: $0.5<br>
-    עדכון אחרון: 2026-05-22 17:09:43
+    Tradovate &nbsp;|&nbsp; שווי נקודה: $0.50<br>
+    עדכון אחרון: 2026-05-24
   </div>
 </div>
 
 <div class="container">
 
+  <!-- KPI ROW -->
   <div class="kpi-grid">
     <div class="kpi red">
       <div class="kpi-icon">📉</div>
       <div class="kpi-label">סה"כ R</div>
-      <div class="kpi-value">-0.89R</div>
-      <div class="kpi-sub">+28.5 נקודות &nbsp;|&nbsp; $-5.75</div>
+      <div class="kpi-value">-1.89R</div>
+      <div class="kpi-sub">-13.5 נק' &nbsp;|&nbsp; $-26.75</div>
     </div>
     <div class="kpi blue">
       <div class="kpi-icon">🎯</div>
       <div class="kpi-label">אחוז הצלחה</div>
-      <div class="kpi-value">20.0%</div>
-      <div class="kpi-sub">1 רווח &nbsp;/&nbsp; 3 הפסד &nbsp;/&nbsp; 1 איזון</div>
+      <div class="kpi-value">16.7%</div>
+      <div class="kpi-sub">1 רווח &nbsp;/&nbsp; 4 הפסד &nbsp;/&nbsp; 1 איזון</div>
     </div>
     <div class="kpi red">
       <div class="kpi-icon">⚖️</div>
       <div class="kpi-label">Profit Factor</div>
-      <div class="kpi-value">0.67</div>
-      <div class="kpi-sub">ממוצע רווח: +139.0נק' &nbsp;|&nbsp; ממוצע הפסד: -38.5נק'</div>
+      <div class="kpi-value">0.50</div>
+      <div class="kpi-sub">ממוצע רווח: +139נק' &nbsp;|&nbsp; ממוצע הפסד: -39.4נק'</div>
     </div>
     <div class="kpi orange">
       <div class="kpi-icon">📊</div>
       <div class="kpi-label">Expectancy</div>
-      <div class="kpi-value">-0.4R</div>
+      <div class="kpi-value">-0.32R</div>
       <div class="kpi-sub">ציפייה ממוצעת לעסקה</div>
     </div>
     <div class="kpi red">
       <div class="kpi-icon">🛡️</div>
       <div class="kpi-label">Drawdown מקסימלי</div>
-      <div class="kpi-value">-2.9R</div>
-      <div class="kpi-sub">סה"כ 5 עסקאות</div>
+      <div class="kpi-value">-3.89R</div>
+      <div class="kpi-sub">מ-2R שיא → -1.89R &nbsp;|&nbsp; 6 עסקאות</div>
     </div>
   </div>
 
+  <!-- CHARTS -->
   <div class="charts-grid">
     <div class="chart-card">
       <div class="chart-title"><span class="g"></span>עקומת הון (R)</div>
@@ -181,39 +196,39 @@
     </div>
   </div>
 
+  <!-- BREAKDOWN -->
   <div class="breakdown-grid">
     <div class="breakdown-card">
       <h3><span></span>לפי סשן</h3>
-      
-        <div class="breakdown-row">
-          <div class="br-name">London</div>
-          <div class="br-wr" style="color:var(--green)">100.0%</div>
-          <div class="br-detail">1 עסקאות &bull; +2.0R &bull; +139.0 נק'</div>
-        </div>
-        <div class="breakdown-row">
-          <div class="br-name">NY AM</div>
-          <div class="br-wr" style="color:var(--red)">0.0%</div>
-          <div class="br-detail">4 עסקאות &bull; -2.89R &bull; -110.5 נק'</div>
-        </div>
+      <div class="breakdown-row">
+        <div class="br-name">London</div>
+        <div class="br-wr" style="color:var(--green)">100%</div>
+        <div class="br-detail">1 עסקה &bull; +2.0R &bull; +139.0נק' &bull; $+69.5</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="br-name">NY AM</div>
+        <div class="br-wr" style="color:var(--red)">0%</div>
+        <div class="br-detail">5 עסקאות &bull; -3.89R &bull; -152.5נק' &bull; $-96.25</div>
+      </div>
     </div>
     <div class="breakdown-card">
       <h3><span></span>לפי כיוון</h3>
-      
-        <div class="breakdown-row">
-          <div class="br-name">לונג</div>
-          <div class="br-wr" style="color:var(--red)">0.0%</div>
-          <div class="br-detail">2 עסקאות &bull; -0.89R</div>
-        </div>
-        <div class="breakdown-row">
-          <div class="br-name">שורט</div>
-          <div class="br-wr" style="color:var(--red)">33.3%</div>
-          <div class="br-detail">3 עסקאות &bull; +0.0R</div>
-        </div>
+      <div class="breakdown-row">
+        <div class="br-name">לונג</div>
+        <div class="br-wr" style="color:var(--red)">0%</div>
+        <div class="br-detail">2 עסקאות &bull; -0.89R &bull; -35.0נק'</div>
+      </div>
+      <div class="breakdown-row">
+        <div class="br-name">שורט</div>
+        <div class="br-wr" style="color:var(--red)">25%</div>
+        <div class="br-detail">4 עסקאות &bull; -1.0R &bull; +21.5נק'</div>
+      </div>
     </div>
   </div>
 
+  <!-- TRADE TABLE -->
   <div class="table-card">
-    <h3><span></span>יומן עסקאות מלא</h3>
+    <h3><span></span>יומן עסקאות מלא — 6 עסקאות</h3>
     <table>
       <thead>
         <tr>
@@ -223,15 +238,16 @@
         </tr>
       </thead>
       <tbody>
+        <!-- Trade 1: WIN -->
         <tr>
           <td><span class="trade-id">#1</span></td>
           <td>2026-05-21<br><small>13:00 UTC+3</small></td>
           <td><small>London</small></td>
           <td><span class="dir short">שורט</span></td>
           <td>1</td>
-          <td>29399.5</td>
-          <td>29437.25</td>
-          <td>29260.5<br><small>TP1</small></td>
+          <td>29,399.5</td>
+          <td>29,437.25</td>
+          <td>29,260.5<br><small>TP1</small></td>
           <td>37.75</td>
           <td class="pos">+139.0</td>
           <td class="pos">+2.0R</td>
@@ -242,22 +258,24 @@
         <tr class="detail-row">
           <td colspan="14">
             <div class="detail-box">
-              <div class="detail-setup"><b>סטאפ:</b> Swept True London Open (29,397.5) + PSP confluence (29,395-29,415)</div>
-              <div class="detail-confluence"><b>קונפלואנס:</b> True London Open swept &bull; PSP cluster 29,395-29,415 &bull; Bearish bias &bull; Below True Day Open &bull; Below True Month Open</div>
-              
-              <div class="lesson"><b>לקח:</b> When setup scores 8/9 and TP1 hits, move SL to BE and let 50% run to TP2. Left +2R extra on the table.</div>
+              <div class="detail-setup"><b>סטאפ:</b> Swept True London Open (29,397.5) + PSP confluence (29,395–29,415)</div>
+              <div class="detail-confluence"><b>קונפלואנס:</b> True London Open swept &bull; PSP cluster 29,395–29,415 &bull; Bearish bias &bull; Below True Day Open &bull; Below True Month Open</div>
+              <div class="good">&#10003; OTE retracement — כניסה נקייה, TP1 הגיע.</div>
+              <div class="lesson"><b>לקח:</b> כשציון 8/9 ו-TP1 מגיע — להזיז SL ל-BE ולתת 50% לרוץ ל-TP2. השארנו +2R נוסף על השולחן.</div>
             </div>
           </td>
         </tr>
+
+        <!-- Trade 2: LOSS -->
         <tr>
           <td><span class="trade-id">#2</span></td>
           <td>2026-05-21<br><small>16:41 UTC+3</small></td>
           <td><small>NY AM</small></td>
           <td><span class="dir short">שורט</span></td>
           <td>1</td>
-          <td>29257.0</td>
-          <td>29285.0</td>
-          <td>29285.0<br><small>SL</small></td>
+          <td>29,257.0</td>
+          <td>29,285.0</td>
+          <td>29,285.0<br><small>SL</small></td>
           <td>28.0</td>
           <td class="neg">-28.0</td>
           <td class="neg">-1.0R</td>
@@ -270,20 +288,22 @@
             <div class="detail-box">
               <div class="detail-setup"><b>סטאפ:</b> Rejection at True NY Open (29,275) + MES1! resistance</div>
               <div class="detail-confluence"><b>קונפלואנס:</b> True NY Open resistance &bull; MES1! confluence &bull; Bearish bias</div>
-              <div class="mistake">&#9888; Did not move SL to BE when price reached 1.5R. Cost: -1R unnecessary loss.</div>
-              <div class="lesson"><b>לקח:</b> CRITICAL: When price reaches 1R+ in profit, move SL to BE immediately. This trade was a winner that became a loser due to missing BE management. PSP Cluster 29,175 was strong support — should have been flagged as potential reversal zone.</div>
+              <div class="mistake">&#9888; המחיר הגיע ל-1.5R רווח (29,200) — לא הוזזה SL ל-BE. מחיר חזר ב-Stop Hunt ל-29,288 ופגע ב-SL.</div>
+              <div class="lesson"><b>לקח:</b> כשמחיר מגיע ל-1R+ — להזיז SL ל-BE מיידית. עסקה מנצחת הפכה להפסד מיותר.</div>
             </div>
           </td>
         </tr>
+
+        <!-- Trade 3: BE -->
         <tr>
           <td><span class="trade-id">#3</span></td>
           <td>2026-05-21<br><small>16:58 UTC+3</small></td>
           <td><small>NY AM</small></td>
           <td><span class="dir long">לונג</span></td>
           <td>1</td>
-          <td>29270.0</td>
-          <td>29225.0</td>
-          <td>29275.0<br><small>BE_STOP</small></td>
+          <td>29,270.0</td>
+          <td>29,225.0</td>
+          <td>29,275.0<br><small>BE_STOP</small></td>
           <td>45.0</td>
           <td class="pos">+5.0</td>
           <td class="pos">+0.11R</td>
@@ -296,20 +316,22 @@
             <div class="detail-box">
               <div class="detail-setup"><b>סטאפ:</b> Sellside Liquidity sweep at PSP 29,175 + NY AM reversal</div>
               <div class="detail-confluence"><b>קונפלואנס:</b> Bias switched Bullish &bull; PSP cluster 29,175 held &bull; True NY Open support &bull; 50% Fib of impulse</div>
-              <div class="good">&#10003; Used 5-min close below key level as exit signal. Prevented loss.</div>
-              <div class="lesson"><b>לקח:</b> Counter-trend trades (against daily bias) need faster partial exits. When TP1 hits on a counter-trend trade, close 50% immediately. Bias switched back to Bearish within minutes — always respect the bigger bias.</div>
+              <div class="good">&#10003; יציאה על סגירת נר 5 דקות מתחת ל-29,275 — החלטה נכונה, מנעה הפסד.</div>
+              <div class="lesson"><b>לקח:</b> בעסקאות נגד ביאס — לסגור 50% ב-TP1 מיד. ביאס חזר לדובי תוך דקות.</div>
             </div>
           </td>
         </tr>
+
+        <!-- Trade 4: LOSS -->
         <tr>
           <td><span class="trade-id">#4</span></td>
           <td>2026-05-22<br><small>16:37 UTC+3</small></td>
           <td><small>NY AM</small></td>
           <td><span class="dir short">שורט</span></td>
           <td>1</td>
-          <td>29665.0</td>
-          <td>29712.5</td>
-          <td>29712.5<br><small>SL</small></td>
+          <td>29,665.0</td>
+          <td>29,712.5</td>
+          <td>29,712.5<br><small>SL</small></td>
           <td>47.5</td>
           <td class="neg">-47.5</td>
           <td class="neg">-1.0R</td>
@@ -321,21 +343,23 @@
           <td colspan="14">
             <div class="detail-box">
               <div class="detail-setup"><b>סטאפ:</b> Limit short at PSP 29,665.5 — second test after London sweep</div>
-              <div class="detail-confluence"><b>קונפלואנס:</b> 4H Directional Bias Bearish &bull; 1H Directional Bias Bearish &bull; PSP 29,665.5 resistance &bull; NY AM Kill Zone &bull; Second test of PSP (first swept in London)</div>
-              <div class="mistake">&#9888; 5-min bias was Bullish while 1H/4H was Bearish — conflict signal. When 5-min is in strong bullish momentum INTO a resistance, the PSP break is more likely.</div>
-              <div class="lesson"><b>לקח:</b> When 5-min momentum is strongly Bullish and price approaches PSP with big green candles, the PSP is likely to break. Bias divergence (5min Bull vs HTF Bear) = lower probability short. Wait for actual rejection candle, not just arrival at level.</div>
+              <div class="detail-confluence"><b>קונפלואנס:</b> 4H Bearish &bull; 1H Bearish &bull; PSP 29,665.5 resistance &bull; NY AM Kill Zone &bull; Second PSP test</div>
+              <div class="mistake">&#9888; ביאס 5 דקות היה שורי — ניגוד לביאס HTF. ה-SL היה בתוך אזור הליקווידיטי (29,712.5) בעוד שיא הסשן היה ב-29,718.</div>
+              <div class="lesson"><b>לקח:</b> כשמומנטום 5 דקות חזק כלפי מעלה ומחיר ניגש ל-PSP עם נרות ירוקים גדולים — הרמה תישבר. לחכות לנר דחייה אמיתי.</div>
             </div>
           </td>
         </tr>
+
+        <!-- Trade 5: LOSS -->
         <tr>
           <td><span class="trade-id">#5</span></td>
           <td>2026-05-22<br><small>17:02 UTC+3</small></td>
           <td><small>NY AM</small></td>
           <td><span class="dir long">לונג</span></td>
           <td>2</td>
-          <td>29577.5</td>
-          <td>29537.5</td>
-          <td>29537.5<br><small>SL</small></td>
+          <td>29,577.5</td>
+          <td>29,537.5</td>
+          <td>29,537.5<br><small>SL</small></td>
           <td>40.0</td>
           <td class="neg">-40.0</td>
           <td class="neg">-1.0R</td>
@@ -346,67 +370,170 @@
         <tr class="detail-row">
           <td colspan="14">
             <div class="detail-box">
-              <div class="detail-setup"><b>סטאפ:</b> TDO 29,572.5 sweep + brief reclaim — Claude called entry prematurely</div>
+              <div class="detail-setup"><b>סטאפ:</b> TDO 29,572.5 sweep + reclaim — כניסה מוקדמת מדי</div>
               <div class="detail-confluence"><b>קונפלואנס:</b> TDO swept &bull; NY AM Kill Zone &bull; 5min Bullish bias &bull; Brief reclaim of TDO</div>
-              <div class="mistake">&#9888; Claude called LONG on single price reading without waiting for 5-min candle CLOSE above TDO. Entry invalid — no candle confirmation. 1H/4H bias was BEARISH throughout.</div>
-              <div class="lesson"><b>לקח:</b> RULE: Only call entry after 5-min candle CLOSES above/below key level. Never on a single quote reading. TDO reclaim = 5-min close above 29,572.5, not just a touch.</div>
+              <div class="mistake">&#9888; Claude קרא לכניסה לונג על קריאת מחיר בודדת (29,583) — ללא סגירת נר 5 דקות מעל TDO. ביאס 1H/4H היה דובי לאורך כל הדרך.</div>
+              <div class="lesson"><b>לקח:</b> כניסה רק אחרי סגירת נר 5 דקות מעל/מתחת לרמה. לא על קריאה בודדת. TDO reclaim = סגירה מעל 29,572.5.</div>
             </div>
           </td>
-        </tr></tbody>
+        </tr>
+
+        <!-- Trade 6: LOSS -->
+        <tr>
+          <td><span class="trade-id">#6</span></td>
+          <td>2026-05-22<br><small>~17:30 UTC+3</small></td>
+          <td><small>NY AM</small></td>
+          <td><span class="dir short">שורט</span></td>
+          <td>1</td>
+          <td>29,628.0</td>
+          <td>29,670.0</td>
+          <td>29,670.0<br><small>SL</small></td>
+          <td>42.0</td>
+          <td class="neg">-42.0</td>
+          <td class="neg">-1.0R</td>
+          <td class="neg">$-21.0</td>
+          <td><span class="score">6/9</span></td>
+          <td><span class="badge loss">הפסד</span></td>
+        </tr>
+        <tr class="detail-row">
+          <td colspan="14">
+            <div class="detail-box">
+              <div class="detail-setup"><b>סטאפ:</b> Short at FVG resistance — FVG not confirmed closed</div>
+              <div class="detail-confluence"><b>קונפלואנס:</b> HTF Bearish bias &bull; FVG resistance &bull; NY AM Kill Zone</div>
+              <div class="mistake">&#9888; עסקה #3 ביום — כבר הפסידה פעמיים (#4, #5). מומנטום 5 דקות היה שורי חזק. ה-FVG לא אושר. הפרת חוק 2-הפסדים.</div>
+              <div class="lesson"><b>לקח:</b> אחרי 2 הפסדים ביום — עצור. אין יוצאים מן הכלל. שורטים לתוך נרות ירוקים גדולים = הרמה תישבר.</div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
     </table>
   </div>
 
+  <!-- RULES (6 exact rules from real losses) -->
   <div class="rules-card">
-    <h3><span></span>חוקים שנלמדו מהמסחר</h3>
+    <h3><span></span>6 חוקים שנלמדו מהפסדים אמיתיים</h3>
     <div class="rules-grid">
-      <div class="rule"><span class="rule-num">1</span><span class="rule-text">להזיז SL לנקודת כניסה (BE) ברגע שהמחיר מגיע ל-1R רווח — ללא יוצא מן הכלל</span></div>
-      <div class="rule"><span class="rule-num">2</span><span class="rule-text">לסגור 35% מהפוזיציה ב-TP1, במיוחד בעסקאות נגד הביאס</span></div>
-      <div class="rule"><span class="rule-num">3</span><span class="rule-text">PSP / MES1! Clusters הן אזורי היפוך חזקים — לטפל בהן כיעד TP, לא רק תמיכה/התנגדות</span></div>
-      <div class="rule"><span class="rule-num">4</span><span class="rule-text">סטאפים בסשן London איכותיים יותר מסטאפים ב-NY AM</span></div>
-      <div class="rule"><span class="rule-num">5</span><span class="rule-text">סגירת נר 5 דקות מתחת לרמת מפתח = סיגנל יציאה</span></div>
-      <div class="rule"><span class="rule-num">6</span><span class="rule-text">לא להיכנס בגודל מלא נגד ה-Directional Bias</span></div>
-      <div class="rule"><span class="rule-num">7</span><span class="rule-text">כניסה רק כשציון קונפלואנס 7/9 ומעלה — ציון נמוך = גודל פוזיציה קטן יותר</span></div>
-      <div class="rule"><span class="rule-num">8</span><span class="rule-text">לבדוק תמיד את שינוי ה-Directional Bias לפני כל עסקה חדשה</span></div>
+      <div class="rule">
+        <span class="rule-num">1</span>
+        <div>
+          <div class="rule-text">כניסה רק על סגירת נר 5 דקות — אף פעם לא על קריאת מחיר בודדת</div>
+          <div class="rule-why">⚡ עסקאות #5 ו-#6 הפסידו כי הכניסה נקראה לפני אישור</div>
+        </div>
+      </div>
+      <div class="rule">
+        <span class="rule-num">2</span>
+        <div>
+          <div class="rule-text">SL מעל אזור הליקווידיטי — לא רק מעל הרמה עצמה</div>
+          <div class="rule-why">⚡ עסקה #4: SL ב-29,712.5 בעוד שיא סשן 29,718. Stop Hunt מוודא.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <span class="rule-num">3</span>
+        <div>
+          <div class="rule-text">מומנטום 5 דקות חזק נגד הכיוון שלך = לא להיכנס</div>
+          <div class="rule-why">⚡ עסקאות #4 ו-#6: שורט לתוך נרות ירוקים גדולים — הרמה נשברה</div>
+        </div>
+      </div>
+      <div class="rule">
+        <span class="rule-num">4</span>
+        <div>
+          <div class="rule-text">מקסימום 2 הפסדים ביום — אחרי כן רק מעקב, אפס כניסות</div>
+          <div class="rule-why">⚡ עסקה #6 נלקחה אחרי 2 הפסדים. הפכה לשלישית.</div>
+        </div>
+      </div>
+      <div class="rule">
+        <span class="rule-num">5</span>
+        <div>
+          <div class="rule-text">כשמחיר מגיע ל-1R רווח — להזיז SL ל-BE מיידית</div>
+          <div class="rule-why">⚡ עסקה #2: הגיע ל-1.5R לא הוזזה BE — מנצח הפך למפסיד</div>
+        </div>
+      </div>
+      <div class="rule">
+        <span class="rule-num">6</span>
+        <div>
+          <div class="rule-text">לסמן את כל הרמות לפני 16:30 שעון ישראל — לפני פתיחת Kill Zone</div>
+          <div class="rule-why">⚡ ה-PSP הטוב ב-22/5 (29,668) זוהה רק אחרי שהמחיר כבר זז</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PATTERNS & WHAT WORKS -->
+  <div class="mistakes-card">
+    <h3><span></span>דפוסי טעויות חוזרות &amp; מה עובד</h3>
+
+    <div class="mistake-row">
+      <span class="mistake-count">×2 עסקאות</span>
+      <span class="mistake-text">כניסה ללא אישור סגירת נר 5 דקות (#5, #6)</span>
+    </div>
+    <div class="mistake-row">
+      <span class="mistake-count">×1 עסקה</span>
+      <span class="mistake-text">SL בתוך אזור ליקווידיטי במקום מעל שיא הסשן (#4)</span>
+    </div>
+    <div class="mistake-row">
+      <span class="mistake-count">×1 עסקה</span>
+      <span class="mistake-text">כניסה שלישית לאחר 2 הפסדים כבר ביום (#6)</span>
+    </div>
+    <div class="mistake-row">
+      <span class="mistake-count">×1 עסקה</span>
+      <span class="mistake-text">לא הזזת SL ל-BE כשמחיר הגיע ל-1.5R רווח (#2)</span>
+    </div>
+
+    <div class="what-works">
+      <div class="what-works-title">✅ מה עובד — עסקה #1 (הניצחון היחיד)</div>
+      <p>
+        ציון קונפלואנס <b>8/9</b> &bull; סשן London Kill Zone &bull; OTE retracement &bull; 5 גורמי קונפלואנס &bull; כניסה נקייה → <b>+2R</b><br>
+        <b>מסקנה:</b> ציון 7/9+ עם Kill Zone + HTF alignment = הסטאפים הטובים ביותר. מינימום 7/9 — אידיאלי 8+/9.
+      </p>
     </div>
   </div>
 
 </div>
 
 <div class="footer">
-  MNQ1! Trading Dashboard &nbsp;|&nbsp; <b>ניתוח Claude AI</b> &nbsp;|&nbsp; 2026-05-22 17:09:43
+  MNQ1! Trading Dashboard &nbsp;|&nbsp; <b>ICT 2022 &nbsp;|&nbsp; Lucid Trader Prop Eval</b> &nbsp;|&nbsp; עדכון: 2026-05-24
 </div>
 
 <script>
+const eqData = [0, 2.0, 1.0, 1.11, 0.11, -0.89, -1.89];
+const eqLabels = ['T0','T1\nLDN WIN','T2\nNY LOSS','T3\nNY BE','T4\nNY LOSS','T5\nNY LOSS','T6\nNY LOSS'];
+
 const eqCtx = document.getElementById('equityChart').getContext('2d');
-const eqData = [0, 2.0, 1.0, 1.11, 0.11, -0.89];
 new Chart(eqCtx, {
   type: 'line',
   data: {
-    labels: ['T0', 'T1', 'T2', 'T3', 'T4', 'T5'],
+    labels: ['Start','#1 London','#2 NY','#3 NY','#4 NY','#5 NY','#6 NY'],
     datasets: [{
       label: 'Equity (R)',
       data: eqData,
       borderColor: '#4c9be8',
       borderWidth: 2.5,
-      pointBackgroundColor: eqData.map((v,i) => i===0?'#4c9be8':(v>=(eqData[i-1]||0)?'#00ff88':'#ff4757')),
+      pointBackgroundColor: eqData.map((v,i) => {
+        if (i===0) return '#4c9be8';
+        return v >= eqData[i-1] ? '#00ff88' : '#ff4757';
+      }),
       pointRadius: 6,
-      pointHoverRadius: 8,
+      pointHoverRadius: 9,
       fill: true,
       backgroundColor: (ctx) => {
         const g = ctx.chart.ctx.createLinearGradient(0,0,0,210);
-        g.addColorStop(0,'rgba(76,155,232,0.2)');
+        g.addColorStop(0,'rgba(76,155,232,0.18)');
         g.addColorStop(1,'rgba(76,155,232,0.0)');
         return g;
       },
-      tension: 0.4
+      tension: 0.35
     }]
   },
   options: {
     responsive:true, maintainAspectRatio:false,
-    plugins:{ legend:{display:false}, tooltip:{ callbacks:{ label: ctx => ' '+ctx.raw+'R' } } },
+    plugins:{
+      legend:{display:false},
+      tooltip:{ callbacks:{ label: ctx => ' '+ctx.raw+'R' } }
+    },
     scales:{
-      x:{ grid:{color:'rgba(255,255,255,0.04)'}, ticks:{color:'#6b7280'} },
-      y:{ grid:{color:'rgba(255,255,255,0.04)'}, ticks:{color:'#6b7280', callback: v => v+'R'} }
+      x:{ grid:{color:'rgba(255,255,255,0.04)'}, ticks:{color:'#6b7280',font:{size:11}} },
+      y:{ grid:{color:'rgba(255,255,255,0.04)'}, ticks:{color:'#6b7280', callback: v => v+'R'},
+          suggestedMin: -2.5, suggestedMax: 2.5 }
     }
   }
 });
@@ -415,9 +542,9 @@ const pieCtx = document.getElementById('pieChart').getContext('2d');
 new Chart(pieCtx, {
   type: 'doughnut',
   data: {
-    labels: ['רווח','הפסד','איזון'],
+    labels: ['רווח (1)','הפסד (4)','איזון (1)'],
     datasets: [{
-      data: [1,3,1],
+      data: [1, 4, 1],
       backgroundColor: ['rgba(0,255,136,0.75)','rgba(255,71,87,0.75)','rgba(255,211,42,0.75)'],
       borderColor: ['#00ff88','#ff4757','#ffd32a'],
       borderWidth: 2, hoverOffset: 8
@@ -427,7 +554,7 @@ new Chart(pieCtx, {
     responsive:true, maintainAspectRatio:false,
     cutout: '65%',
     plugins:{
-      legend:{ position:'bottom', labels:{ color:'#d1d4dc', padding:18, font:{size:12} } }
+      legend:{ position:'bottom', labels:{ color:'#d1d4dc', padding:14, font:{size:12} } }
     }
   }
 });

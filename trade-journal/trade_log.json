@@ -176,6 +176,40 @@
         "mistake": "Claude called LONG on single price reading without waiting for 5-min candle CLOSE above TDO. Entry invalid — no candle confirmation. 1H/4H bias was BEARISH throughout."
       },
       "lesson": "RULE: Only call entry after 5-min candle CLOSES above/below key level. Never on a single quote reading. TDO reclaim = 5-min close above 29,572.5, not just a touch."
+    },
+    {
+      "id": 6,
+      "date": "2026-05-22",
+      "session": "NY AM Kill Zone",
+      "time_entry": "~17:30 UTC+3",
+      "direction": "SHORT",
+      "contracts": 1,
+      "entry": 29628.0,
+      "sl": 29670.0,
+      "tp1": null,
+      "tp2": null,
+      "tp3": null,
+      "exit": 29670.0,
+      "exit_type": "SL",
+      "pts": -42.0,
+      "risk_pts": 42.0,
+      "r": -1.0,
+      "pnl_usd": -21.0,
+      "outcome": "LOSS",
+      "setup": {
+        "bias": "5min Bullish momentum / HTF Bearish (divergence)",
+        "trigger": "Short at FVG resistance — FVG not confirmed closed",
+        "entry_reason": "FVG overhead resistance + HTF bearish bias",
+        "confluence": ["HTF Bearish bias", "FVG resistance", "NY AM Kill Zone"],
+        "score": "6/9"
+      },
+      "management": {
+        "be_moved": false,
+        "partials_taken": false,
+        "notes": "3rd trade of the day — already had 2 losses (#4, #5). 5-min was in strong bullish momentum. FVG not confirmed. SL at 29,670 swept.",
+        "mistake": "Entered short into strong 5-min bullish momentum. FVG had not confirmed closed. This was the 3rd trade after 2 losses — should have stopped after trade #5 (2-loss rule)."
+      },
+      "lesson": "RULE: Stop after 2 losses in a day. No exceptions. Also: shorting into consecutive large green candles = the level WILL break. Wait for actual rejection candle before entering."
     }
   ]
 }
