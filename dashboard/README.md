@@ -37,4 +37,4 @@ python generate_dashboard.py
 
 ## דיפלוי
 
-הדשבורד רץ ב-Vercel: [https://trading-bot-dashboard.vercel.app](https://trading-bot-dashboard.vercel.app)
+הדשבורד רץ ב-Vercel: [https://dashboard-roan-xi-91.vercel.app](https://dashboard-roan-xi-91.vercel.app)
