@@ -1,0 +1,181 @@
+{
+  "account": {
+    "name": "Lucid Trader Prop Eval",
+    "broker": "Tradovate",
+    "platform": "TradingView Paper Trading",
+    "instrument": "MNQ1! (Micro E-mini Nasdaq-100)",
+    "point_value": 0.50,
+    "currency": "USD"
+  },
+  "trades": [
+    {
+      "id": 1,
+      "date": "2026-05-21",
+      "session": "London Kill Zone",
+      "time_entry": "13:00 UTC+3",
+      "direction": "SHORT",
+      "contracts": 1,
+      "entry": 29399.50,
+      "sl": 29437.25,
+      "tp1": 29260.50,
+      "tp2": null,
+      "tp3": null,
+      "exit": 29260.50,
+      "exit_type": "TP1",
+      "pts": 139.0,
+      "risk_pts": 37.75,
+      "r": 2.0,
+      "pnl_usd": 69.50,
+      "outcome": "WIN",
+      "setup": {
+        "bias": "Bearish",
+        "trigger": "Swept True London Open (29,397.5) + PSP confluence (29,395-29,415)",
+        "entry_reason": "OTE retracement after London Open sweep + bearish displacement",
+        "confluence": ["True London Open swept", "PSP cluster 29,395-29,415", "Bearish bias", "Below True Day Open", "Below True Month Open"],
+        "score": "8/9"
+      },
+      "management": {
+        "be_moved": false,
+        "partials_taken": false,
+        "notes": "Clean entry, TP1 hit. Should have taken partial and let run to 29,175 PSP cluster for 4R+"
+      },
+      "lesson": "When setup scores 8/9 and TP1 hits, move SL to BE and let 50% run to TP2. Left +2R extra on the table."
+    },
+    {
+      "id": 2,
+      "date": "2026-05-21",
+      "session": "NY AM Kill Zone",
+      "time_entry": "16:41 UTC+3",
+      "direction": "SHORT",
+      "contracts": 1,
+      "entry": 29257.0,
+      "sl": 29285.0,
+      "tp1": 29194.0,
+      "tp2": 29173.0,
+      "tp3": 29116.0,
+      "exit": 29285.0,
+      "exit_type": "SL",
+      "pts": -28.0,
+      "risk_pts": 28.0,
+      "r": -1.0,
+      "pnl_usd": -14.0,
+      "outcome": "LOSS",
+      "setup": {
+        "bias": "Bearish (was switching)",
+        "trigger": "Rejection at True NY Open (29,275) + MES1! resistance",
+        "entry_reason": "OTE retracement short after True NY Open rejection",
+        "confluence": ["True NY Open resistance", "MES1! confluence", "Bearish bias"],
+        "score": "6/9"
+      },
+      "management": {
+        "be_moved": false,
+        "partials_taken": false,
+        "notes": "Reached 1.5R profit (29,200) but no BE set. Price reversed via Stop Hunt to 29,288 and hit SL.",
+        "mistake": "Did not move SL to BE when price reached 1.5R. Cost: -1R unnecessary loss."
+      },
+      "lesson": "CRITICAL: When price reaches 1R+ in profit, move SL to BE immediately. This trade was a winner that became a loser due to missing BE management. PSP Cluster 29,175 was strong support — should have been flagged as potential reversal zone."
+    },
+    {
+      "id": 3,
+      "date": "2026-05-21",
+      "session": "NY AM Kill Zone",
+      "time_entry": "16:58 UTC+3",
+      "direction": "LONG",
+      "contracts": 1,
+      "entry": 29270.0,
+      "sl": 29225.0,
+      "tp1": 29302.0,
+      "tp2": 29361.0,
+      "tp3": 29395.0,
+      "exit": 29275.0,
+      "exit_type": "BE_STOP",
+      "pts": 5.0,
+      "risk_pts": 45.0,
+      "r": 0.11,
+      "pnl_usd": 2.50,
+      "outcome": "BREAKEVEN",
+      "setup": {
+        "bias": "Bullish (temporary switch)",
+        "trigger": "Sellside Liquidity sweep at PSP 29,175 + NY AM reversal",
+        "entry_reason": "Pullback to True NY Open (29,275) after strong reversal impulse",
+        "confluence": ["Bias switched Bullish", "PSP cluster 29,175 held", "True NY Open support", "50% Fib of impulse"],
+        "score": "6/9"
+      },
+      "management": {
+        "be_moved": true,
+        "partials_taken": false,
+        "notes": "Reached TP1 (29,302) and PSP (29,314). Should have closed 35% there. Price pulled back below 29,275 triggering BE exit. Exited on 5-min close below 29,275 — correct decision.",
+        "good_decision": "Used 5-min close below key level as exit signal. Prevented loss."
+      },
+      "lesson": "Counter-trend trades (against daily bias) need faster partial exits. When TP1 hits on a counter-trend trade, close 50% immediately. Bias switched back to Bearish within minutes — always respect the bigger bias."
+    },
+    {
+      "id": 4,
+      "date": "2026-05-22",
+      "session": "NY AM Kill Zone",
+      "time_entry": "16:37 UTC+3",
+      "direction": "SHORT",
+      "contracts": 1,
+      "entry": 29665.0,
+      "sl": 29712.5,
+      "tp1": 29572.5,
+      "tp2": 29471.75,
+      "tp3": null,
+      "exit": 29712.5,
+      "exit_type": "SL",
+      "pts": -47.5,
+      "risk_pts": 47.5,
+      "r": -1.0,
+      "pnl_usd": -23.75,
+      "outcome": "LOSS",
+      "setup": {
+        "bias": "4H Bearish / 1H Bearish / 5min Bullish (divergence)",
+        "trigger": "Limit short at PSP 29,665.5 — second test after London sweep",
+        "entry_reason": "PSP resistance + 4H/1H Bearish bias + NY AM Kill Zone + second PSP test",
+        "confluence": ["4H Directional Bias Bearish", "1H Directional Bias Bearish", "PSP 29,665.5 resistance", "NY AM Kill Zone", "Second test of PSP (first swept in London)"],
+        "score": "7/9"
+      },
+      "management": {
+        "be_moved": false,
+        "partials_taken": false,
+        "notes": "Price swept PSP to 29,670, continued to 29,718. SL at 29,712.5 hit. PSP was broken — bullish momentum stronger than 1H/4H bias.",
+        "mistake": "5-min bias was Bullish while 1H/4H was Bearish — conflict signal. When 5-min is in strong bullish momentum INTO a resistance, the PSP break is more likely."
+      },
+      "lesson": "When 5-min momentum is strongly Bullish and price approaches PSP with big green candles, the PSP is likely to break. Bias divergence (5min Bull vs HTF Bear) = lower probability short. Wait for actual rejection candle, not just arrival at level."
+    },
+    {
+      "id": 5,
+      "date": "2026-05-22",
+      "session": "NY AM Kill Zone",
+      "time_entry": "17:02 UTC+3",
+      "direction": "LONG",
+      "contracts": 2,
+      "entry": 29577.5,
+      "sl": 29537.5,
+      "tp1": 29665.0,
+      "tp2": 29718.0,
+      "tp3": null,
+      "exit": 29537.5,
+      "exit_type": "SL",
+      "pts": -40.0,
+      "risk_pts": 40.0,
+      "r": -1.0,
+      "pnl_usd": -40.0,
+      "outcome": "LOSS",
+      "setup": {
+        "bias": "5min Bullish / 1H-4H Bearish (counter-trend)",
+        "trigger": "TDO 29,572.5 sweep + brief reclaim — Claude called entry prematurely",
+        "entry_reason": "Sellside liquidity sweep below TDO 29,572.5 (low 29,536), price briefly recovered to 29,583",
+        "confluence": ["TDO swept", "NY AM Kill Zone", "5min Bullish bias", "Brief reclaim of TDO"],
+        "score": "5/9"
+      },
+      "management": {
+        "be_moved": false,
+        "partials_taken": false,
+        "notes": "Entry called too early — based on single quote reading at 29,583, not a 5-min candle close above TDO. Price never confirmed reclaim. Continued down to 29,511.",
+        "mistake": "Claude called LONG on single price reading without waiting for 5-min candle CLOSE above TDO. Entry invalid — no candle confirmation. 1H/4H bias was BEARISH throughout."
+      },
+      "lesson": "RULE: Only call entry after 5-min candle CLOSES above/below key level. Never on a single quote reading. TDO reclaim = 5-min close above 29,572.5, not just a touch."
+    }
+  ]
+}

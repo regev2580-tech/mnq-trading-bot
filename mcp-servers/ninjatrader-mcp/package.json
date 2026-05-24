@@ -1,0 +1,10 @@
+{
+  "name": "ninjatrader-mcp",
+  "version": "1.0.0",
+  "description": "NinjaTrader 8 Order Flow MCP server for Claude",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js"
+  },
+  "dependencies": {}
+}
