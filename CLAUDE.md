@@ -2,6 +2,32 @@
 
 פרויקט ניתוח ומסחר אוטומטי ב-NQ/MNQ1! עם NinjaTrader 8 + TradingView + Claude AI.
 
+## ⚡ כלל עליון — שימוש בסקילים
+
+**כשמתבקש ניתוח עסקה / סטאפ / תנאי כניסה — חובה להשתמש בסקילים הרלוונטיים:**
+
+| בקשה | סקיל |
+|------|------|
+| ניתוח גרף / bias / רמות / Kill Zone | `/tv-analysis` |
+| orderflow / score / סיגנל ל-NT8 | `/nt-orderflow` |
+| ניתוח מלא (ברירת מחדל) | `/tv-analysis` ואז `/nt-orderflow` |
+
+**אסור** לנתח ידנית ללא הסקילים — הם מבטיחים MTF מלא + Pine levels + HTF gate.
+
+## 📦 כלל Git — Auto Commit לאחר כל אירוע
+
+**חובה להפעיל `/auto-commit` (או לבצע commit ידני) בכל אחד מהמקרים הבאים:**
+
+| אירוע | מתי לעשות commit |
+|-------|-----------------|
+| סיום `/tv-analysis` | מיד אחרי הדוח הסופי |
+| סיום `/nt-orderflow` | אחרי שהסיגנל נשלח (או NEUTRAL) |
+| כתיבת trade_signal.json | מיד אחרי הכתיבה |
+| עסקה נסגרה (position.json) | אחרי עדכון הדשבורד |
+| סוף שיחה | לפני הסיכום האחרון |
+
+**הפקודה:** `/auto-commit` — מבצע git add + commit + push לmaster בGitHub.
+
 ## ארכיטקטורה
 
 ```
