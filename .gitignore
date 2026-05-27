@@ -50,8 +50,9 @@ ninjatrader-mcp/data/*.json
 # MCP test logs
 docs/mcp_test*.txt
 
-# Claude Code local settings
-.claude/
+# Claude Code — ignore personal/runtime files, track project config and skills
+.claude/settings.local.json
+.claude/scheduled_tasks.lock
 
 mcp-servers/tradingview-mcp/node_modules/
 mcp-servers/ninjatrader-mcp/node_modules/

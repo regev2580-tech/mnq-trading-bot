@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "tradingview": {
+      "command": "C:\\Program Files\\nodejs\\node.exe",
+      "args": ["C:\\Users\\DELL\\New folder\\mcp-servers\\tradingview-mcp\\src\\server.js"]
+    }
+  },
+  "permissions": {
+    "allow": [
+      "Bash(*)",
+      "Read(*)",
+      "Edit(*)",
+      "Write(*)",
+      "Glob(*)",
+      "Grep(*)",
+      "PowerShell(*)"
+    ]
+  }
+}
