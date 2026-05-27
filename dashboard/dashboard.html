@@ -1,713 +1,2300 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
+<html dir="rtl" lang="he">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>דשבורד מסחר — MNQ1!</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<title>יומן מסחר PRO</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
-  :root {
-    --bg:      #0b0e17;
-    --card:    #131722;
-    --card2:   #161b29;
-    --border:  #1e2535;
-    --text:    #d1d4dc;
-    --muted:   #6b7280;
-    --green:   #00ff88;
-    --red:     #ff4757;
-    --yellow:  #ffd32a;
-    --blue:    #4c9be8;
-    --orange:  #ff9f43;
-  }
-  * { margin:0; padding:0; box-sizing:border-box; }
-  body { background:var(--bg); color:var(--text); font-family:'Segoe UI',Arial,sans-serif; font-size:14px; direction:rtl; }
+:root {
+  --primary: #2563eb;
+  --primary-light: #eff6ff;
+  --success: #16a34a;
+  --success-light: #f0fdf4;
+  --danger: #dc2626;
+  --danger-light: #fef2f2;
+  --warning: #d97706;
+  --warning-light: #fffbeb;
+  --neutral: #6b7280;
+  --bg: #f8fafc;
+  --surface: #ffffff;
+  --border: #e2e8f0;
+  --text: #1e293b;
+  --text-muted: #64748b;
+  --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+  --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.07), 0 2px 4px -1px rgba(0,0,0,0.04);
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 14px; }
+a { color: var(--primary); text-decoration: none; }
 
-  /* HEADER */
-  .header { background:linear-gradient(135deg,#131722 0%,#0f1520 100%); border-bottom:1px solid var(--border); padding:20px 32px; display:flex; align-items:center; justify-content:space-between; }
-  .header-left h1 { font-size:22px; font-weight:800; color:#fff; }
-  .header-left h1 span { color:var(--blue); }
-  .header-left .subtitle { color:var(--muted); font-size:12px; margin-top:4px; }
-  .header-right { text-align:left; color:var(--muted); font-size:12px; line-height:1.8; }
-  .header-right b { color:var(--text); }
-  .live-dot { width:8px; height:8px; background:var(--green); border-radius:50%; display:inline-block; margin-left:6px; animation:pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.4} }
+/* ── Top bar ── */
+.topbar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  height: 56px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  box-shadow: var(--shadow);
+}
+.topbar-logo { font-size: 18px; font-weight: 700; color: var(--primary); white-space: nowrap; }
+.topbar-nav { display: flex; gap: 2px; flex: 1; overflow-x: auto; }
+.nav-btn {
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: none;
+  background: transparent;
+  color: var(--text-muted);
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 500;
+  white-space: nowrap;
+  transition: all .15s;
+}
+.nav-btn:hover { background: var(--bg); color: var(--text); }
+.nav-btn.active { background: var(--primary-light); color: var(--primary); font-weight: 600; }
+.account-selector {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 13px;
+  white-space: nowrap;
+}
+.account-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--success); }
 
-  .container { max-width:1440px; margin:0 auto; padding:24px 28px; }
+/* ── Layout ── */
+.page { display: none; padding: 24px; max-width: 1400px; margin: 0 auto; }
+.page.active { display: block; }
 
-  /* KPI */
-  .kpi-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:22px; }
-  @media(max-width:1100px){ .kpi-grid{ grid-template-columns:repeat(3,1fr); } }
-  .kpi { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px 18px; position:relative; overflow:hidden; transition:transform .2s; }
-  .kpi:hover { transform:translateY(-2px); }
-  .kpi::after { content:''; position:absolute; bottom:0; left:0; right:0; height:3px; border-radius:0 0 14px 14px; }
-  .kpi.green::after { background:linear-gradient(90deg,var(--green),#00c868); }
-  .kpi.red::after   { background:linear-gradient(90deg,var(--red),#c0392b); }
-  .kpi.blue::after  { background:linear-gradient(90deg,var(--blue),#2980b9); }
-  .kpi.yellow::after{ background:linear-gradient(90deg,var(--yellow),#e67e22); }
-  .kpi.orange::after{ background:linear-gradient(90deg,var(--orange),#e17055); }
-  .kpi-icon  { font-size:22px; margin-bottom:10px; }
-  .kpi-label { color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.8px; margin-bottom:6px; }
-  .kpi-value { font-size:30px; font-weight:800; line-height:1; }
-  .kpi-sub   { color:var(--muted); font-size:11px; margin-top:8px; }
-  .kpi.green .kpi-value  { color:var(--green); }
-  .kpi.red   .kpi-value  { color:var(--red); }
-  .kpi.blue  .kpi-value  { color:var(--blue); }
-  .kpi.yellow .kpi-value { color:var(--yellow); }
-  .kpi.orange .kpi-value { color:var(--orange); }
+/* ── Stats cards ── */
+.stats-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 12px; margin-bottom: 24px; }
+.stat-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.stat-label { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .5px; margin-bottom: 6px; }
+.stat-value { font-size: 22px; font-weight: 700; }
+.stat-sub { font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+.stat-value.green { color: var(--success); }
+.stat-value.red { color: var(--danger); }
+.stat-value.blue { color: var(--primary); }
 
-  /* CHARTS */
-  .charts-grid { display:grid; grid-template-columns:2.2fr 0.8fr; gap:16px; margin-bottom:22px; }
-  @media(max-width:900px){ .charts-grid{ grid-template-columns:1fr; } }
-  .chart-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px; }
-  .chart-title { font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
-  .chart-title span { width:4px; height:16px; border-radius:2px; display:inline-block; }
-  .chart-title span.g { background:var(--green); }
-  .chart-title span.b { background:var(--blue); }
-  .chart-wrap { position:relative; height:210px; }
+/* ── Charts row ── */
+.charts-row { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 16px; margin-bottom: 24px; }
+.chart-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 16px;
+  box-shadow: var(--shadow);
+}
+.chart-title { font-size: 13px; font-weight: 600; margin-bottom: 12px; color: var(--text-muted); }
+.chart-wrap { position: relative; height: 180px; }
 
-  /* BREAKDOWN */
-  .breakdown-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:22px; }
-  .breakdown-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:20px; }
-  .breakdown-card h3 { font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
-  .breakdown-card h3 span { width:4px; height:14px; border-radius:2px; display:inline-block; background:var(--blue); }
-  .breakdown-row { display:flex; align-items:center; gap:16px; padding:12px 0; border-bottom:1px solid rgba(255,255,255,0.04); }
-  .breakdown-row:last-child { border-bottom:none; }
-  .br-name { font-weight:700; font-size:14px; min-width:80px; }
-  .br-wr   { font-size:22px; font-weight:800; min-width:60px; }
-  .br-detail { color:var(--muted); font-size:12px; }
+/* ── Trades table ── */
+.table-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.table-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+.table-toolbar-title { font-weight: 600; font-size: 14px; flex: 1; min-width: 100px; }
+.search-input {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  background: var(--bg);
+  color: var(--text);
+  width: 180px;
+}
+.filter-select {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-size: 13px;
+  background: var(--bg);
+  color: var(--text);
+}
+.btn {
+  padding: 7px 14px;
+  border-radius: 6px;
+  border: none;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all .15s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: #1d4ed8; }
+.btn-outline { background: var(--surface); border: 1px solid var(--border); color: var(--text); }
+.btn-outline:hover { background: var(--bg); }
+.btn-sm { padding: 4px 10px; font-size: 12px; }
+.btn-danger { background: var(--danger); color: #fff; }
 
-  /* TABLE */
-  .table-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:22px; overflow-x:auto; }
-  .table-card h3 { font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
-  .table-card h3 span { width:4px; height:14px; border-radius:2px; display:inline-block; background:var(--orange); }
-  table { width:100%; border-collapse:collapse; min-width:900px; }
-  th { color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:.5px; padding:10px 14px; text-align:right; border-bottom:2px solid var(--border); white-space:nowrap; }
-  td { padding:12px 14px; border-bottom:1px solid rgba(255,255,255,0.04); vertical-align:middle; }
-  td small { color:var(--muted); font-size:11px; display:block; margin-top:2px; }
-  tr:hover > td { background:rgba(255,255,255,0.025); cursor:pointer; }
-  .detail-row td { padding:0; border-bottom:none; }
-  .detail-row:hover td { background:transparent !important; cursor:default; }
+table { width: 100%; border-collapse: collapse; }
+thead th {
+  padding: 10px 14px;
+  text-align: right;
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  white-space: nowrap;
+}
+tbody td {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  vertical-align: middle;
+}
+tbody tr:last-child td { border-bottom: none; }
+tbody tr:hover { background: #f8fafc; }
+.badge {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 600;
+}
+.badge-win { background: var(--success-light); color: var(--success); }
+.badge-loss { background: var(--danger-light); color: var(--danger); }
+.badge-be { background: #f3f4f6; color: var(--neutral); }
+.badge-open { background: var(--primary-light); color: var(--primary); }
+.badge-long { background: var(--success-light); color: var(--success); }
+.badge-short { background: var(--danger-light); color: var(--danger); }
+.score-bar { display: flex; gap: 2px; }
+.score-dot { width: 8px; height: 8px; border-radius: 2px; }
+.score-dot.on { background: var(--primary); }
+.score-dot.off { background: var(--border); }
 
-  .trade-id { background:rgba(76,155,232,0.15); color:var(--blue); padding:4px 10px; border-radius:8px; font-size:12px; font-weight:700; }
-  .dir.long  { color:var(--green); font-weight:800; background:rgba(0,255,136,0.1); padding:3px 10px; border-radius:6px; }
-  .dir.short { color:var(--red); font-weight:800; background:rgba(255,71,87,0.1); padding:3px 10px; border-radius:6px; }
-  .pos { color:var(--green); font-weight:700; }
-  .neg { color:var(--red); font-weight:700; }
-  .score { background:rgba(255,159,67,0.15); color:var(--orange); padding:3px 9px; border-radius:6px; font-size:12px; font-weight:700; }
+/* ── Modal ── */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.4);
+  z-index: 200;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px;
+  overflow-y: auto;
+}
+.modal-overlay.open { display: flex; }
+.modal {
+  background: var(--surface);
+  border-radius: 14px;
+  width: 100%;
+  max-width: 820px;
+  box-shadow: 0 20px 60px rgba(0,0,0,.15);
+  margin: auto;
+}
+.modal-header {
+  padding: 20px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.modal-title { font-size: 17px; font-weight: 700; }
+.modal-close { background: none; border: none; font-size: 22px; cursor: pointer; color: var(--text-muted); line-height: 1; }
+.modal-body { padding: 24px; }
+.modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); display: flex; gap: 10px; justify-content: flex-start; }
 
-  .badge { padding:4px 12px; border-radius:20px; font-size:11px; font-weight:700; }
-  .badge.win  { background:rgba(0,255,136,0.12); color:var(--green); border:1px solid rgba(0,255,136,0.3); }
-  .badge.loss { background:rgba(255,71,87,0.12);  color:var(--red);   border:1px solid rgba(255,71,87,0.3); }
-  .badge.be   { background:rgba(255,211,42,0.12); color:var(--yellow);border:1px solid rgba(255,211,42,0.3); }
+/* ── Form ── */
+.form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+.form-group.full { grid-column: 1 / -1; }
+.form-label { font-size: 12px; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: .4px; }
+.form-input, .form-select, .form-textarea {
+  padding: 9px 12px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font-size: 13px;
+  background: var(--surface);
+  color: var(--text);
+  transition: border-color .15s;
+  font-family: inherit;
+}
+.form-input:focus, .form-select:focus, .form-textarea:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(37,99,235,.1);
+}
+.form-textarea { resize: vertical; min-height: 70px; }
+.section-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin: 20px 0 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+}
 
-  .detail-box { padding:14px 18px; margin:0 0 1px; background:rgba(255,255,255,0.015); border-right:3px solid var(--blue); font-size:12px; }
-  .detail-setup      { color:var(--text); margin-bottom:5px; }
-  .detail-confluence { color:var(--blue); font-size:11px; margin-bottom:8px; }
-  .mistake { color:var(--red); margin:5px 0; padding:6px 10px; background:rgba(255,71,87,0.07); border-radius:6px; }
-  .good    { color:var(--green); margin:5px 0; padding:6px 10px; background:rgba(0,255,136,0.07); border-radius:6px; }
-  .lesson  { color:var(--yellow); margin-top:8px; padding:8px 10px; background:rgba(255,211,42,0.06); border-radius:6px; border-right:2px solid var(--yellow); }
+/* ── Confluence checkboxes ── */
+.confluence-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.confluence-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  cursor: pointer;
+  transition: all .15s;
+  background: var(--bg);
+}
+.confluence-item:hover { border-color: var(--primary); background: var(--primary-light); }
+.confluence-item.checked { border-color: var(--primary); background: var(--primary-light); }
+.confluence-item input[type=checkbox] { accent-color: var(--primary); }
+.confluence-label { font-size: 12px; font-weight: 500; }
 
-  /* RULES */
-  .rules-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:22px; }
-  .rules-card h3 { font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
-  .rules-card h3 span { width:4px; height:14px; border-radius:2px; display:inline-block; background:var(--yellow); }
-  .rules-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-  @media(max-width:900px){ .rules-grid{ grid-template-columns:1fr; } }
-  .rule { display:flex; align-items:flex-start; gap:12px; padding:12px 14px; background:rgba(255,255,255,0.02); border-radius:10px; border:1px solid rgba(255,255,255,0.04); }
-  .rule-num { background:var(--blue); color:#fff; border-radius:8px; padding:3px 10px; font-size:12px; font-weight:800; white-space:nowrap; min-width:32px; text-align:center; }
-  .rule-text { color:var(--text); font-size:13px; line-height:1.5; }
-  .rule-why  { color:var(--muted); font-size:11px; margin-top:4px; }
+/* ── Emotion picker ── */
+.emotion-picker { display: flex; gap: 8px; }
+.emotion-btn {
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--bg);
+  cursor: pointer;
+  font-size: 18px;
+  transition: all .15s;
+}
+.emotion-btn:hover { border-color: var(--primary); }
+.emotion-btn.selected { border-color: var(--primary); background: var(--primary-light); }
 
-  /* MISTAKES SECTION */
-  .mistakes-card { background:var(--card); border:1px solid var(--border); border-radius:14px; padding:22px; margin-bottom:22px; }
-  .mistakes-card h3 { font-size:12px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.8px; margin-bottom:18px; display:flex; align-items:center; gap:8px; }
-  .mistakes-card h3 span { width:4px; height:14px; border-radius:2px; display:inline-block; background:var(--red); }
-  .mistake-row { display:flex; align-items:flex-start; gap:12px; padding:10px 0; border-bottom:1px solid rgba(255,255,255,0.04); }
-  .mistake-row:last-child { border-bottom:none; }
-  .mistake-count { background:rgba(255,71,87,0.15); color:var(--red); border-radius:6px; padding:2px 8px; font-size:11px; font-weight:800; white-space:nowrap; }
-  .mistake-text { color:var(--text); font-size:13px; }
-  .what-works { background:rgba(0,255,136,0.06); border:1px solid rgba(0,255,136,0.2); border-radius:10px; padding:14px 16px; margin-top:16px; }
-  .what-works-title { color:var(--green); font-size:12px; font-weight:700; margin-bottom:8px; }
-  .what-works p { color:var(--text); font-size:13px; line-height:1.6; }
+/* ── Calendar ── */
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.cal-header { font-size: 11px; text-align: center; font-weight: 600; color: var(--text-muted); padding: 4px; }
+.cal-day {
+  aspect-ratio: 1;
+  border-radius: 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all .15s;
+}
+.cal-day:hover { border-color: var(--border); }
+.cal-day.has-trades { font-weight: 600; }
+.cal-day.profit { background: var(--success-light); color: var(--success); }
+.cal-day.loss { background: var(--danger-light); color: var(--danger); }
+.cal-day.breakeven { background: #f3f4f6; color: var(--neutral); }
+.cal-day.today { border: 2px solid var(--primary); }
+.cal-day-num { font-size: 13px; }
+.cal-day-pnl { font-size: 10px; font-weight: 600; }
 
-  .footer { text-align:center; color:var(--muted); font-size:11px; padding:24px; border-top:1px solid var(--border); margin-top:8px; }
-  .footer b { color:var(--blue); }
+/* ── Accounts page ── */
+.accounts-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px; }
+.account-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: var(--shadow);
+}
+.account-card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+.account-type-badge {
+  font-size: 10px;
+  padding: 2px 8px;
+  border-radius: 20px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+.account-type-eval { background: #ede9fe; color: #7c3aed; }
+.account-type-demo { background: #e0f2fe; color: #0284c7; }
+.account-type-live { background: var(--success-light); color: var(--success); }
+.account-type-friend { background: #fff7ed; color: #c2410c; }
 
-  /* ACCOUNT DIVIDER */
-  .account-divider { display:flex; align-items:center; gap:16px; margin:36px 0 26px; }
-  .account-divider-line { flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--border),transparent); }
-  .account-divider-label { background:linear-gradient(135deg,#1a2035,#0f1520); border:1px solid var(--blue); border-radius:20px; padding:8px 22px; font-size:13px; font-weight:700; color:var(--blue); white-space:nowrap; }
-  .account-badge { border-radius:12px; padding:4px 12px; font-size:11px; font-weight:700; white-space:nowrap; }
-  .account-badge.closed { background:rgba(107,114,128,0.15); border:1px solid var(--border); color:var(--muted); }
-  .account-badge.active { background:rgba(0,255,136,0.12); border:1px solid rgba(0,255,136,0.3); color:var(--green); }
-  .section-header { display:flex; align-items:center; gap:10px; margin-bottom:18px; }
-  .section-header-label { background:rgba(107,114,128,0.12); border:1px solid var(--border); border-radius:16px; padding:5px 16px; font-size:11px; font-weight:700; color:var(--muted); letter-spacing:.5px; }
+/* ── Playbook cards ── */
+.playbook-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.playbook-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; box-shadow: var(--shadow); }
+.playbook-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+.playbook-card p, .playbook-card li { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+.playbook-card ul { padding-right: 18px; }
+.playbook-card .rule { background: var(--primary-light); border-right: 3px solid var(--primary); padding: 8px 12px; border-radius: 0 6px 6px 0; font-size: 12px; font-weight: 600; color: var(--primary); margin-top: 10px; }
+.insight-card { background: #fff7ed; border: 1px solid #fed7aa; border-radius: 10px; padding: 16px; margin-bottom: 12px; }
+.insight-card .insight-title { font-size: 13px; font-weight: 700; color: #c2410c; margin-bottom: 6px; }
+.insight-card p { font-size: 13px; color: #92400e; line-height: 1.6; }
+.compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 20px; }
+.compare-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.compare-card h4 { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+
+/* ── Screenshot ── */
+.screenshot-upload-zone {
+  border: 2px dashed var(--border);
+  border-radius: 10px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all .2s;
+  background: var(--bg);
+  position: relative;
+}
+.screenshot-upload-zone:hover { border-color: var(--primary); background: var(--primary-light); }
+.screenshot-upload-zone input[type=file] { position: absolute; inset: 0; opacity: 0; cursor: pointer; width: 100%; height: 100%; }
+.screenshot-upload-zone .upload-icon { font-size: 28px; margin-bottom: 6px; }
+.screenshot-upload-zone .upload-label { font-size: 13px; color: var(--text-muted); }
+.screenshot-preview {
+  margin-top: 10px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  position: relative;
+}
+.screenshot-preview img { width: 100%; max-height: 220px; object-fit: cover; display: block; }
+.screenshot-preview .remove-btn {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  background: rgba(0,0,0,.6);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+}
+.screenshot-thumb {
+  width: 44px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+  cursor: pointer;
+  transition: transform .15s;
+}
+.screenshot-thumb:hover { transform: scale(1.1); }
+.screenshot-lightbox {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.85);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+.screenshot-lightbox.open { display: flex; }
+.screenshot-lightbox img { max-width: 100%; max-height: 90vh; border-radius: 8px; box-shadow: 0 0 60px rgba(0,0,0,.5); }
+.screenshot-lightbox .lb-close {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  background: rgba(255,255,255,.15);
+  border: none;
+  color: #fff;
+  font-size: 28px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.account-stat-row { display: flex; justify-content: space-between; padding: 6px 0; border-bottom: 1px solid var(--border); }
+.account-stat-row:last-child { border-bottom: none; }
+
+/* ── Trade detail view ── */
+.trade-detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.detail-section { }
+.detail-row { display: flex; justify-content: space-between; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 13px; }
+.detail-row:last-child { border-bottom: none; }
+.detail-key { color: var(--text-muted); }
+.detail-val { font-weight: 500; }
+
+/* ── Sync page ── */
+.sync-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 16px;
+  box-shadow: var(--shadow);
+}
+.sync-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; }
+.sync-card p { color: var(--text-muted); font-size: 13px; margin-bottom: 16px; line-height: 1.6; }
+.code-block {
+  background: #1e293b;
+  color: #e2e8f0;
+  padding: 12px 16px;
+  border-radius: 8px;
+  font-family: 'Cascadia Code', 'Fira Code', monospace;
+  font-size: 12px;
+  margin-bottom: 12px;
+  overflow-x: auto;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .charts-row { grid-template-columns: 1fr; }
+  .form-grid { grid-template-columns: 1fr; }
+  .confluence-grid { grid-template-columns: 1fr 1fr; }
+  .trade-detail-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .stats-grid { grid-template-columns: repeat(2, 1fr); }
+  .topbar-nav { display: none; }
+}
+
+.empty-state {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--text-muted);
+}
+.empty-state-icon { font-size: 48px; margin-bottom: 12px; }
+.empty-state-title { font-size: 16px; font-weight: 600; margin-bottom: 6px; color: var(--text); }
+
+.tab-pills { display: flex; gap: 4px; margin-bottom: 20px; }
+.tab-pill {
+  padding: 7px 16px;
+  border-radius: 20px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: all .15s;
+}
+.tab-pill.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+.progress-ring { display: flex; align-items: center; gap: 8px; }
+.progress-bar { height: 6px; background: var(--border); border-radius: 3px; flex: 1; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 3px; transition: width .3s; }
+
+.tag { display: inline-block; padding: 2px 7px; border-radius: 4px; font-size: 11px; background: var(--bg); border: 1px solid var(--border); color: var(--text-muted); margin: 2px; }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-left">
-    <h1><span class="live-dot"></span> דשבורד מסחר — <span>MNQ1!</span></h1>
-    <div class="subtitle">Micro E-mini Nasdaq-100 Futures &nbsp;|&nbsp; ICT 2022 &nbsp;|&nbsp; Lucid Trader Prop Eval</div>
-  </div>
-  <div class="header-right">
-    <b>Lucid Trader Prop Eval</b><br>
-    Tradovate &nbsp;|&nbsp; MNQ: $2.00 לנקודה<br>
-    עדכון אחרון: <b style="color:var(--green)">2026-05-25</b>
+<!-- Top bar -->
+<div class="topbar">
+  <div class="topbar-logo">📊 יומן מסחר PRO</div>
+  <nav class="topbar-nav">
+    <button class="nav-btn active" onclick="showPage('dashboard')">לוח מחוונים</button>
+    <button class="nav-btn" onclick="showPage('journal')">יומן עסקאות</button>
+    <button class="nav-btn" onclick="showPage('add')">+ עסקה חדשה</button>
+    <button class="nav-btn" onclick="showPage('stats')">סטטיסטיקה</button>
+    <button class="nav-btn" onclick="showPage('calendar')">לוח שנה</button>
+    <button class="nav-btn" onclick="showPage('accounts')">חשבונות</button>
+    <button class="nav-btn" onclick="showPage('sync')">סנכרון</button>
+    <button class="nav-btn" onclick="showPage('playbooks')">Playbooks</button>
+    <button class="nav-btn" onclick="showPage('settings')">הגדרות</button>
+  </nav>
+  <div class="account-selector" onclick="showPage('accounts')">
+    <span class="account-dot" id="topbar-account-dot"></span>
+    <span id="topbar-account-name">כל החשבונות</span>
+    <span>▾</span>
   </div>
 </div>
 
-<div class="container">
-
-  <!-- OLD ACCOUNT HEADER -->
-  <div class="section-header">
-    <div class="section-header-label">📁 חשבון לוסיד קודם — מאי 2026</div>
-    <div class="account-badge closed">סגור</div>
-  </div>
-
-  <!-- KPI ROW -->
-  <div class="kpi-grid">
-    <div class="kpi red">
-      <div class="kpi-icon">📉</div>
-      <div class="kpi-label">סה"כ R</div>
-      <div class="kpi-value">-1.89R</div>
-      <div class="kpi-sub">-13.5 נק' &nbsp;|&nbsp; $-26.75</div>
-    </div>
-    <div class="kpi blue">
-      <div class="kpi-icon">🎯</div>
-      <div class="kpi-label">אחוז הצלחה</div>
-      <div class="kpi-value">16.7%</div>
-      <div class="kpi-sub">1 רווח &nbsp;/&nbsp; 4 הפסד &nbsp;/&nbsp; 1 איזון</div>
-    </div>
-    <div class="kpi red">
-      <div class="kpi-icon">⚖️</div>
-      <div class="kpi-label">Profit Factor</div>
-      <div class="kpi-value">0.50</div>
-      <div class="kpi-sub">ממוצע רווח: +139נק' &nbsp;|&nbsp; ממוצע הפסד: -39.4נק'</div>
-    </div>
-    <div class="kpi orange">
-      <div class="kpi-icon">📊</div>
-      <div class="kpi-label">Expectancy</div>
-      <div class="kpi-value">-0.32R</div>
-      <div class="kpi-sub">ציפייה ממוצעת לעסקה</div>
-    </div>
-    <div class="kpi red">
-      <div class="kpi-icon">🛡️</div>
-      <div class="kpi-label">Drawdown מקסימלי</div>
-      <div class="kpi-value">-3.89R</div>
-      <div class="kpi-sub">מ-2R שיא → -1.89R &nbsp;|&nbsp; 6 עסקאות</div>
-    </div>
-  </div>
-
-  <!-- CHARTS -->
-  <div class="charts-grid">
+<!-- DASHBOARD -->
+<div id="page-dashboard" class="page active">
+  <div class="stats-grid" id="dash-stats"></div>
+  <div class="charts-row">
     <div class="chart-card">
-      <div class="chart-title"><span class="g"></span>עקומת הון (R)</div>
+      <div class="chart-title">עקומת הון (Equity Curve)</div>
       <div class="chart-wrap"><canvas id="equityChart"></canvas></div>
     </div>
     <div class="chart-card">
-      <div class="chart-title"><span class="b"></span>התפלגות תוצאות</div>
-      <div class="chart-wrap"><canvas id="pieChart"></canvas></div>
+      <div class="chart-title">תוצאות</div>
+      <div class="chart-wrap"><canvas id="outcomeChart"></canvas></div>
     </div>
-  </div>
-
-  <!-- BREAKDOWN -->
-  <div class="breakdown-grid">
-    <div class="breakdown-card">
-      <h3><span></span>לפי סשן</h3>
-      <div class="breakdown-row">
-        <div class="br-name">London</div>
-        <div class="br-wr" style="color:var(--green)">100%</div>
-        <div class="br-detail">1 עסקה &bull; +2.0R &bull; +139.0נק' &bull; $+69.5</div>
-      </div>
-      <div class="breakdown-row">
-        <div class="br-name">NY AM</div>
-        <div class="br-wr" style="color:var(--red)">0%</div>
-        <div class="br-detail">5 עסקאות &bull; -3.89R &bull; -152.5נק' &bull; $-96.25</div>
-      </div>
-    </div>
-    <div class="breakdown-card">
-      <h3><span></span>לפי כיוון</h3>
-      <div class="breakdown-row">
-        <div class="br-name">לונג</div>
-        <div class="br-wr" style="color:var(--red)">0%</div>
-        <div class="br-detail">2 עסקאות &bull; -0.89R &bull; -35.0נק'</div>
-      </div>
-      <div class="breakdown-row">
-        <div class="br-name">שורט</div>
-        <div class="br-wr" style="color:var(--red)">25%</div>
-        <div class="br-detail">4 עסקאות &bull; -1.0R &bull; +21.5נק'</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- TRADE TABLE -->
-  <div class="table-card">
-    <h3><span></span>יומן עסקאות מלא — 6 עסקאות</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>#</th><th>תאריך / שעה</th><th>סשן</th><th>כיוון</th><th>חוזים</th>
-          <th>כניסה</th><th>סטופ</th><th>יציאה</th><th>סיכון נק'</th>
-          <th>רווח/הפסד נק'</th><th>R</th><th>רווח $</th><th>ציון</th><th>תוצאה</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Trade 1: WIN -->
-        <tr>
-          <td><span class="trade-id">#1</span></td>
-          <td>2026-05-21<br><small>13:00 UTC+3</small></td>
-          <td><small>London</small></td>
-          <td><span class="dir short">שורט</span></td>
-          <td>1</td>
-          <td>29,399.5</td>
-          <td>29,437.25</td>
-          <td>29,260.5<br><small>TP1</small></td>
-          <td>37.75</td>
-          <td class="pos">+139.0</td>
-          <td class="pos">+2.0R</td>
-          <td class="pos">$+69.5</td>
-          <td><span class="score">8/9</span></td>
-          <td><span class="badge win">רווח</span></td>
-        </tr>
-        <tr class="detail-row">
-          <td colspan="14">
-            <div class="detail-box">
-              <div class="detail-setup"><b>סטאפ:</b> Swept True London Open (29,397.5) + PSP confluence (29,395–29,415)</div>
-              <div class="detail-confluence"><b>קונפלואנס:</b> True London Open swept &bull; PSP cluster 29,395–29,415 &bull; Bearish bias &bull; Below True Day Open &bull; Below True Month Open</div>
-              <div class="good">&#10003; OTE retracement — כניסה נקייה, TP1 הגיע.</div>
-              <div class="lesson"><b>לקח:</b> כשציון 8/9 ו-TP1 מגיע — להזיז SL ל-BE ולתת 50% לרוץ ל-TP2. השארנו +2R נוסף על השולחן.</div>
-            </div>
-          </td>
-        </tr>
-
-        <!-- Trade 2: LOSS -->
-        <tr>
-          <td><span class="trade-id">#2</span></td>
-          <td>2026-05-21<br><small>16:41 UTC+3</small></td>
-          <td><small>NY AM</small></td>
-          <td><span class="dir short">שורט</span></td>
-          <td>1</td>
-          <td>29,257.0</td>
-          <td>29,285.0</td>
-          <td>29,285.0<br><small>SL</small></td>
-          <td>28.0</td>
-          <td class="neg">-28.0</td>
-          <td class="neg">-1.0R</td>
-          <td class="neg">$-14.0</td>
-          <td><span class="score">6/9</span></td>
-          <td><span class="badge loss">הפסד</span></td>
-        </tr>
-        <tr class="detail-row">
-          <td colspan="14">
-            <div class="detail-box">
-              <div class="detail-setup"><b>סטאפ:</b> Rejection at True NY Open (29,275) + MES1! resistance</div>
-              <div class="detail-confluence"><b>קונפלואנס:</b> True NY Open resistance &bull; MES1! confluence &bull; Bearish bias</div>
-              <div class="mistake">&#9888; המחיר הגיע ל-1.5R רווח (29,200) — לא הוזזה SL ל-BE. מחיר חזר ב-Stop Hunt ל-29,288 ופגע ב-SL.</div>
-              <div class="lesson"><b>לקח:</b> כשמחיר מגיע ל-1R+ — להזיז SL ל-BE מיידית. עסקה מנצחת הפכה להפסד מיותר.</div>
-            </div>
-          </td>
-        </tr>
-
-        <!-- Trade 3: BE -->
-        <tr>
-          <td><span class="trade-id">#3</span></td>
-          <td>2026-05-21<br><small>16:58 UTC+3</small></td>
-          <td><small>NY AM</small></td>
-          <td><span class="dir long">לונג</span></td>
-          <td>1</td>
-          <td>29,270.0</td>
-          <td>29,225.0</td>
-          <td>29,275.0<br><small>BE_STOP</small></td>
-          <td>45.0</td>
-          <td class="pos">+5.0</td>
-          <td class="pos">+0.11R</td>
-          <td class="pos">$+2.5</td>
-          <td><span class="score">6/9</span></td>
-          <td><span class="badge be">איזון</span></td>
-        </tr>
-        <tr class="detail-row">
-          <td colspan="14">
-            <div class="detail-box">
-              <div class="detail-setup"><b>סטאפ:</b> Sellside Liquidity sweep at PSP 29,175 + NY AM reversal</div>
-              <div class="detail-confluence"><b>קונפלואנס:</b> Bias switched Bullish &bull; PSP cluster 29,175 held &bull; True NY Open support &bull; 50% Fib of impulse</div>
-              <div class="good">&#10003; יציאה על סגירת נר 5 דקות מתחת ל-29,275 — החלטה נכונה, מנעה הפסד.</div>
-              <div class="lesson"><b>לקח:</b> בעסקאות נגד ביאס — לסגור 50% ב-TP1 מיד. ביאס חזר לדובי תוך דקות.</div>
-            </div>
-          </td>
-        </tr>
-
-        <!-- Trade 4: LOSS -->
-        <tr>
-          <td><span class="trade-id">#4</span></td>
-          <td>2026-05-22<br><small>16:37 UTC+3</small></td>
-          <td><small>NY AM</small></td>
-          <td><span class="dir short">שורט</span></td>
-          <td>1</td>
-          <td>29,665.0</td>
-          <td>29,712.5</td>
-          <td>29,712.5<br><small>SL</small></td>
-          <td>47.5</td>
-          <td class="neg">-47.5</td>
-          <td class="neg">-1.0R</td>
-          <td class="neg">$-23.75</td>
-          <td><span class="score">7/9</span></td>
-          <td><span class="badge loss">הפסד</span></td>
-        </tr>
-        <tr class="detail-row">
-          <td colspan="14">
-            <div class="detail-box">
-              <div class="detail-setup"><b>סטאפ:</b> Limit short at PSP 29,665.5 — second test after London sweep</div>
-              <div class="detail-confluence"><b>קונפלואנס:</b> 4H Bearish &bull; 1H Bearish &bull; PSP 29,665.5 resistance &bull; NY AM Kill Zone &bull; Second PSP test</div>
-              <div class="mistake">&#9888; ביאס 5 דקות היה שורי — ניגוד לביאס HTF. ה-SL היה בתוך אזור הליקווידיטי (29,712.5) בעוד שיא הסשן היה ב-29,718.</div>
-              <div class="lesson"><b>לקח:</b> כשמומנטום 5 דקות חזק כלפי מעלה ומחיר ניגש ל-PSP עם נרות ירוקים גדולים — הרמה תישבר. לחכות לנר דחייה אמיתי.</div>
-            </div>
-          </td>
-        </tr>
-
-        <!-- Trade 5: LOSS -->
-        <tr>
-          <td><span class="trade-id">#5</span></td>
-          <td>2026-05-22<br><small>17:02 UTC+3</small></td>
-          <td><small>NY AM</small></td>
-          <td><span class="dir long">לונג</span></td>
-          <td>2</td>
-          <td>29,577.5</td>
-          <td>29,537.5</td>
-          <td>29,537.5<br><small>SL</small></td>
-          <td>40.0</td>
-          <td class="neg">-40.0</td>
-          <td class="neg">-1.0R</td>
-          <td class="neg">$-40.0</td>
-          <td><span class="score">5/9</span></td>
-          <td><span class="badge loss">הפסד</span></td>
-        </tr>
-        <tr class="detail-row">
-          <td colspan="14">
-            <div class="detail-box">
-              <div class="detail-setup"><b>סטאפ:</b> TDO 29,572.5 sweep + reclaim — כניסה מוקדמת מדי</div>
-              <div class="detail-confluence"><b>קונפלואנס:</b> TDO swept &bull; NY AM Kill Zone &bull; 5min Bullish bias &bull; Brief reclaim of TDO</div>
-              <div class="mistake">&#9888; Claude קרא לכניסה לונג על קריאת מחיר בודדת (29,583) — ללא סגירת נר 5 דקות מעל TDO. ביאס 1H/4H היה דובי לאורך כל הדרך.</div>
-              <div class="lesson"><b>לקח:</b> כניסה רק אחרי סגירת נר 5 דקות מעל/מתחת לרמה. לא על קריאה בודדת. TDO reclaim = סגירה מעל 29,572.5.</div>
-            </div>
-          </td>
-        </tr>
-
-        <!-- Trade 6: LOSS -->
-        <tr>
-          <td><span class="trade-id">#6</span></td>
-          <td>2026-05-22<br><small>~17:30 UTC+3</small></td>
-          <td><small>NY AM</small></td>
-          <td><span class="dir short">שורט</span></td>
-          <td>1</td>
-          <td>29,628.0</td>
-          <td>29,670.0</td>
-          <td>29,670.0<br><small>SL</small></td>
-          <td>42.0</td>
-          <td class="neg">-42.0</td>
-          <td class="neg">-1.0R</td>
-          <td class="neg">$-21.0</td>
-          <td><span class="score">6/9</span></td>
-          <td><span class="badge loss">הפסד</span></td>
-        </tr>
-        <tr class="detail-row">
-          <td colspan="14">
-            <div class="detail-box">
-              <div class="detail-setup"><b>סטאפ:</b> Short at FVG resistance — FVG not confirmed closed</div>
-              <div class="detail-confluence"><b>קונפלואנס:</b> HTF Bearish bias &bull; FVG resistance &bull; NY AM Kill Zone</div>
-              <div class="mistake">&#9888; עסקה #3 ביום — כבר הפסידה פעמיים (#4, #5). מומנטום 5 דקות היה שורי חזק. ה-FVG לא אושר. הפרת חוק 2-הפסדים.</div>
-              <div class="lesson"><b>לקח:</b> אחרי 2 הפסדים ביום — עצור. אין יוצאים מן הכלל. שורטים לתוך נרות ירוקים גדולים = הרמה תישבר.</div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- RULES (6 exact rules from real losses) -->
-  <div class="rules-card">
-    <h3><span></span>6 חוקים שנלמדו מהפסדים אמיתיים</h3>
-    <div class="rules-grid">
-      <div class="rule">
-        <span class="rule-num">1</span>
-        <div>
-          <div class="rule-text">כניסה רק על סגירת נר 5 דקות — אף פעם לא על קריאת מחיר בודדת</div>
-          <div class="rule-why">⚡ עסקאות #5 ו-#6 הפסידו כי הכניסה נקראה לפני אישור</div>
-        </div>
-      </div>
-      <div class="rule">
-        <span class="rule-num">2</span>
-        <div>
-          <div class="rule-text">SL מעל אזור הליקווידיטי — לא רק מעל הרמה עצמה</div>
-          <div class="rule-why">⚡ עסקה #4: SL ב-29,712.5 בעוד שיא סשן 29,718. Stop Hunt מוודא.</div>
-        </div>
-      </div>
-      <div class="rule">
-        <span class="rule-num">3</span>
-        <div>
-          <div class="rule-text">מומנטום 5 דקות חזק נגד הכיוון שלך = לא להיכנס</div>
-          <div class="rule-why">⚡ עסקאות #4 ו-#6: שורט לתוך נרות ירוקים גדולים — הרמה נשברה</div>
-        </div>
-      </div>
-      <div class="rule">
-        <span class="rule-num">4</span>
-        <div>
-          <div class="rule-text">מקסימום 2 הפסדים ביום — אחרי כן רק מעקב, אפס כניסות</div>
-          <div class="rule-why">⚡ עסקה #6 נלקחה אחרי 2 הפסדים. הפכה לשלישית.</div>
-        </div>
-      </div>
-      <div class="rule">
-        <span class="rule-num">5</span>
-        <div>
-          <div class="rule-text">כשמחיר מגיע ל-1R רווח — להזיז SL ל-BE מיידית</div>
-          <div class="rule-why">⚡ עסקה #2: הגיע ל-1.5R לא הוזזה BE — מנצח הפך למפסיד</div>
-        </div>
-      </div>
-      <div class="rule">
-        <span class="rule-num">6</span>
-        <div>
-          <div class="rule-text">לסמן את כל הרמות לפני 16:30 שעון ישראל — לפני פתיחת Kill Zone</div>
-          <div class="rule-why">⚡ ה-PSP הטוב ב-22/5 (29,668) זוהה רק אחרי שהמחיר כבר זז</div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- PATTERNS & WHAT WORKS -->
-  <div class="mistakes-card">
-    <h3><span></span>דפוסי טעויות חוזרות &amp; מה עובד</h3>
-
-    <div class="mistake-row">
-      <span class="mistake-count">×2 עסקאות</span>
-      <span class="mistake-text">כניסה ללא אישור סגירת נר 5 דקות (#5, #6)</span>
-    </div>
-    <div class="mistake-row">
-      <span class="mistake-count">×1 עסקה</span>
-      <span class="mistake-text">SL בתוך אזור ליקווידיטי במקום מעל שיא הסשן (#4)</span>
-    </div>
-    <div class="mistake-row">
-      <span class="mistake-count">×1 עסקה</span>
-      <span class="mistake-text">כניסה שלישית לאחר 2 הפסדים כבר ביום (#6)</span>
-    </div>
-    <div class="mistake-row">
-      <span class="mistake-count">×1 עסקה</span>
-      <span class="mistake-text">לא הזזת SL ל-BE כשמחיר הגיע ל-1.5R רווח (#2)</span>
-    </div>
-
-    <div class="what-works">
-      <div class="what-works-title">✅ מה עובד — עסקה #1 (הניצחון היחיד)</div>
-      <p>
-        ציון קונפלואנס <b>8/9</b> &bull; סשן London Kill Zone &bull; OTE retracement &bull; 5 גורמי קונפלואנס &bull; כניסה נקייה → <b>+2R</b><br>
-        <b>מסקנה:</b> ציון 7/9+ עם Kill Zone + HTF alignment = הסטאפים הטובים ביותר. מינימום 7/9 — אידיאלי 8+/9.
-      </p>
-    </div>
-  </div>
-
-  <!-- NEW ACCOUNT DIVIDER -->
-  <div class="account-divider">
-    <div class="account-divider-line"></div>
-    <div style="display:flex;align-items:center;gap:10px;">
-      <div class="account-divider-label">🆕 חשבון לוסיד חדש — החל מ-2026-05-25</div>
-      <div class="account-badge active">פעיל</div>
-    </div>
-    <div class="account-divider-line"></div>
-  </div>
-
-  <!-- NEW ACCOUNT KPI -->
-  <div class="kpi-grid">
-    <div class="kpi red">
-      <div class="kpi-icon">📉</div>
-      <div class="kpi-label">סה"כ R</div>
-      <div class="kpi-value">-1.0R</div>
-      <div class="kpi-sub">-15.5 נק' &nbsp;|&nbsp; $-93.00</div>
-    </div>
-    <div class="kpi red">
-      <div class="kpi-icon">🎯</div>
-      <div class="kpi-label">אחוז הצלחה</div>
-      <div class="kpi-value">0%</div>
-      <div class="kpi-sub">0 רווח &nbsp;/&nbsp; 1 הפסד &nbsp;/&nbsp; 0 איזון</div>
-    </div>
-    <div class="kpi blue">
-      <div class="kpi-icon">📊</div>
-      <div class="kpi-label">עסקאות</div>
-      <div class="kpi-value">1</div>
-      <div class="kpi-sub">פתיחה: 2026-05-25</div>
-    </div>
-    <div class="kpi red">
-      <div class="kpi-icon">💰</div>
-      <div class="kpi-label">P&amp;L נטו</div>
-      <div class="kpi-value">-$93</div>
-      <div class="kpi-sub">3 חוזים × 15.5 נק' × $2</div>
-    </div>
-    <div class="kpi blue">
-      <div class="kpi-icon">📋</div>
-      <div class="kpi-label">מכשיר</div>
-      <div class="kpi-value" style="font-size:20px">MNQ1!</div>
-      <div class="kpi-sub">$2.00 לנקודה לחוזה</div>
-    </div>
-  </div>
-
-  <!-- NEW ACCOUNT TRADE TABLE -->
-  <div class="table-card">
-    <h3><span></span>יומן עסקאות — חשבון לוסיד חדש (1 עסקה)</h3>
-    <table>
-      <thead>
-        <tr>
-          <th>#</th><th>תאריך / שעה</th><th>סשן</th><th>כיוון</th><th>חוזים</th>
-          <th>כניסה</th><th>סטופ</th><th>יציאה</th><th>סיכון נק'</th>
-          <th>רווח/הפסד נק'</th><th>R</th><th>רווח $</th><th>תוצאה</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- New Account Trade 1: LOSS -->
-        <tr>
-          <td><span class="trade-id">#1</span></td>
-          <td>2026-05-25<br><small>17:25 UTC+3</small></td>
-          <td><small>NY AM KZ</small></td>
-          <td><span class="dir long">לונג</span></td>
-          <td>3</td>
-          <td>29,948.0</td>
-          <td>29,932.5</td>
-          <td>29,932.5<br><small>SL</small></td>
-          <td>15.5</td>
-          <td class="neg">-15.5</td>
-          <td class="neg">-1.0R</td>
-          <td class="neg">$-93.00</td>
-          <td><span class="badge loss">הפסד</span></td>
-        </tr>
-        <tr class="detail-row">
-          <td colspan="13">
-            <div class="detail-box">
-              <div class="detail-setup"><b>סטאפ:</b> MTF LONG — שאיבת Sell-Stops ב-29,936 → bullFVG 29,945–29,954 → כניסה שנייה ל-FVG לאחר TP ראשון נפגע</div>
-              <div class="detail-confluence"><b>קונפלואנס (MTF מלא):</b> Daily שורי &bull; 4H שורי &bull; 1H שורי &bull; ICT sequence מלא (שאיבה→displacement→FVG) &bull; NY AM Kill Zone &bull; מחיר מעל True Day Open</div>
-              <div class="mistake">&#9888; כניסה שנייה לאותו FVG לאחר שני נרות דוביים עם נפח גבוה (V=7,136 ו-V=6,763) — מוסדיים מוכרים. FVG שנוצג ה נחלש.</div>
-              <div class="mistake">&#9888; אזהרת Dead Zone / Day Discount הופיעה בגרף — אות להימנעות ממסחר. האזהרה התעלמה.</div>
-              <div class="lesson"><b>לקח:</b> נפח גבוה בנרות דוביים ב-FVG = אינסטיטוציונל מוכר. כניסה שנייה לאותו FVG הרבה פחות אמינה. אזהרת Dead Zone = אפס כניסות. המתן לפריצה נקייה עם נרות קטנים.</div>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- NEW ACCOUNT EQUITY (mini) -->
-  <div class="charts-grid" style="grid-template-columns:1fr;">
     <div class="chart-card">
-      <div class="chart-title"><span class="g"></span>עקומת הון — חשבון חדש (R)</div>
-      <div class="chart-wrap"><canvas id="equityChart2"></canvas></div>
+      <div class="chart-title">לפי סשן</div>
+      <div class="chart-wrap"><canvas id="sessionChart"></canvas></div>
     </div>
   </div>
-
+  <div class="charts-row" style="grid-template-columns:1fr 1fr 1fr">
+    <div class="chart-card">
+      <div class="chart-title">לפי סוג סטאפ</div>
+      <div class="chart-wrap"><canvas id="setupChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">R/R ממוצע לפי יום</div>
+      <div class="chart-wrap"><canvas id="rrChart"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <div class="chart-title">הכי טובים / גרועים</div>
+      <div id="bestWorst" style="font-size:12px;line-height:1.8;padding-top:4px"></div>
+    </div>
+  </div>
+  <!-- Recent trades mini table -->
+  <div class="table-card">
+    <div class="table-toolbar">
+      <div class="table-toolbar-title">5 עסקאות אחרונות</div>
+      <button class="btn btn-outline btn-sm" onclick="showPage('journal')">הצג הכל</button>
+    </div>
+    <div id="recent-trades-table"></div>
+  </div>
 </div>
 
-<div class="footer">
-  MNQ1! Trading Dashboard &nbsp;|&nbsp; <b>ICT 2022 &nbsp;|&nbsp; Lucid Trader Prop Eval</b> &nbsp;|&nbsp; עדכון: 2026-05-25
+<!-- JOURNAL -->
+<div id="page-journal" class="page">
+  <div class="table-card">
+    <div class="table-toolbar">
+      <div class="table-toolbar-title">יומן עסקאות</div>
+      <input class="search-input" type="text" placeholder="חיפוש..." id="journal-search" oninput="renderJournal()">
+      <select class="filter-select" id="filter-account" onchange="renderJournal()"><option value="">כל החשבונות</option></select>
+      <select class="filter-select" id="filter-outcome" onchange="renderJournal()">
+        <option value="">כל התוצאות</option>
+        <option value="W">רווח</option>
+        <option value="L">הפסד</option>
+        <option value="BE">שבירת שוויון</option>
+        <option value="OPEN">פתוח</option>
+      </select>
+      <select class="filter-select" id="filter-session" onchange="renderJournal()">
+        <option value="">כל הסשנים</option>
+        <option value="NY_AM">NY AM Kill Zone</option>
+        <option value="LONDON">London Kill Zone</option>
+        <option value="ASIAN">Asian</option>
+        <option value="NY_PM">NY PM</option>
+      </select>
+      <select class="filter-select" id="filter-direction" onchange="renderJournal()">
+        <option value="">שני הכיוונים</option>
+        <option value="LONG">LONG</option>
+        <option value="SHORT">SHORT</option>
+      </select>
+      <button class="btn btn-primary" onclick="showPage('add')">+ עסקה חדשה</button>
+      <label class="btn btn-outline">
+        יבוא CSV
+        <input type="file" accept=".csv" style="display:none" onchange="importCSV(event)">
+      </label>
+    </div>
+    <div id="journal-table-wrap"></div>
+  </div>
+</div>
+
+<!-- ADD / EDIT TRADE -->
+<div id="page-add" class="page">
+  <div class="table-card" style="padding:24px;max-width:880px;margin:0 auto">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <h2 style="font-size:18px;font-weight:700" id="form-page-title">עסקה חדשה</h2>
+      <button class="btn btn-outline" onclick="showPage('journal')">ביטול</button>
+    </div>
+    <div id="trade-form-container"></div>
+  </div>
+</div>
+
+<!-- STATS -->
+<div id="page-stats" class="page">
+  <div class="tab-pills">
+    <button class="tab-pill active" onclick="statsTab('overview',this)">סקירה כללית</button>
+    <button class="tab-pill" onclick="statsTab('bySetup',this)">לפי סטאפ</button>
+    <button class="tab-pill" onclick="statsTab('bySession',this)">לפי סשן</button>
+    <button class="tab-pill" onclick="statsTab('byDay',this)">לפי יום</button>
+    <button class="tab-pill" onclick="statsTab('mistakes',this)">שגיאות</button>
+  </div>
+  <div id="stats-content"></div>
+</div>
+
+<!-- CALENDAR -->
+<div id="page-calendar" class="page">
+  <div class="table-card" style="padding:20px">
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px">
+      <button class="btn btn-outline btn-sm" onclick="calNav(-1)">◀</button>
+      <h3 style="font-size:16px;font-weight:700;flex:1;text-align:center" id="cal-title"></h3>
+      <button class="btn btn-outline btn-sm" onclick="calNav(1)">▶</button>
+    </div>
+    <div class="calendar-grid" id="cal-grid"></div>
+  </div>
+  <div id="cal-day-detail" style="margin-top:16px"></div>
+</div>
+
+<!-- ACCOUNTS -->
+<div id="page-accounts" class="page">
+  <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px">
+    <h2 style="font-size:18px;font-weight:700">ניהול חשבונות</h2>
+    <button class="btn btn-primary" onclick="openAccountModal()">+ חשבון חדש</button>
+  </div>
+  <div class="accounts-grid" id="accounts-grid"></div>
+</div>
+
+<!-- SYNC -->
+<div id="page-sync" class="page">
+  <h2 style="font-size:18px;font-weight:700;margin-bottom:20px">סנכרון נתונים</h2>
+
+  <div class="sync-card">
+    <h3>📂 יבוא CSV מ-Tradovate</h3>
+    <p>הורד את היסטוריית העסקאות מ-Tradovate: Accounts → Activity → Trades → Export CSV</p>
+    <label class="btn btn-primary">
+      בחר קובץ CSV
+      <input type="file" accept=".csv" style="display:none" onchange="importCSV(event)">
+    </label>
+  </div>
+
+  <div class="sync-card">
+    <h3>🔄 סנכרון עם NinjaTrader MCP</h3>
+    <p>ודא שהאינדיקטור ClaudeOrderFlow פועל על גרף וולומטרי של MNQ1! ב-NinjaTrader 8</p>
+    <div class="code-block">node "C:\Users\DELL\New folder\ninjatrader-mcp\src\server.js" delta</div>
+    <button class="btn btn-outline" onclick="testNTConnection()">בדוק חיבור NT8</button>
+    <div id="nt-status" style="margin-top:10px;font-size:13px"></div>
+  </div>
+
+  <div class="sync-card">
+    <h3>📊 TradingView MCP</h3>
+    <p>לחץ על כפתור "משוך עסקה" לאחר סגירת עסקה כדי לייבא אותה ממגמת TradingView</p>
+    <div class="code-block">node tradingview-mcp/server.js snapshot MNQ1! 5</div>
+    <button class="btn btn-outline" onclick="showPage('add')">הוסף עסקה ידנית</button>
+  </div>
+
+  <div class="sync-card">
+    <h3>💾 גיבוי ושחזור</h3>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <button class="btn btn-outline" onclick="exportJSON()">ייצא JSON</button>
+      <button class="btn btn-outline" onclick="exportCSVAll()">ייצא CSV</button>
+      <label class="btn btn-outline">
+        שחזר מקובץ JSON
+        <input type="file" accept=".json" style="display:none" onchange="importJSON(event)">
+      </label>
+    </div>
+  </div>
+</div>
+
+<!-- PLAYBOOKS -->
+<div id="page-playbooks" class="page">
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+    <h2 style="font-size:18px;font-weight:700">Playbooks — מתודולוגיית מסחר</h2>
+    <div style="font-size:12px;color:var(--text-muted)">ייובא מ: <a href="https://github.com/Itay-binder/trading-bot" target="_blank">Itay-binder/trading-bot</a></div>
+  </div>
+
+  <div class="tab-pills">
+    <button class="tab-pill active" onclick="playbookTab('wyckoff',this)">Wyckoff</button>
+    <button class="tab-pill" onclick="playbookTab('ict',this)">ICT / FVG</button>
+    <button class="tab-pill" onclick="playbookTab('liquidity',this)">Liquidity Sweep</button>
+    <button class="tab-pill" onclick="playbookTab('compare',this)">השוואה: Itay vs Regev</button>
+    <button class="tab-pill" onclick="playbookTab('insights',this)">תובנות מהריפו</button>
+  </div>
+  <div id="playbook-content"></div>
+</div>
+
+<!-- SETTINGS -->
+<div id="page-settings" class="page">
+  <div class="table-card" style="max-width:600px;padding:24px">
+    <h2 style="font-size:18px;font-weight:700;margin-bottom:20px">הגדרות</h2>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label">גודל חוזה (נקודות לדולר)</label>
+      <select class="form-select" id="cfg-contract" onchange="saveConfig()">
+        <option value="2">MNQ1! — $2.00 לנקודה</option>
+        <option value="20">MES1! — $5.00 לנקודה / NQ1! $20</option>
+        <option value="50">ES1! — $50 לנקודה</option>
+      </select>
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label">עמלה לכיוון ($)</label>
+      <input class="form-input" type="number" id="cfg-commission" value="0.50" step="0.01" onchange="saveConfig()">
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label">יחס R:R מינימלי</label>
+      <input class="form-input" type="number" id="cfg-min-rr" value="2" step="0.5" onchange="saveConfig()">
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label">מגבלת הפסדים יומית</label>
+      <input class="form-input" type="number" id="cfg-daily-loss" value="2" onchange="saveConfig()">
+    </div>
+    <div class="form-group" style="margin-bottom:16px">
+      <label class="form-label">שם הסוחר</label>
+      <input class="form-input" type="text" id="cfg-trader-name" value="Regev" onchange="saveConfig()">
+    </div>
+    <button class="btn btn-danger btn-sm" onclick="confirmClearAll()" style="margin-top:20px">מחק את כל הנתונים</button>
+  </div>
+</div>
+
+<!-- Trade detail modal -->
+<div class="modal-overlay" id="trade-modal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="trade-modal-title">פרטי עסקה</div>
+      <button class="modal-close" onclick="closeModal('trade-modal')">×</button>
+    </div>
+    <div class="modal-body" id="trade-modal-body"></div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" id="trade-modal-edit">עריכה</button>
+      <button class="btn btn-danger" id="trade-modal-delete">מחיקה</button>
+      <button class="btn btn-outline" onclick="closeModal('trade-modal')">סגור</button>
+    </div>
+  </div>
+</div>
+
+<!-- Account modal -->
+<div class="modal-overlay" id="account-modal">
+  <div class="modal" style="max-width:500px">
+    <div class="modal-header">
+      <div class="modal-title">הוסף / ערוך חשבון</div>
+      <button class="modal-close" onclick="closeModal('account-modal')">×</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-grid">
+        <div class="form-group">
+          <label class="form-label">שם החשבון</label>
+          <input class="form-input" id="acc-name" placeholder="Lucid Trader Evaluation">
+        </div>
+        <div class="form-group">
+          <label class="form-label">סוג</label>
+          <select class="form-select" id="acc-type">
+            <option value="evaluation">Evaluation</option>
+            <option value="demo">Demo</option>
+            <option value="live">Live</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label class="form-label">ברוקר</label>
+          <input class="form-input" id="acc-broker" placeholder="Tradovate">
+        </div>
+        <div class="form-group">
+          <label class="form-label">יתרה התחלתית ($)</label>
+          <input class="form-input" type="number" id="acc-balance" placeholder="50000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">מטרת רווח ($)</label>
+          <input class="form-input" type="number" id="acc-target" placeholder="3000">
+        </div>
+        <div class="form-group">
+          <label class="form-label">הפסד מקסימלי ($)</label>
+          <input class="form-input" type="number" id="acc-max-loss" placeholder="2500">
+        </div>
+      </div>
+      <div class="form-group" style="margin-top:12px">
+        <label class="form-label">הערות</label>
+        <textarea class="form-textarea" id="acc-notes" rows="2"></textarea>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-primary" onclick="saveAccount()">שמור</button>
+      <button class="btn btn-outline" onclick="closeModal('account-modal')">ביטול</button>
+    </div>
+  </div>
+</div>
+
+<!-- Screenshot lightbox -->
+<div class="screenshot-lightbox" id="lightbox" onclick="closeLightbox()">
+  <button class="lb-close" onclick="closeLightbox()">×</button>
+  <img id="lightbox-img" src="" alt="צילום מסך עסקה">
 </div>
 
 <script>
-const eqData = [0, 2.0, 1.0, 1.11, 0.11, -0.89, -1.89];
-const eqLabels = ['T0','T1\nLDN WIN','T2\nNY LOSS','T3\nNY BE','T4\nNY LOSS','T5\nNY LOSS','T6\nNY LOSS'];
+// ════════════════════════════════════════════════════════════
+// DATA MODEL
+// ════════════════════════════════════════════════════════════
 
-const eqCtx = document.getElementById('equityChart').getContext('2d');
-new Chart(eqCtx, {
-  type: 'line',
-  data: {
-    labels: ['Start','#1 London','#2 NY','#3 NY','#4 NY','#5 NY','#6 NY'],
-    datasets: [{
-      label: 'Equity (R)',
-      data: eqData,
-      borderColor: '#4c9be8',
-      borderWidth: 2.5,
-      pointBackgroundColor: eqData.map((v,i) => {
-        if (i===0) return '#4c9be8';
-        return v >= eqData[i-1] ? '#00ff88' : '#ff4757';
-      }),
-      pointRadius: 6,
-      pointHoverRadius: 9,
-      fill: true,
-      backgroundColor: (ctx) => {
-        const g = ctx.chart.ctx.createLinearGradient(0,0,0,210);
-        g.addColorStop(0,'rgba(76,155,232,0.18)');
-        g.addColorStop(1,'rgba(76,155,232,0.0)');
-        return g;
-      },
-      tension: 0.35
-    }]
-  },
-  options: {
-    responsive:true, maintainAspectRatio:false,
-    plugins:{
-      legend:{display:false},
-      tooltip:{ callbacks:{ label: ctx => ' '+ctx.raw+'R' } }
+const SETUP_TYPES = ['FVG','OTE','PSP','PCP','Breaker Block','Order Block','Rejection Block','Liquidity Sweep','MSB','Other'];
+const SESSIONS    = { NY_AM:'NY AM Kill Zone', LONDON:'London Kill Zone', ASIAN:'Asian Session', NY_PM:'NY PM Session' };
+const OUTCOMES    = { W:'רווח', L:'הפסד', BE:'שבירת שוויון', OPEN:'פתוח' };
+const CONFLUENCE_LABELS = {
+  killZone:       'Kill Zone פעיל',
+  fvg:            'FVG מזוהה',
+  liquiditySweep: 'Liquidity Sweep',
+  displacement:   'Displacement',
+  oteZone:        'OTE Zone',
+  msb:            'MSB אושר',
+  higherTfAligned:'HTF Aligned',
+  amd:            'AMD מבנה ברור',
+  lowRiskEntry:   'כניסה בסיכון נמוך'
+};
+
+let TRADES = [];
+let ACCOUNTS = [];
+let CONFIG = { contractPnlPerPoint: 2, commission: 0.50, minRR: 2, dailyLossLimit: 2, traderName: 'Regev' };
+let editingTradeId = null;
+let editingAccountId = null;
+let activeAccountFilter = '';
+let calYear = new Date().getFullYear();
+let calMonth = new Date().getMonth();
+
+// ── Regev's trades (EVAL1 — Lucid Trader Evaluation, May 2026) ──
+const EVAL1_TRADES = [
+  { id:'EVAL1_T1', date:'2026-05-21', time:'13:00', accountId:'EVAL1', symbol:'MNQ1!', direction:'SHORT', session:'LONDON', setupType:'OTE', ictBias:'BEARISH', timeframe:'15', contracts:1, entryPrice:29399.5, slPrice:29437.25, tp1Price:29260.5, tp2Price:0, tp3Price:0, exitPrice:29260.5, outcome:'W', rr:2.0, setupScore:8, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:true,displacement:true,oteZone:true,msb:true,higherTfAligned:true,amd:true,lowRiskEntry:false}, entryReason:'OTE retracement after London Open sweep. True London Open (29,397.5) swept + PSP confluence cluster 29,395–29,415. Bearish bias confirmed. Below True Day Open and True Month Open.', exitReason:'TP1 hit at 29,260.5 — clean 2R exit. TP2 at 29,175 PSP cluster left on the table.', mistakes:'Did not move SL to BE after TP1 — could have let 50% run to 29,175 for 4R+.', lesson:'When setup scores 8/9 and TP1 hits, move SL to BE and let 50% run to TP2. Left +2R extra on the table.', notes:'London Kill Zone, 13:00 UTC+3. Score 8/9. 5 confluence factors.', screenshotUrl:'', followedPlan:true, preMarketDone:true, emotionLevel:4 },
+  { id:'EVAL1_T2', date:'2026-05-21', time:'16:41', accountId:'EVAL1', symbol:'MNQ1!', direction:'SHORT', session:'NY_AM', setupType:'OTE', ictBias:'BEARISH', timeframe:'15', contracts:1, entryPrice:29257, slPrice:29285, tp1Price:29194, tp2Price:29173, tp3Price:29116, exitPrice:29285, outcome:'L', rr:1.0, setupScore:6, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:false,displacement:true,oteZone:true,msb:false,higherTfAligned:true,amd:false,lowRiskEntry:false}, entryReason:'OTE retracement short after True NY Open (29,275) rejection + MES1! resistance. Bearish bias.', exitReason:'SL hit at 29,285 — Stop Hunt to 29,288. Price had reached 1.5R profit (29,200) before reversing.', mistakes:'לא הוזזה SL ל-BE כשמחיר הגיע ל-1.5R רווח. PSP Cluster 29,175 = אזור היפוך פוטנציאלי, לא צוין.', lesson:'CRITICAL: When price reaches 1R+ in profit, move SL to BE immediately. Winner became loser due to missing BE management.', notes:'NY AM Kill Zone. Stop Hunt to 29,288 before drop. Price eventually reached all TP targets after SL.', screenshotUrl:'', followedPlan:false, preMarketDone:true, emotionLevel:2 },
+  { id:'EVAL1_T3', date:'2026-05-21', time:'16:58', accountId:'EVAL1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Liquidity Sweep', ictBias:'BULLISH', timeframe:'5', contracts:1, entryPrice:29270, slPrice:29225, tp1Price:29302, tp2Price:29361, tp3Price:29395, exitPrice:29275, outcome:'BE', rr:0.11, setupScore:6, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:true,displacement:true,oteZone:false,msb:false,higherTfAligned:false,amd:false,lowRiskEntry:false}, entryReason:'Sellside Liquidity sweep at PSP 29,175 + NY AM reversal. Pullback to True NY Open (29,275) after strong reversal impulse. 50% Fib of impulse.', exitReason:'5-min candle closed below 29,275 — correct exit signal. Moved SL to BE before, prevented loss.', mistakes:'Counter-trend vs daily Bearish bias. Should have taken 50% at TP1 (29,302). Bias switched back to Bearish within minutes.', lesson:'Counter-trend trades need faster partial exits. When TP1 hits on counter-trend, close 50% immediately.', notes:'Temporary Bullish bias after SSL sweep at 29,175. Counter-trend trade vs Daily Bearish.', screenshotUrl:'', followedPlan:true, preMarketDone:true, emotionLevel:3 },
+  { id:'EVAL1_T4', date:'2026-05-22', time:'16:37', accountId:'EVAL1', symbol:'MNQ1!', direction:'SHORT', session:'NY_AM', setupType:'PSP', ictBias:'BEARISH', timeframe:'5', contracts:1, entryPrice:29665, slPrice:29712.5, tp1Price:29572.5, tp2Price:29471.75, tp3Price:0, exitPrice:29712.5, outcome:'L', rr:1.0, setupScore:7, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:false,displacement:false,oteZone:true,msb:false,higherTfAligned:true,amd:true,lowRiskEntry:false}, entryReason:'Limit short at PSP 29,665.5 — second test after London sweep. 4H/1H Bearish bias. NY AM Kill Zone.', exitReason:'SL at 29,712.5 hit. Price swept PSP, continued to session high 29,718. PSP broken by bullish 5-min momentum.', mistakes:'SL ב-29,712.5 = בתוך אזור ליקווידיטי. שיא הסשן 29,718 = 5.5נק׳ מעל SL. ביאס 5 דקות היה שורי — ניגוד ל-HTF. לא חיכה לנר דחייה.', lesson:'When 5-min momentum is strongly Bullish at resistance, the level will break. SL must be ABOVE session high. Wait for actual rejection candle, not just price arrival.', notes:'May 22. HTF/5m bias conflict. SL inside liquidity zone = guaranteed stop hunt.', screenshotUrl:'', followedPlan:false, preMarketDone:true, emotionLevel:2 },
+  { id:'EVAL1_T5', date:'2026-05-22', time:'17:02', accountId:'EVAL1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Liquidity Sweep', ictBias:'BULLISH', timeframe:'5', contracts:2, entryPrice:29577.5, slPrice:29537.5, tp1Price:29665, tp2Price:29718, tp3Price:0, exitPrice:29537.5, outcome:'L', rr:1.0, setupScore:5, confluenceFactors:{killZone:true,fvg:false,liquiditySweep:true,displacement:false,oteZone:true,msb:false,higherTfAligned:false,amd:false,lowRiskEntry:false}, entryReason:'Sellside liquidity sweep below TDO 29,572.5 (low 29,536) — price briefly recovered to 29,583. Called LONG on reclaim.', exitReason:'SL at 29,537.5 hit. Entry was invalid — no 5-min candle close above TDO confirmed. Price continued to 29,511.', mistakes:'Entry called on single quote reading (29,583) without 5-min candle close above TDO. 1H/4H bias was BEARISH throughout. HTF alignment missing.', lesson:'RULE: Only call entry after 5-min candle CLOSES above/below key level. Never on a single quote reading. TDO reclaim = close above 29,572.5.', notes:'2 חוזים. Claude called LONG prematurely. Price continued down after SL.', screenshotUrl:'', followedPlan:false, preMarketDone:true, emotionLevel:1 },
+  { id:'EVAL1_T6', date:'2026-05-22', time:'17:30', accountId:'EVAL1', symbol:'MNQ1!', direction:'SHORT', session:'NY_AM', setupType:'FVG', ictBias:'BEARISH', timeframe:'5', contracts:1, entryPrice:29628, slPrice:29670, tp1Price:0, tp2Price:0, tp3Price:0, exitPrice:29670, outcome:'L', rr:1.0, setupScore:6, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:false,displacement:false,oteZone:false,msb:false,higherTfAligned:true,amd:false,lowRiskEntry:false}, entryReason:'Short at FVG resistance. HTF Bearish bias. NY AM Kill Zone. 3rd trade of the day.', exitReason:'SL hit at 29,670. FVG not confirmed closed. 5-min momentum was strongly bullish.', mistakes:'3rd trade of the day after 2 losses (#4 & #5) — violated 2-loss daily limit rule. Strong 5-min bullish momentum. FVG not confirmed.', lesson:'STOP after 2 losses in a day — no exceptions. Shorting into consecutive large green candles = level will break. Wait for actual rejection candle.', notes:'Violated Rule 4 (max 2 losses/day). 5-min bias bullish. FVG unconfirmed.', screenshotUrl:'', followedPlan:false, preMarketDone:true, emotionLevel:1 }
+];
+
+const ITAY_ACCOUNT = { id: 'ITAY1', name: "Itay — trading-bot", type: 'friend', broker: 'Sim/Backtest', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: 'ייבוא מ-GitHub: Itay-binder/trading-bot — Wyckoff + ICT 2022 + TradingView MCP' };
+
+const ITAY_TRADES = [
+  { id:'ITAY_T1', date:'2026-04-07', time:'16:30', accountId:'ITAY1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Order Block', ictBias:'BULLISH', timeframe:'15', contracts:1, entryPrice:24080, slPrice:23940, tp1Price:24420, tp2Price:24750, exitPrice:24420, outcome:'W', rr:2.4, setupScore:7, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:false,displacement:true,oteZone:true,msb:true,higherTfAligned:true,amd:true,lowRiskEntry:false}, entryReason:'Wyckoff Spring (22,960 on 30.03) → Relevel to 24,195 → Secondary Test at 23,981 held support → Sign of Strength. OB bullish 23,994–24,130. FVG open above 24,200–24,350. Limit order in OB at NY Open.', exitReason:'TP1 hit at 24,420. Daily close 24,358. Confirmed upside to 25,074 by 09.04.', mistakes:'', lesson:'After Spring + Relevel, every secondary test = buy. Earlier entry inside the OB itself would improve R/R further.', notes:'Secondary test held 23,981. Spring low: 22,960. Relevel: 24,195. Volume elevated at entry.', screenshotUrl:'https://raw.githubusercontent.com/Itay-binder/trading-bot/main/trades/2026-04-07_MNQ_chart.png', followedPlan:true, preMarketDone:true, emotionLevel:4 },
+  { id:'ITAY_T2', date:'2026-04-16', time:'16:30', accountId:'ITAY1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Order Block', ictBias:'BULLISH', timeframe:'15', contracts:1, entryPrice:26370, slPrice:26220, tp1Price:26670, tp2Price:26900, exitPrice:26825, outcome:'W', rr:3.4, setupScore:8, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:true,displacement:true,oteZone:true,msb:true,higherTfAligned:true,amd:true,lowRiskEntry:false}, entryReason:'Markup Phase. False short OB → real long accumulation → institutional stop hunt. Markup = OB in KZ = entry signal. NY Open KZ 16:30.', exitReason:'Closed at TP2 (26,825). Daily high 26,883 = buy-side liquidity precisely aligned. 3.4R realized vs 3.5R planned.', mistakes:'', lesson:'Markup Phase: OB in Kill Zone = always a buy. Institutional stop hunts create the ideal entry. Target the exact buy-side liquidity pool.', notes:'Market: 22,960→26,500+ in 3 weeks. False short OB then genuine long accumulation. Volume confirmed.', screenshotUrl:'https://raw.githubusercontent.com/Itay-binder/trading-bot/main/trades/2026-04-16_MNQ_chart.png', followedPlan:true, preMarketDone:true, emotionLevel:4 },
+  { id:'ITAY_T3', date:'2026-04-29', time:'13:30', accountId:'ITAY1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Order Block', ictBias:'BULLISH', timeframe:'15', contracts:1, entryPrice:27190, slPrice:27060, tp1Price:27450, tp2Price:27624, exitPrice:27500, outcome:'W', rr:2.4, setupScore:7, confluenceFactors:{killZone:true,fvg:false,liquiditySweep:false,displacement:true,oteZone:true,msb:true,higherTfAligned:true,amd:true,lowRiskEntry:false}, entryReason:'Wyckoff Markup Phase. HH/HL bullish structure confirmed. 1H OB zone 27,124–27,218. Liquidity target: previous day swing high at 27,624. Limit order at OB zone bottom, NY Open 13:30 UTC.', exitReason:'Closed TP1+ at 27,500. Daily high precisely matched TP2 at 27,624 — confirmed institutional liquidity target hypothesis.', mistakes:'', lesson:'Markup + OB + previous swing high liquidity above = high probability setup. Target the exact swing high every time.', notes:'OB: 27,124–27,218. HTF: HH/HL confirmed. Daily close: 27,596. High: 27,624 = TP2.', screenshotUrl:'https://raw.githubusercontent.com/Itay-binder/trading-bot/main/trades/2026-04-29_MNQ_chart.png', followedPlan:true, preMarketDone:true, emotionLevel:4 },
+  { id:'ITAY_T4', date:'2026-05-07', time:'16:30', accountId:'ITAY1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Order Block', ictBias:'BULLISH', timeframe:'15', contracts:1, entryPrice:28760, slPrice:28480, tp1Price:29320, tp2Price:29400, exitPrice:29320, outcome:'W', rr:2.0, setupScore:8, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:false,displacement:true,oteZone:true,msb:false,higherTfAligned:true,amd:true,lowRiskEntry:false}, entryReason:'4H Wyckoff Markup Phase advanced (5,500pt rise from spring). OB zone 28,722–28,782 aligned with day low. FVG open above 29,000–29,200. Buy-side liquidity near old highs. Strong impulse at NY Open = SOS day.', exitReason:'TP1 hit at 29,320. SOS day: open 28,588, high 29,383, close 29,332. 745pt single-day move.', mistakes:'', lesson:'SOS days in Markup + Opening OB + 5× Volume → use wider SL below daily low, not tight entry. Best trade: +$1,120.', notes:'SOS day (Sign of Strength). Volume: very elevated. Daily range 28,588–29,383 = 795pt.', screenshotUrl:'https://raw.githubusercontent.com/Itay-binder/trading-bot/main/trades/2026-05-07_MNQ_chart.png', followedPlan:true, preMarketDone:true, emotionLevel:5 },
+  { id:'ITAY_T5', date:'2026-05-22', time:'16:30', accountId:'ITAY1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Order Block', ictBias:'BULLISH', timeframe:'15', contracts:6, entryPrice:29645, slPrice:29605, tp1Price:29784, tp2Price:0, exitPrice:29605, outcome:'L', rr:-1, setupScore:6, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:true,displacement:false,oteZone:true,msb:false,higherTfAligned:true,amd:false,lowRiskEntry:false}, entryReason:'Bullish Wyckoff Markup. Institutional stop hunt identified. OB bullish at 29,645. FVG open above targeting 29,784 liquidity. Limit order NY Open KZ 16:30.', exitReason:'NY Open candle volume 151,974 (5× average) spiked to 29,718 (+73pt) — within 66pt of TP1 — then retracted below entry. SL hit at 29,605.', mistakes:'SL too tight (40pt) against a 5× volume explosive NY Open candle. Should have set dynamic TP1 on the spike high (29,720) and moved SL → BE immediately on spike.', lesson:'5× volume at NY Open = explosive candle expected. Use dynamic TP1 on spike high + immediate SL to BE. Spiky candle (range >150pt) → standard SL is too tight.', notes:'Volume: 151,974 = 5× avg. Spike to 29,718. 6 contracts × 40pt × $2 = -$480. Correct bias, execution timing rule missing.', screenshotUrl:'https://raw.githubusercontent.com/Itay-binder/trading-bot/main/trades/2026-05-22_MNQ_chart.png', followedPlan:true, preMarketDone:true, emotionLevel:2 }
+];
+
+const LUCID2_ACCOUNT = { id: 'LUCID2', name: 'Lucid Trader — חדש (2026-05-25)', type: 'evaluation', broker: 'Tradovate', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: 'חשבון חדש — החל מ-2026-05-25 | MNQ1! | $2 לנקודה' };
+
+const LUCID2_TRADES = [
+  { id:'LUCID2_T1', date:'2026-05-25', time:'17:25', accountId:'LUCID2', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'FVG', ictBias:'BULLISH', timeframe:'5', contracts:3, entryPrice:29948, slPrice:29932.5, tp1Price:29993, tp2Price:0, tp3Price:0, exitPrice:29932.5, outcome:'L', rr:1.0, setupScore:7, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:true,displacement:true,oteZone:false,msb:false,higherTfAligned:true,amd:false,lowRiskEntry:false}, entryReason:'MTF LONG — שאיבת Sell-Stops ב-29,936 → bullFVG 29,945–29,954 → כניסה שנייה ל-FVG לאחר TP ראשון נפגע. MTF מלא: Daily שורי + 4H שורי + 1H שורי + מחיר מעל True Day Open + NY AM Kill Zone.', exitReason:'SL נפגע ב-29,932.5. כניסה שנייה לאותו FVG לאחר שני נרות דוביים עם נפח גבוה (V=7,136 ו-6,763) — מוסדיים מוכרים.', mistakes:'כניסה שנייה לאותו FVG לאחר נרות דוביים בנפח גבוה — FVG נחלש. אזהרת Dead Zone הופיעה ב-TradingView — התעלמה.', lesson:'נפח גבוה בנרות דוביים ב-FVG = מוסדיים מוכרים. כניסה שנייה לאותו FVG הרבה פחות אמינה מהראשונה. אזהרת Dead Zone = אפס כניסות, ללא יוצא מן הכלל.', notes:'3 חוזים × 15.5 נק\' × $2 = $93 הפסד. TP תיאורטי 4R = 29,993.', screenshotUrl:'', followedPlan:false, preMarketDone:true, emotionLevel:2 }
+];
+
+function load() {
+  try {
+    TRADES   = JSON.parse(localStorage.getItem('trades_v3') || '[]');
+    ACCOUNTS = JSON.parse(localStorage.getItem('accounts_v3') || '[]');
+    const cfg = JSON.parse(localStorage.getItem('config_v3') || 'null');
+    if (cfg) CONFIG = { ...CONFIG, ...cfg };
+  } catch(e) { TRADES=[]; ACCOUNTS=[]; }
+
+  if (!ACCOUNTS.length) {
+    ACCOUNTS = [
+      { id: 'EVAL1', name: 'Lucid Trader Evaluation', type: 'evaluation', broker: 'Tradovate', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: '' },
+      { id: 'DEMO1', name: 'Demo Account', type: 'demo', broker: 'Tradovate', initialBalance: 50000, targetProfit: 0, maxLoss: 0, notes: '' },
+      ITAY_ACCOUNT,
+      LUCID2_ACCOUNT
+    ];
+    save();
+  } else {
+    if (!ACCOUNTS.find(a => a.id === 'ITAY1')) { ACCOUNTS.push(ITAY_ACCOUNT); save(); }
+    if (!ACCOUNTS.find(a => a.id === 'LUCID2')) { ACCOUNTS.push(LUCID2_ACCOUNT); save(); }
+  }
+
+  // Seed Itay's trades if not yet imported
+  const hasItay = TRADES.some(t => t.id && t.id.startsWith('ITAY_'));
+  if (!hasItay) {
+    TRADES = [...ITAY_TRADES, ...TRADES];
+    save();
+  }
+
+  // Seed Lucid2 trades if not yet imported
+  const hasLucid2 = TRADES.some(t => t.id && t.id.startsWith('LUCID2_'));
+  if (!hasLucid2) {
+    TRADES = [...LUCID2_TRADES, ...TRADES];
+    save();
+  }
+
+  // Seed Regev's EVAL1 trades if not yet imported
+  const hasEval1 = TRADES.some(t => t.id && t.id.startsWith('EVAL1_'));
+  if (!hasEval1) {
+    TRADES = [...EVAL1_TRADES, ...TRADES];
+    save();
+  }
+}
+
+function save() {
+  localStorage.setItem('trades_v3', JSON.stringify(TRADES));
+  localStorage.setItem('accounts_v3', JSON.stringify(ACCOUNTS));
+  localStorage.setItem('config_v3', JSON.stringify(CONFIG));
+}
+
+// ════════════════════════════════════════════════════════════
+// NAVIGATION
+// ════════════════════════════════════════════════════════════
+
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('page-' + id).classList.add('active');
+  const idx = ['dashboard','journal','add','stats','calendar','accounts','sync','playbooks','settings'].indexOf(id);
+  if (idx >= 0) document.querySelectorAll('.nav-btn')[idx].classList.add('active');
+  updateTopbarAccount();
+
+  if (id === 'dashboard') renderDashboard();
+  else if (id === 'journal') { populateFilterAccounts(); renderJournal(); }
+  else if (id === 'add') { editingTradeId = null; document.getElementById('form-page-title').textContent = 'עסקה חדשה'; renderTradeForm(null); }
+  else if (id === 'stats') { statsTab('overview', document.querySelector('#page-stats .tab-pill.active') || document.querySelector('#page-stats .tab-pill')); }
+  else if (id === 'calendar') renderCalendar();
+  else if (id === 'accounts') renderAccounts();
+  else if (id === 'playbooks') { playbookTab('wyckoff', document.querySelector('#page-playbooks .tab-pill')); }
+  else if (id === 'settings') loadSettings();
+}
+
+function updateTopbarAccount() {
+  const dot = document.getElementById('topbar-account-dot');
+  const name = document.getElementById('topbar-account-name');
+  if (!activeAccountFilter) {
+    dot.style.background = '#2563eb';
+    name.textContent = 'כל החשבונות';
+  } else {
+    const acc = ACCOUNTS.find(a => a.id === activeAccountFilter);
+    dot.style.background = acc?.type === 'evaluation' ? '#7c3aed' : acc?.type === 'live' ? '#16a34a' : '#0284c7';
+    name.textContent = acc?.name || 'חשבון';
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+// STATISTICS HELPERS
+// ════════════════════════════════════════════════════════════
+
+function filteredTrades() {
+  return TRADES.filter(t => !activeAccountFilter || t.accountId === activeAccountFilter);
+}
+
+function calcPnl(t) {
+  if (t.outcome === 'OPEN' || !t.exitPrice) return 0;
+  const dir = t.direction === 'LONG' ? 1 : -1;
+  const pts = (t.exitPrice - t.entryPrice) * dir;
+  const gross = pts * CONFIG.contractPnlPerPoint * t.contracts;
+  const comm = CONFIG.commission * t.contracts * 2;
+  return gross - comm;
+}
+
+function calcRR(t) {
+  if (!t.slPrice || !t.entryPrice) return 0;
+  const risk = Math.abs(t.entryPrice - t.slPrice);
+  if (!risk) return 0;
+  const exitP = t.exitPrice || t.tp1Price;
+  if (!exitP) return 0;
+  const reward = Math.abs(exitP - t.entryPrice);
+  return parseFloat((reward / risk).toFixed(2));
+}
+
+function statsFor(trades) {
+  const closed = trades.filter(t => t.outcome !== 'OPEN');
+  const wins = closed.filter(t => t.outcome === 'W');
+  const losses = closed.filter(t => t.outcome === 'L');
+  const be = closed.filter(t => t.outcome === 'BE');
+  const pnls = closed.map(t => calcPnl(t));
+  const totalPnl = pnls.reduce((a,b) => a+b, 0);
+  const avgWin = wins.length ? wins.map(t => calcPnl(t)).reduce((a,b)=>a+b,0)/wins.length : 0;
+  const avgLoss = losses.length ? losses.map(t => calcPnl(t)).reduce((a,b)=>a+b,0)/losses.length : 0;
+  const winRate = closed.length ? (wins.length / closed.length * 100) : 0;
+  const profitFactor = avgLoss ? Math.abs(avgWin * wins.length / (avgLoss * losses.length)) : 0;
+  const avgR = closed.length ? closed.map(t => calcRR(t)).reduce((a,b)=>a+b,0)/closed.length : 0;
+  const maxDD = calcMaxDD(trades);
+  return { wins:wins.length, losses:losses.length, be:be.length, total:closed.length, totalPnl, avgWin, avgLoss, winRate, profitFactor, avgR, maxDD };
+}
+
+function calcMaxDD(trades) {
+  let peak = 0, maxDD = 0, running = 0;
+  const sorted = [...trades].sort((a,b) => (a.date+a.time).localeCompare(b.date+b.time));
+  for (const t of sorted) {
+    running += calcPnl(t);
+    if (running > peak) peak = running;
+    const dd = peak - running;
+    if (dd > maxDD) maxDD = dd;
+  }
+  return maxDD;
+}
+
+// ════════════════════════════════════════════════════════════
+// DASHBOARD
+// ════════════════════════════════════════════════════════════
+
+let equityChartInst, outcomeChartInst, sessionChartInst, setupChartInst, rrChartInst;
+
+function renderDashboard() {
+  const trades = filteredTrades();
+  const st = statsFor(trades);
+
+  document.getElementById('dash-stats').innerHTML = `
+    <div class="stat-card"><div class="stat-label">סה"כ עסקאות</div><div class="stat-value blue">${st.total}</div><div class="stat-sub">פתוחות: ${TRADES.filter(t=>t.outcome==='OPEN').length}</div></div>
+    <div class="stat-card"><div class="stat-label">רווח/הפסד נקי</div><div class="stat-value ${st.totalPnl>=0?'green':'red'}">${fmt(st.totalPnl)}</div><div class="stat-sub">ממוצע לעסקה: ${fmt(st.total?st.totalPnl/st.total:0)}</div></div>
+    <div class="stat-card"><div class="stat-label">אחוז הצלחה</div><div class="stat-value ${st.winRate>=50?'green':'red'}">${st.winRate.toFixed(1)}%</div><div class="stat-sub">W:${st.wins} L:${st.losses} BE:${st.be}</div></div>
+    <div class="stat-card"><div class="stat-label">Profit Factor</div><div class="stat-value ${st.profitFactor>=1.5?'green':st.profitFactor>0?'red':''}">${st.profitFactor.toFixed(2)}</div><div class="stat-sub">>1.5 = טוב</div></div>
+    <div class="stat-card"><div class="stat-label">ממוצע R/R</div><div class="stat-value blue">${st.avgR.toFixed(2)}R</div><div class="stat-sub">מינימום: ${CONFIG.minRR}R</div></div>
+    <div class="stat-card"><div class="stat-label">ממוצע רווח</div><div class="stat-value green">${fmt(st.avgWin)}</div><div class="stat-sub">לעסקה מנצחת</div></div>
+    <div class="stat-card"><div class="stat-label">ממוצע הפסד</div><div class="stat-value red">${fmt(st.avgLoss)}</div><div class="stat-sub">לעסקה מפסידה</div></div>
+    <div class="stat-card"><div class="stat-label">Max Drawdown</div><div class="stat-value red">-${fmt(st.maxDD)}</div><div class="stat-sub">שפל מקסימלי</div></div>
+  `;
+
+  renderEquityChart(trades);
+  renderOutcomeChart(st);
+  renderSessionChart(trades);
+  renderSetupChart(trades);
+  renderRRChart(trades);
+  renderBestWorst(trades);
+  renderRecentTrades();
+}
+
+function renderEquityChart(trades) {
+  const sorted = [...trades].filter(t=>t.outcome!=='OPEN').sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));
+  let running = 0;
+  const labels = [], data = [];
+  for (const t of sorted) {
+    running += calcPnl(t);
+    labels.push(t.date.slice(5) + ' ' + t.time);
+    data.push(running.toFixed(2));
+  }
+  if (equityChartInst) equityChartInst.destroy();
+  equityChartInst = new Chart(document.getElementById('equityChart'), {
+    type: 'line',
+    data: {
+      labels,
+      datasets: [{ label: 'P&L מצטבר', data, borderColor:'#2563eb', backgroundColor:'rgba(37,99,235,.08)', tension:.4, fill:true, pointRadius:3 }]
     },
-    scales:{
-      x:{ grid:{color:'rgba(255,255,255,0.04)'}, ticks:{color:'#6b7280',font:{size:11}} },
-      y:{ grid:{color:'rgba(255,255,255,0.04)'}, ticks:{color:'#6b7280', callback: v => v+'R'},
-          suggestedMin: -2.5, suggestedMax: 2.5 }
-    }
-  }
-});
+    options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false} }, scales:{ x:{display:false} } }
+  });
+}
 
-// New account equity chart
-const eq2Data = [0, -1.0];
-const eq2Ctx = document.getElementById('equityChart2').getContext('2d');
-new Chart(eq2Ctx, {
-  type: 'line',
-  data: {
-    labels: ['Start','#1 NY LOSS'],
-    datasets: [{
-      label: 'Equity (R)',
-      data: eq2Data,
-      borderColor: '#ff4757',
-      borderWidth: 2.5,
-      pointBackgroundColor: ['#4c9be8','#ff4757'],
-      pointRadius: 7,
-      pointHoverRadius: 10,
-      fill: true,
-      backgroundColor: (ctx) => {
-        const g = ctx.chart.ctx.createLinearGradient(0,0,0,210);
-        g.addColorStop(0,'rgba(255,71,87,0.15)');
-        g.addColorStop(1,'rgba(255,71,87,0.0)');
-        return g;
-      },
-      tension: 0.2
-    }]
-  },
-  options: {
-    responsive:true, maintainAspectRatio:false,
-    plugins:{
-      legend:{display:false},
-      tooltip:{ callbacks:{ label: ctx => ' '+ctx.raw+'R' } }
+function renderOutcomeChart(st) {
+  if (outcomeChartInst) outcomeChartInst.destroy();
+  outcomeChartInst = new Chart(document.getElementById('outcomeChart'), {
+    type: 'doughnut',
+    data: {
+      labels: ['רווח','הפסד','BE'],
+      datasets: [{ data:[st.wins,st.losses,st.be], backgroundColor:['#16a34a','#dc2626','#94a3b8'], borderWidth:0 }]
     },
-    scales:{
-      x:{ grid:{color:'rgba(255,255,255,0.04)'}, ticks:{color:'#6b7280',font:{size:11}} },
-      y:{ grid:{color:'rgba(255,255,255,0.04)'}, ticks:{color:'#6b7280', callback: v => v+'R'},
-          suggestedMin: -1.5, suggestedMax: 0.5 }
-    }
-  }
-});
+    options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'bottom', labels:{font:{size:11}} } } }
+  });
+}
 
-const pieCtx = document.getElementById('pieChart').getContext('2d');
-new Chart(pieCtx, {
-  type: 'doughnut',
-  data: {
-    labels: ['רווח (1)','הפסד (4)','איזון (1)'],
-    datasets: [{
-      data: [1, 4, 1],
-      backgroundColor: ['rgba(0,255,136,0.75)','rgba(255,71,87,0.75)','rgba(255,211,42,0.75)'],
-      borderColor: ['#00ff88','#ff4757','#ffd32a'],
-      borderWidth: 2, hoverOffset: 8
-    }]
-  },
-  options: {
-    responsive:true, maintainAspectRatio:false,
-    cutout: '65%',
-    plugins:{
-      legend:{ position:'bottom', labels:{ color:'#d1d4dc', padding:14, font:{size:12} } }
-    }
+function renderSessionChart(trades) {
+  const sessMap = {};
+  for (const t of trades) {
+    if (t.outcome === 'OPEN') continue;
+    if (!sessMap[t.session]) sessMap[t.session] = { w:0, l:0 };
+    if (t.outcome === 'W') sessMap[t.session].w++;
+    else if (t.outcome === 'L') sessMap[t.session].l++;
   }
-});
+  const labels = Object.keys(sessMap).map(k => (SESSIONS[k]||k).split(' ')[0]);
+  if (sessionChartInst) sessionChartInst.destroy();
+  sessionChartInst = new Chart(document.getElementById('sessionChart'), {
+    type: 'bar',
+    data: {
+      labels,
+      datasets: [
+        { label:'רווח', data:Object.values(sessMap).map(v=>v.w), backgroundColor:'#16a34a' },
+        { label:'הפסד', data:Object.values(sessMap).map(v=>v.l), backgroundColor:'#dc2626' }
+      ]
+    },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'bottom', labels:{font:{size:11}} } }, scales:{ x:{stacked:true}, y:{stacked:true, ticks:{stepSize:1}} } }
+  });
+}
+
+function renderSetupChart(trades) {
+  const setupMap = {};
+  for (const t of trades) {
+    if (t.outcome === 'OPEN') continue;
+    if (!setupMap[t.setupType]) setupMap[t.setupType] = { pnl:0, count:0 };
+    setupMap[t.setupType].pnl += calcPnl(t);
+    setupMap[t.setupType].count++;
+  }
+  const entries = Object.entries(setupMap).sort((a,b)=>b[1].pnl-a[1].pnl);
+  if (setupChartInst) setupChartInst.destroy();
+  setupChartInst = new Chart(document.getElementById('setupChart'), {
+    type: 'bar',
+    data: {
+      labels: entries.map(e=>e[0]),
+      datasets: [{ label:'P&L', data:entries.map(e=>e[1].pnl.toFixed(2)), backgroundColor:entries.map(e=>e[1].pnl>=0?'#16a34a':'#dc2626') }]
+    },
+    options: { indexAxis:'y', responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false} } }
+  });
+}
+
+function renderRRChart(trades) {
+  const dayMap = {};
+  for (const t of trades) {
+    if (t.outcome === 'OPEN') continue;
+    if (!dayMap[t.date]) dayMap[t.date] = [];
+    dayMap[t.date].push(calcRR(t));
+  }
+  const dates = Object.keys(dayMap).sort().slice(-20);
+  const avgs = dates.map(d => { const a = dayMap[d]; return (a.reduce((x,y)=>x+y,0)/a.length).toFixed(2); });
+  if (rrChartInst) rrChartInst.destroy();
+  rrChartInst = new Chart(document.getElementById('rrChart'), {
+    type: 'line',
+    data: {
+      labels: dates.map(d=>d.slice(5)),
+      datasets: [{ label:'ממוצע R', data:avgs, borderColor:'#7c3aed', tension:.4, pointRadius:3, fill:false }]
+    },
+    options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{display:false} } }
+  });
+}
+
+function renderBestWorst(trades) {
+  const closed = trades.filter(t=>t.outcome!=='OPEN');
+  const byPnl = [...closed].sort((a,b)=>calcPnl(b)-calcPnl(a));
+  const best = byPnl.slice(0,3);
+  const worst = byPnl.slice(-3).reverse();
+  let html = '<div style="font-weight:700;margin-bottom:6px;color:#16a34a">🏆 הכי טובים</div>';
+  for (const t of best) html += `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f1f5f9"><span>${t.date} ${t.setupType}</span><span style="color:#16a34a;font-weight:600">${fmt(calcPnl(t))}</span></div>`;
+  html += '<div style="font-weight:700;margin:10px 0 6px;color:#dc2626">📉 הכי גרועים</div>';
+  for (const t of worst) html += `<div style="display:flex;justify-content:space-between;padding:3px 0;border-bottom:1px solid #f1f5f9"><span>${t.date} ${t.setupType}</span><span style="color:#dc2626;font-weight:600">${fmt(calcPnl(t))}</span></div>`;
+  document.getElementById('bestWorst').innerHTML = html;
+}
+
+function renderRecentTrades() {
+  const recent = [...TRADES].sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time)).slice(0,5);
+  document.getElementById('recent-trades-table').innerHTML = buildTradeTable(recent, true);
+}
+
+// ════════════════════════════════════════════════════════════
+// JOURNAL
+// ════════════════════════════════════════════════════════════
+
+function populateFilterAccounts() {
+  const sel = document.getElementById('filter-account');
+  sel.innerHTML = '<option value="">כל החשבונות</option>' + ACCOUNTS.map(a=>`<option value="${a.id}">${a.name}</option>`).join('');
+}
+
+function renderJournal() {
+  const search = document.getElementById('journal-search').value.toLowerCase();
+  const accFilter = document.getElementById('filter-account').value;
+  const outcomeFilter = document.getElementById('filter-outcome').value;
+  const sessionFilter = document.getElementById('filter-session').value;
+  const directionFilter = document.getElementById('filter-direction').value;
+
+  let trades = [...TRADES].sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));
+  if (accFilter) trades = trades.filter(t=>t.accountId===accFilter);
+  if (outcomeFilter) trades = trades.filter(t=>t.outcome===outcomeFilter);
+  if (sessionFilter) trades = trades.filter(t=>t.session===sessionFilter);
+  if (directionFilter) trades = trades.filter(t=>t.direction===directionFilter);
+  if (search) trades = trades.filter(t=>
+    t.symbol.toLowerCase().includes(search) ||
+    t.setupType.toLowerCase().includes(search) ||
+    (t.entryReason||'').toLowerCase().includes(search) ||
+    (t.notes||'').toLowerCase().includes(search)
+  );
+
+  document.getElementById('journal-table-wrap').innerHTML = buildTradeTable(trades, false);
+}
+
+function buildTradeTable(trades, mini) {
+  if (!trades.length) return `<div class="empty-state"><div class="empty-state-icon">📋</div><div class="empty-state-title">אין עסקאות</div><p style="color:var(--text-muted)">הוסף עסקה ראשונה כדי להתחיל</p></div>`;
+
+  const scoreHtml = (n) => {
+    let s = '<div class="score-bar">';
+    for (let i=0;i<9;i++) s += `<div class="score-dot ${i<n?'on':'off'}"></div>`;
+    return s+'</div>';
+  };
+
+  let rows = trades.map(t => {
+    const pnl = calcPnl(t);
+    const rr = calcRR(t);
+    const acc = ACCOUNTS.find(a=>a.id===t.accountId);
+    return `<tr onclick="viewTrade('${t.id}')" style="cursor:pointer">
+      <td style="font-weight:600">${t.date}<br><span style="color:var(--text-muted);font-size:11px">${t.time}</span></td>
+      ${!mini?`<td style="font-size:12px">${acc?.name||t.accountId||'-'}</td>`:''}
+      <td><strong>${t.symbol}</strong></td>
+      <td><span class="badge badge-${t.direction==='LONG'?'long':'short'}">${t.direction}</span></td>
+      <td>${t.setupType}</td>
+      <td style="font-size:12px">${SESSIONS[t.session]||t.session}</td>
+      <td>${t.entryPrice}</td>
+      <td>${t.exitPrice||'-'}</td>
+      <td style="font-weight:600;color:${pnl>0?'var(--success)':pnl<0?'var(--danger)':'var(--neutral)'}">${pnl!==0?fmt(pnl):'-'}</td>
+      <td>${rr?rr+'R':'-'}</td>
+      <td><span class="badge badge-${outcomeClass(t.outcome)}">${OUTCOMES[t.outcome]||t.outcome}</span></td>
+      ${!mini?`<td>${scoreHtml(t.setupScore||0)}</td>`:''}
+      ${!mini?`<td onclick="event.stopPropagation()" style="display:flex;align-items:center;gap:6px;padding:8px 14px">
+        ${(()=>{ const ss=loadScreenshot(t.id,t.screenshotUrl); return ss?`<img class="screenshot-thumb" src="${ss}" onclick="openLightbox('${ss}')" title="צילום מסך">`:'<span style="width:44px;text-align:center;color:var(--border);font-size:18px">📷</span>'; })()}
+        <button class="btn btn-outline btn-sm" onclick="editTrade('${t.id}')">✏️</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteTrade('${t.id}')">🗑</button>
+      </td>`:''}
+    </tr>`;
+  }).join('');
+
+  return `<table><thead><tr>
+    <th>תאריך</th>
+    ${!mini?'<th>חשבון</th>':''}
+    <th>סימול</th><th>כיוון</th><th>סטאפ</th><th>סשן</th><th>כניסה</th><th>יציאה</th>
+    <th>P&L</th><th>R/R</th><th>תוצאה</th>
+    ${!mini?'<th>ציון</th><th>פעולות / צילום</th>':''}
+  </tr></thead><tbody>${rows}</tbody></table>`;
+}
+
+function outcomeClass(o) {
+  if (o==='W') return 'win';
+  if (o==='L') return 'loss';
+  if (o==='BE') return 'be';
+  return 'open';
+}
+
+// ════════════════════════════════════════════════════════════
+// TRADE FORM
+// ════════════════════════════════════════════════════════════
+
+function renderTradeForm(trade) {
+  const t = trade || {};
+  const cf = t.confluenceFactors || {};
+  const container = document.getElementById('trade-form-container');
+
+  const confHtml = Object.entries(CONFLUENCE_LABELS).map(([k,v]) => `
+    <label class="confluence-item ${cf[k]?'checked':''}" id="cf-wrap-${k}">
+      <input type="checkbox" id="cf-${k}" ${cf[k]?'checked':''} onchange="updateConfluence(this,'${k}')">
+      <span class="confluence-label">${v}</span>
+    </label>
+  `).join('');
+
+  const emotionEmojis = ['😰','😟','😐','😊','🔥'];
+  const emotionHtml = emotionEmojis.map((e,i) => `<button type="button" class="emotion-btn ${(t.emotionLevel||3)===(i+1)?'selected':''}" onclick="selectEmotion(${i+1},this)">${e}</button>`).join('');
+
+  container.innerHTML = `
+  <div class="section-title">פרטי עסקה</div>
+  <div class="form-grid">
+    <div class="form-group">
+      <label class="form-label">תאריך</label>
+      <input class="form-input" type="date" id="f-date" value="${t.date||today()}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">שעה</label>
+      <input class="form-input" type="time" id="f-time" value="${t.time||'09:30'}">
+    </div>
+    <div class="form-group">
+      <label class="form-label">חשבון</label>
+      <select class="form-select" id="f-account">
+        ${ACCOUNTS.map(a=>`<option value="${a.id}" ${t.accountId===a.id?'selected':''}>${a.name}</option>`).join('')}
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">סימול</label>
+      <input class="form-input" id="f-symbol" value="${t.symbol||'MNQ1!'}" placeholder="MNQ1!">
+    </div>
+    <div class="form-group">
+      <label class="form-label">כיוון</label>
+      <select class="form-select" id="f-direction">
+        <option value="LONG" ${t.direction==='LONG'?'selected':''}>LONG (קניה)</option>
+        <option value="SHORT" ${t.direction==='SHORT'?'selected':''}>SHORT (מכירה)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">סשן</label>
+      <select class="form-select" id="f-session">
+        ${Object.entries(SESSIONS).map(([k,v])=>`<option value="${k}" ${t.session===k?'selected':''}>${v}</option>`).join('')}
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">סוג סטאפ</label>
+      <select class="form-select" id="f-setup">
+        ${SETUP_TYPES.map(s=>`<option value="${s}" ${t.setupType===s?'selected':''}>${s}</option>`).join('')}
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Bias (HTF)</label>
+      <select class="form-select" id="f-bias">
+        <option value="BULLISH" ${t.ictBias==='BULLISH'?'selected':''}>Bullish (שורי)</option>
+        <option value="BEARISH" ${t.ictBias==='BEARISH'?'selected':''}>Bearish (דובי)</option>
+        <option value="NEUTRAL" ${t.ictBias==='NEUTRAL'?'selected':''}>Neutral (ניטרלי)</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">טיים-פריים כניסה</label>
+      <select class="form-select" id="f-tf">
+        ${['1','2','3','5','15','30','60'].map(v=>`<option value="${v}" ${t.timeframe===v?'selected':''}>${v}m</option>`).join('')}
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">מספר חוזים</label>
+      <input class="form-input" type="number" id="f-contracts" value="${t.contracts||1}" min="1">
+    </div>
+  </div>
+
+  <div class="section-title">מחירים</div>
+  <div class="form-grid-3">
+    <div class="form-group">
+      <label class="form-label">מחיר כניסה</label>
+      <input class="form-input" type="number" id="f-entry" value="${t.entryPrice||''}" step="0.25" placeholder="0.00" oninput="calcLiveRR()">
+    </div>
+    <div class="form-group">
+      <label class="form-label">Stop Loss</label>
+      <input class="form-input" type="number" id="f-sl" value="${t.slPrice||''}" step="0.25" placeholder="0.00" oninput="calcLiveRR()">
+    </div>
+    <div class="form-group">
+      <label class="form-label">TP1</label>
+      <input class="form-input" type="number" id="f-tp1" value="${t.tp1Price||''}" step="0.25" placeholder="0.00" oninput="calcLiveRR()">
+    </div>
+    <div class="form-group">
+      <label class="form-label">TP2</label>
+      <input class="form-input" type="number" id="f-tp2" value="${t.tp2Price||''}" step="0.25" placeholder="0.00">
+    </div>
+    <div class="form-group">
+      <label class="form-label">TP3</label>
+      <input class="form-input" type="number" id="f-tp3" value="${t.tp3Price||''}" step="0.25" placeholder="0.00">
+    </div>
+    <div class="form-group">
+      <label class="form-label">מחיר יציאה בפועל</label>
+      <input class="form-input" type="number" id="f-exit" value="${t.exitPrice||''}" step="0.25" placeholder="0.00" oninput="calcLiveRR()">
+    </div>
+  </div>
+  <div id="live-rr-display" style="padding:10px;background:var(--primary-light);border-radius:8px;margin-top:8px;font-size:13px;font-weight:600;display:none"></div>
+
+  <div class="section-title">תוצאה</div>
+  <div class="form-grid">
+    <div class="form-group">
+      <label class="form-label">תוצאה</label>
+      <select class="form-select" id="f-outcome">
+        ${Object.entries(OUTCOMES).map(([k,v])=>`<option value="${k}" ${t.outcome===k?'selected':''}>${v}</option>`).join('')}
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">R/R בפועל (אוטומטי)</label>
+      <input class="form-input" type="number" id="f-rr" value="${t.rr||''}" step="0.01" placeholder="יחושב אוטומטית">
+    </div>
+  </div>
+
+  <div class="section-title">ניתוח קונפלואנס (ציון איכות הסטאפ)</div>
+  <div style="font-size:12px;color:var(--text-muted);margin-bottom:10px">סמן כל גורם קונפלואנס שנוכח בעסקה זו (ציון מקסימלי: 9/9)</div>
+  <div class="confluence-grid">${confHtml}</div>
+  <div id="confluence-score" style="margin-top:10px;font-size:14px;font-weight:700;color:var(--primary)">ציון: ${Object.values(cf).filter(Boolean).length}/9</div>
+
+  <div class="section-title">ניתוח ומסקנות</div>
+  <div class="form-grid">
+    <div class="form-group full">
+      <label class="form-label">סיבת הכניסה (למה נכנסת?)</label>
+      <textarea class="form-textarea" id="f-entry-reason" placeholder="FVG מזוהה בגבול Kill Zone, Liquidity Sweep של H1...">${t.entryReason||''}</textarea>
+    </div>
+    <div class="form-group full">
+      <label class="form-label">סיבת היציאה</label>
+      <textarea class="form-textarea" id="f-exit-reason" placeholder="הגיע ל-TP1, SL נפגע, מחיר הראה חולשה...">${t.exitReason||''}</textarea>
+    </div>
+    <div class="form-group full">
+      <label class="form-label">שגיאות שנעשו</label>
+      <textarea class="form-textarea" id="f-mistakes" placeholder="נכנסתי לפני אישור נר, SL לא היה מעל ה-Liquidity...">${t.mistakes||''}</textarea>
+    </div>
+    <div class="form-group full">
+      <label class="form-label">לקח לעתיד</label>
+      <textarea class="form-textarea" id="f-lesson" placeholder="תמיד לחכות לסגירת נר 5 דקות לפני כניסה...">${t.lesson||''}</textarea>
+    </div>
+    <div class="form-group full">
+      <label class="form-label">הערות נוספות</label>
+      <textarea class="form-textarea" id="f-notes" placeholder="נרות גדולים לפני, חדשות שעה 10:00, volume אנומלי...">${t.notes||''}</textarea>
+    </div>
+    <div class="form-group full">
+      <label class="form-label">צילום מסך</label>
+      <div class="screenshot-upload-zone" id="upload-zone">
+        <input type="file" accept="image/*" onchange="handleScreenshotUpload(event)">
+        <div class="upload-icon">📸</div>
+        <div class="upload-label">גרור תמונה לכאן או לחץ להעלאה<br><span style="font-size:11px">PNG, JPG, WEBP — עד 10MB</span></div>
+      </div>
+      <div class="screenshot-preview" id="screenshot-preview" style="display:none">
+        <img id="screenshot-preview-img" src="" alt="תצוגה מקדימה">
+        <button class="remove-btn" onclick="removeScreenshot()" title="הסר תמונה">×</button>
+      </div>
+      <input type="hidden" id="f-screenshot-data" value="">
+      <div style="margin-top:8px;display:flex;align-items:center;gap:8px">
+        <span style="font-size:11px;color:var(--text-muted)">או הדבק URL:</span>
+        <input class="form-input" id="f-screenshot" value="${t.screenshotUrl||''}" placeholder="https://..." style="flex:1;font-size:12px" oninput="handleUrlInput(this.value)">
+      </div>
+    </div>
+    <div class="form-group">
+      <label class="form-label">האם פעלת לפי תוכנית?</label>
+      <select class="form-select" id="f-plan">
+        <option value="true" ${t.followedPlan!==false?'selected':''}>כן, פעלתי לפי התוכנית</option>
+        <option value="false" ${t.followedPlan===false?'selected':''}>לא, סטיתי מהתוכנית</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">ניתוח Pre-Market בוצע?</label>
+      <select class="form-select" id="f-premarket">
+        <option value="true" ${t.preMarketDone!==false?'selected':''}>כן</option>
+        <option value="false" ${t.preMarketDone===false?'selected':''}>לא</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="section-title">מצב רגשי</div>
+  <div style="font-size:12px;color:var(--text-muted);margin-bottom:8px">איך הרגשת בזמן ביצוע העסקה?</div>
+  <div class="emotion-picker" id="emotion-picker">${emotionHtml}</div>
+  <input type="hidden" id="f-emotion" value="${t.emotionLevel||3}">
+
+  <div style="display:flex;gap:12px;margin-top:28px">
+    <button class="btn btn-primary" onclick="saveTrade()" style="min-width:140px">💾 שמור עסקה</button>
+    <button class="btn btn-outline" onclick="showPage('journal')">ביטול</button>
+  </div>
+  `;
+
+  calcLiveRR();
+  // Load existing screenshot if editing
+  setTimeout(() => initFormScreenshot(trade), 0);
+}
+
+function calcLiveRR() {
+  const entry = parseFloat(document.getElementById('f-entry')?.value);
+  const sl = parseFloat(document.getElementById('f-sl')?.value);
+  const tp1 = parseFloat(document.getElementById('f-tp1')?.value);
+  const exit = parseFloat(document.getElementById('f-exit')?.value);
+  const dir = document.getElementById('f-direction')?.value;
+  const contracts = parseInt(document.getElementById('f-contracts')?.value)||1;
+  const disp = document.getElementById('live-rr-display');
+  if (!disp) return;
+
+  if (!entry || !sl) { disp.style.display='none'; return; }
+  const risk = Math.abs(entry - sl);
+  const riskDollar = risk * CONFIG.contractPnlPerPoint * contracts;
+
+  let parts = [`סיכון: ${risk.toFixed(2)} נקודות = ${fmt(riskDollar)}`];
+  if (tp1) {
+    const reward = Math.abs(tp1 - entry);
+    const rr = (reward/risk).toFixed(2);
+    parts.push(`R/R לTP1: ${rr}R = ${fmt(reward * CONFIG.contractPnlPerPoint * contracts)}`);
+    document.getElementById('f-rr').value = rr;
+  }
+  if (exit) {
+    const pnl = ((exit - entry) * (dir==='LONG'?1:-1)) * CONFIG.contractPnlPerPoint * contracts - CONFIG.commission*contracts*2;
+    parts.push(`P&L נוכחי: ${fmt(pnl)}`);
+  }
+  disp.style.display = 'block';
+  disp.innerHTML = parts.join('&nbsp;&nbsp;|&nbsp;&nbsp;');
+}
+
+function updateConfluence(checkbox, key) {
+  const wrap = document.getElementById('cf-wrap-' + key);
+  if (checkbox.checked) wrap.classList.add('checked');
+  else wrap.classList.remove('checked');
+  const total = document.querySelectorAll('.confluence-item input:checked').length;
+  document.getElementById('confluence-score').textContent = `ציון: ${total}/9`;
+}
+
+function selectEmotion(level, btn) {
+  document.querySelectorAll('.emotion-btn').forEach(b=>b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('f-emotion').value = level;
+}
+
+function saveTrade() {
+  const cf = {};
+  Object.keys(CONFLUENCE_LABELS).forEach(k => { cf[k] = document.getElementById('cf-'+k)?.checked||false; });
+
+  const trade = {
+    id: editingTradeId || ('T' + Date.now()),
+    date: document.getElementById('f-date').value,
+    time: document.getElementById('f-time').value,
+    accountId: document.getElementById('f-account').value,
+    symbol: document.getElementById('f-symbol').value,
+    direction: document.getElementById('f-direction').value,
+    session: document.getElementById('f-session').value,
+    setupType: document.getElementById('f-setup').value,
+    ictBias: document.getElementById('f-bias').value,
+    timeframe: document.getElementById('f-tf').value,
+    contracts: parseInt(document.getElementById('f-contracts').value)||1,
+    entryPrice: parseFloat(document.getElementById('f-entry').value)||0,
+    slPrice: parseFloat(document.getElementById('f-sl').value)||0,
+    tp1Price: parseFloat(document.getElementById('f-tp1').value)||0,
+    tp2Price: parseFloat(document.getElementById('f-tp2').value)||0,
+    tp3Price: parseFloat(document.getElementById('f-tp3').value)||0,
+    exitPrice: parseFloat(document.getElementById('f-exit').value)||0,
+    outcome: document.getElementById('f-outcome').value,
+    rr: parseFloat(document.getElementById('f-rr').value)||0,
+    setupScore: Object.values(cf).filter(Boolean).length,
+    confluenceFactors: cf,
+    entryReason: document.getElementById('f-entry-reason').value,
+    exitReason: document.getElementById('f-exit-reason').value,
+    mistakes: document.getElementById('f-mistakes').value,
+    lesson: document.getElementById('f-lesson').value,
+    notes: document.getElementById('f-notes').value,
+    screenshotUrl: document.getElementById('f-screenshot').value,
+    followedPlan: document.getElementById('f-plan').value === 'true',
+    preMarketDone: document.getElementById('f-premarket').value === 'true',
+    emotionLevel: parseInt(document.getElementById('f-emotion').value)||3
+  };
+
+  if (!trade.date || !trade.symbol || !trade.entryPrice) {
+    alert('נא למלא לפחות תאריך, סימול ומחיר כניסה');
+    return;
+  }
+
+  // Save uploaded screenshot separately (base64 stays out of main trades array)
+  const ssData = document.getElementById('f-screenshot-data').value;
+  if (ssData) saveScreenshot(trade.id, ssData);
+
+  if (editingTradeId) {
+    const idx = TRADES.findIndex(t=>t.id===editingTradeId);
+    if (idx >= 0) TRADES[idx] = trade;
+  } else {
+    TRADES.unshift(trade);
+  }
+  save();
+  editingTradeId = null;
+  showPage('journal');
+}
+
+function editTrade(id) {
+  const trade = TRADES.find(t=>t.id===id);
+  if (!trade) return;
+  editingTradeId = id;
+  document.getElementById('form-page-title').textContent = 'עריכת עסקה';
+  showPage('add');
+  renderTradeForm(trade);
+}
+
+function deleteTrade(id) {
+  if (!confirm('האם למחוק עסקה זו?')) return;
+  deleteScreenshot(id);
+  TRADES = TRADES.filter(t=>t.id!==id);
+  save();
+  closeModal('trade-modal');
+  renderJournal();
+}
+
+function viewTrade(id) {
+  const t = TRADES.find(x=>x.id===id);
+  if (!t) return;
+  const acc = ACCOUNTS.find(a=>a.id===t.accountId);
+  const pnl = calcPnl(t);
+  const rr = calcRR(t);
+  const emotionEmojis = ['','😰','😟','😐','😊','🔥'];
+  const cf = t.confluenceFactors || {};
+  const activeConfl = Object.entries(CONFLUENCE_LABELS).filter(([k])=>cf[k]).map(([,v])=>`<span class="tag">${v}</span>`).join('');
+
+  document.getElementById('trade-modal-title').textContent = `${t.symbol} ${t.direction} — ${t.date}`;
+  document.getElementById('trade-modal-body').innerHTML = `
+    <div class="trade-detail-grid">
+      <div class="detail-section">
+        <div class="detail-row"><span class="detail-key">תאריך ושעה</span><span class="detail-val">${t.date} ${t.time}</span></div>
+        <div class="detail-row"><span class="detail-key">חשבון</span><span class="detail-val">${acc?.name||t.accountId}</span></div>
+        <div class="detail-row"><span class="detail-key">סימול</span><span class="detail-val">${t.symbol}</span></div>
+        <div class="detail-row"><span class="detail-key">כיוון</span><span class="detail-val"><span class="badge badge-${t.direction==='LONG'?'long':'short'}">${t.direction}</span></span></div>
+        <div class="detail-row"><span class="detail-key">סשן</span><span class="detail-val">${SESSIONS[t.session]||t.session}</span></div>
+        <div class="detail-row"><span class="detail-key">סטאפ</span><span class="detail-val">${t.setupType}</span></div>
+        <div class="detail-row"><span class="detail-key">Bias HTF</span><span class="detail-val">${t.ictBias}</span></div>
+        <div class="detail-row"><span class="detail-key">Timeframe</span><span class="detail-val">${t.timeframe}m</span></div>
+        <div class="detail-row"><span class="detail-key">חוזים</span><span class="detail-val">${t.contracts}</span></div>
+      </div>
+      <div class="detail-section">
+        <div class="detail-row"><span class="detail-key">כניסה</span><span class="detail-val">${t.entryPrice}</span></div>
+        <div class="detail-row"><span class="detail-key">Stop Loss</span><span class="detail-val" style="color:var(--danger)">${t.slPrice||'-'}</span></div>
+        <div class="detail-row"><span class="detail-key">TP1</span><span class="detail-val">${t.tp1Price||'-'}</span></div>
+        <div class="detail-row"><span class="detail-key">TP2</span><span class="detail-val">${t.tp2Price||'-'}</span></div>
+        <div class="detail-row"><span class="detail-key">TP3</span><span class="detail-val">${t.tp3Price||'-'}</span></div>
+        <div class="detail-row"><span class="detail-key">יציאה בפועל</span><span class="detail-val">${t.exitPrice||'-'}</span></div>
+        <div class="detail-row"><span class="detail-key">R/R</span><span class="detail-val">${rr}R</span></div>
+        <div class="detail-row"><span class="detail-key">P&L</span><span class="detail-val" style="color:${pnl>0?'var(--success)':pnl<0?'var(--danger)':'inherit'};font-weight:700">${fmt(pnl)}</span></div>
+        <div class="detail-row"><span class="detail-key">תוצאה</span><span class="detail-val"><span class="badge badge-${outcomeClass(t.outcome)}">${OUTCOMES[t.outcome]}</span></span></div>
+        <div class="detail-row"><span class="detail-key">ציון סטאפ</span><span class="detail-val">${t.setupScore||0}/9</span></div>
+        <div class="detail-row"><span class="detail-key">מצב רגשי</span><span class="detail-val">${emotionEmojis[t.emotionLevel||3]}</span></div>
+        <div class="detail-row"><span class="detail-key">פעל לפי תוכנית?</span><span class="detail-val">${t.followedPlan?'✅ כן':'❌ לא'}</span></div>
+        <div class="detail-row"><span class="detail-key">ניתוח Pre-Market?</span><span class="detail-val">${t.preMarketDone?'✅ כן':'❌ לא'}</span></div>
+      </div>
+    </div>
+    ${activeConfl?`<div style="margin-top:16px"><div style="font-size:12px;font-weight:600;color:var(--text-muted);margin-bottom:6px">קונפלואנס:</div>${activeConfl}</div>`:''}
+    ${t.entryReason?`<div style="margin-top:16px"><div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:4px">סיבת כניסה:</div><div style="font-size:13px;color:var(--text)">${t.entryReason}</div></div>`:''}
+    ${t.mistakes?`<div style="margin-top:12px;padding:10px;background:var(--danger-light);border-radius:8px;border-right:3px solid var(--danger)"><div style="font-size:12px;font-weight:700;color:var(--danger);margin-bottom:4px">שגיאות:</div><div style="font-size:13px">${t.mistakes}</div></div>`:''}
+    ${t.lesson?`<div style="margin-top:12px;padding:10px;background:var(--success-light);border-radius:8px;border-right:3px solid var(--success)"><div style="font-size:12px;font-weight:700;color:var(--success);margin-bottom:4px">לקח:</div><div style="font-size:13px">${t.lesson}</div></div>`:''}
+    ${(()=>{ const ss = loadScreenshot(t.id, t.screenshotUrl); return ss ? `
+      <div style="margin-top:20px">
+        <div style="font-size:12px;font-weight:700;color:var(--text-muted);margin-bottom:8px">צילום מסך</div>
+        <img src="${ss}" alt="צילום מסך" style="width:100%;border-radius:8px;border:1px solid var(--border);cursor:zoom-in;max-height:360px;object-fit:cover" onclick="openLightbox('${ss}')">
+        <div style="font-size:11px;color:var(--text-muted);margin-top:4px;text-align:center">לחץ להגדלה</div>
+      </div>` : ''; })()}
+  `;
+
+  document.getElementById('trade-modal-edit').onclick = () => { closeModal('trade-modal'); editTrade(t.id); };
+  document.getElementById('trade-modal-delete').onclick = () => deleteTrade(t.id);
+  document.getElementById('trade-modal').classList.add('open');
+}
+
+// ════════════════════════════════════════════════════════════
+// STATS PAGE
+// ════════════════════════════════════════════════════════════
+
+function statsTab(tab, btn) {
+  document.querySelectorAll('.tab-pill').forEach(b=>b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const trades = filteredTrades();
+  const st = statsFor(trades);
+  const el = document.getElementById('stats-content');
+
+  if (tab === 'overview') {
+    const streak = calcStreak(trades);
+    el.innerHTML = `
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-label">Win Rate</div><div class="stat-value ${st.winRate>=50?'green':'red'}">${st.winRate.toFixed(1)}%</div></div>
+      <div class="stat-card"><div class="stat-label">Profit Factor</div><div class="stat-value ${st.profitFactor>=1.5?'green':'red'}">${st.profitFactor.toFixed(2)}</div></div>
+      <div class="stat-card"><div class="stat-label">Expected Value</div><div class="stat-value ${st.totalPnl/Math.max(st.total,1)>=0?'green':'red'}">${fmt(st.totalPnl/Math.max(st.total,1))}</div><div class="stat-sub">לכל עסקה</div></div>
+      <div class="stat-card"><div class="stat-label">Avg Win</div><div class="stat-value green">${fmt(st.avgWin)}</div></div>
+      <div class="stat-card"><div class="stat-label">Avg Loss</div><div class="stat-value red">${fmt(st.avgLoss)}</div></div>
+      <div class="stat-card"><div class="stat-label">Win/Loss Ratio</div><div class="stat-value">${st.avgLoss?Math.abs(st.avgWin/st.avgLoss).toFixed(2):'—'}</div></div>
+      <div class="stat-card"><div class="stat-label">Avg R/R</div><div class="stat-value blue">${st.avgR.toFixed(2)}R</div></div>
+      <div class="stat-card"><div class="stat-label">Max Drawdown</div><div class="stat-value red">-${fmt(st.maxDD)}</div></div>
+      <div class="stat-card"><div class="stat-label">Current Streak</div><div class="stat-value ${streak.type==='W'?'green':'red'}">${streak.count}${streak.type}</div></div>
+      <div class="stat-card"><div class="stat-label">Gross P&L</div><div class="stat-value ${st.totalPnl>=0?'green':'red'}">${fmt(st.totalPnl)}</div></div>
+      <div class="stat-card"><div class="stat-label">Total Trades</div><div class="stat-value blue">${st.total}</div></div>
+      <div class="stat-card"><div class="stat-label">Follow Plan %</div><div class="stat-value">${trades.length?Math.round(trades.filter(t=>t.followedPlan).length/trades.length*100):0}%</div></div>
+    </div>`;
+  } else if (tab === 'bySetup') {
+    const setupMap = {};
+    for (const t of trades) {
+      if (t.outcome==='OPEN') continue;
+      if (!setupMap[t.setupType]) setupMap[t.setupType] = [];
+      setupMap[t.setupType].push(t);
+    }
+    const rows = Object.entries(setupMap).map(([setup, arr]) => {
+      const s = statsFor(arr);
+      return `<tr><td>${setup}</td><td>${arr.length}</td><td>${s.winRate.toFixed(0)}%</td><td style="color:${s.totalPnl>=0?'var(--success)':'var(--danger)'};font-weight:600">${fmt(s.totalPnl)}</td><td>${s.avgR.toFixed(2)}R</td><td>${s.profitFactor.toFixed(2)}</td></tr>`;
+    }).join('');
+    el.innerHTML = `<div class="table-card"><table><thead><tr><th>סוג סטאפ</th><th>עסקאות</th><th>Win Rate</th><th>P&L כולל</th><th>ממוצע R</th><th>Profit Factor</th></tr></thead><tbody>${rows||'<tr><td colspan=6 style="text-align:center;padding:20px;color:var(--text-muted)">אין נתונים</td></tr>'}</tbody></table></div>`;
+  } else if (tab === 'bySession') {
+    const sessMap = {};
+    for (const t of trades) {
+      if (t.outcome==='OPEN') continue;
+      if (!sessMap[t.session]) sessMap[t.session] = [];
+      sessMap[t.session].push(t);
+    }
+    const rows = Object.entries(sessMap).map(([sess, arr]) => {
+      const s = statsFor(arr);
+      return `<tr><td>${SESSIONS[sess]||sess}</td><td>${arr.length}</td><td>${s.winRate.toFixed(0)}%</td><td style="color:${s.totalPnl>=0?'var(--success)':'var(--danger)'};font-weight:600">${fmt(s.totalPnl)}</td><td>${s.avgR.toFixed(2)}R</td></tr>`;
+    }).join('');
+    el.innerHTML = `<div class="table-card"><table><thead><tr><th>סשן</th><th>עסקאות</th><th>Win Rate</th><th>P&L כולל</th><th>ממוצע R</th></tr></thead><tbody>${rows||'<tr><td colspan=5 style="text-align:center;padding:20px;color:var(--text-muted)">אין נתונים</td></tr>'}</tbody></table></div>`;
+  } else if (tab === 'byDay') {
+    const dayMap = {};
+    for (const t of trades) {
+      if (t.outcome==='OPEN') continue;
+      const day = new Date(t.date).toLocaleDateString('he-IL',{weekday:'long'});
+      if (!dayMap[day]) dayMap[day] = [];
+      dayMap[day].push(t);
+    }
+    const order = ['ראשון','שני','שלישי','רביעי','חמישי','שישי','שבת'];
+    const rows = Object.entries(dayMap).sort((a,b)=>order.indexOf(a[0])-order.indexOf(b[0])).map(([day, arr]) => {
+      const s = statsFor(arr);
+      return `<tr><td>${day}</td><td>${arr.length}</td><td>${s.winRate.toFixed(0)}%</td><td style="color:${s.totalPnl>=0?'var(--success)':'var(--danger)'};font-weight:600">${fmt(s.totalPnl)}</td></tr>`;
+    }).join('');
+    el.innerHTML = `<div class="table-card"><table><thead><tr><th>יום</th><th>עסקאות</th><th>Win Rate</th><th>P&L כולל</th></tr></thead><tbody>${rows||'<tr><td colspan=4 style="text-align:center;padding:20px;color:var(--text-muted)">אין נתונים</td></tr>'}</tbody></table></div>`;
+  } else if (tab === 'mistakes') {
+    const badTrades = trades.filter(t=>t.mistakes||!t.followedPlan||t.emotionLevel<=2);
+    const rows = badTrades.map(t=>`<tr onclick="viewTrade('${t.id}')" style="cursor:pointer">
+      <td>${t.date}</td><td>${t.symbol}</td><td>${t.setupType}</td>
+      <td style="color:var(--danger)">${t.mistakes||'-'}</td>
+      <td>${t.followedPlan?'✅':'❌'}</td>
+      <td>${['','😰','😟','😐','😊','🔥'][t.emotionLevel||3]}</td>
+    </tr>`).join('');
+    el.innerHTML = `<div class="table-card"><table><thead><tr><th>תאריך</th><th>סימול</th><th>סטאפ</th><th>שגיאות</th><th>תוכנית</th><th>רגש</th></tr></thead><tbody>${rows||'<tr><td colspan=6 style="text-align:center;padding:20px;color:var(--text-muted)">אין שגיאות מתועדות 🎉</td></tr>'}</tbody></table></div>`;
+  }
+}
+
+function calcStreak(trades) {
+  const sorted = [...trades].filter(t=>t.outcome!=='OPEN').sort((a,b)=>(b.date+b.time).localeCompare(a.date+a.time));
+  if (!sorted.length) return { count:0, type:'-' };
+  const type = sorted[0].outcome;
+  let count = 0;
+  for (const t of sorted) {
+    if (t.outcome === type) count++;
+    else break;
+  }
+  return { count, type };
+}
+
+// ════════════════════════════════════════════════════════════
+// CALENDAR
+// ════════════════════════════════════════════════════════════
+
+function calNav(dir) { calMonth += dir; if (calMonth > 11) { calMonth=0; calYear++; } if (calMonth < 0) { calMonth=11; calYear--; } renderCalendar(); }
+
+function renderCalendar() {
+  const monthNames = ['ינואר','פברואר','מרץ','אפריל','מאי','יוני','יולי','אוגוסט','ספטמבר','אוקטובר','נובמבר','דצמבר'];
+  document.getElementById('cal-title').textContent = `${monthNames[calMonth]} ${calYear}`;
+
+  const dayMap = {};
+  for (const t of TRADES) {
+    if (t.outcome==='OPEN') continue;
+    if (!dayMap[t.date]) dayMap[t.date] = { pnl:0, count:0 };
+    dayMap[t.date].pnl += calcPnl(t);
+    dayMap[t.date].count++;
+  }
+
+  const first = new Date(calYear, calMonth, 1);
+  const last = new Date(calYear, calMonth+1, 0);
+  const startDow = first.getDay();
+  const today = new Date().toISOString().slice(0,10);
+
+  const dayLabels = ['א','ב','ג','ד','ה','ו','ש'];
+  let html = dayLabels.map(d=>`<div class="cal-header">${d}</div>`).join('');
+
+  for (let i=0; i<startDow; i++) html += '<div></div>';
+  for (let d=1; d<=last.getDate(); d++) {
+    const dateStr = `${calYear}-${String(calMonth+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+    const dd = dayMap[dateStr];
+    let cls = 'cal-day';
+    let extra = '';
+    if (dd) { cls += ' has-trades ' + (dd.pnl>0?'profit':dd.pnl<0?'loss':'breakeven'); extra=`<div class="cal-day-pnl">${dd.pnl>0?'+':''}${Math.round(dd.pnl)}</div>`; }
+    if (dateStr === today) cls += ' today';
+    html += `<div class="${cls}" onclick="showCalDay('${dateStr}')"><div class="cal-day-num">${d}</div>${extra}</div>`;
+  }
+  document.getElementById('cal-grid').innerHTML = html;
+  document.getElementById('cal-day-detail').innerHTML = '';
+}
+
+function showCalDay(date) {
+  const trades = TRADES.filter(t=>t.date===date && t.outcome!=='OPEN');
+  if (!trades.length) { document.getElementById('cal-day-detail').innerHTML=''; return; }
+  const totalPnl = trades.reduce((a,t)=>a+calcPnl(t),0);
+  document.getElementById('cal-day-detail').innerHTML = `
+    <div class="table-card" style="padding:16px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+        <strong>${date}</strong>
+        <span style="font-weight:700;color:${totalPnl>=0?'var(--success)':'var(--danger)'}">${fmt(totalPnl)}</span>
+      </div>
+      ${buildTradeTable(trades.sort((a,b)=>a.time.localeCompare(b.time)), true)}
+    </div>`;
+}
+
+// ════════════════════════════════════════════════════════════
+// ACCOUNTS
+// ════════════════════════════════════════════════════════════
+
+function renderAccounts() {
+  const el = document.getElementById('accounts-grid');
+  if (!ACCOUNTS.length) { el.innerHTML='<p>אין חשבונות</p>'; return; }
+  el.innerHTML = ACCOUNTS.map(acc => {
+    const trades = TRADES.filter(t=>t.accountId===acc.id && t.outcome!=='OPEN');
+    const st = statsFor(trades);
+    const currentBalance = (acc.initialBalance||0) + st.totalPnl;
+    const targetPct = acc.targetProfit ? Math.min(100,(st.totalPnl/acc.targetProfit*100)).toFixed(1) : null;
+    return `
+    <div class="account-card">
+      <div class="account-card-header">
+        <div>
+          <div style="font-weight:700;font-size:15px">${acc.name}</div>
+          <div style="font-size:12px;color:var(--text-muted)">${acc.broker||''}</div>
+        </div>
+        <span class="account-type-badge account-type-${acc.type}">${acc.type}</span>
+      </div>
+      <div class="account-stat-row"><span>יתרה נוכחית</span><span style="font-weight:700">${fmt(currentBalance)}</span></div>
+      <div class="account-stat-row"><span>P&L כולל</span><span style="font-weight:600;color:${st.totalPnl>=0?'var(--success)':'var(--danger)'}">${fmt(st.totalPnl)}</span></div>
+      <div class="account-stat-row"><span>Win Rate</span><span>${st.winRate.toFixed(1)}%</span></div>
+      <div class="account-stat-row"><span>עסקאות</span><span>${st.total}</span></div>
+      ${acc.targetProfit?`<div class="account-stat-row"><span>התקדמות למטרה</span><span>${targetPct}%</span></div>
+        <div style="margin-top:6px"><div class="progress-bar"><div class="progress-fill" style="width:${targetPct}%;background:var(--primary)"></div></div></div>`:''}
+      ${acc.maxLoss?`<div class="account-stat-row" style="margin-top:4px"><span>הפסד מקסימלי</span><span style="color:${st.maxDD>=acc.maxLoss*0.8?'var(--danger)':'inherit'}">${fmt(st.maxDD)} / ${fmt(acc.maxLoss)}</span></div>`:''}
+      <div style="display:flex;gap:8px;margin-top:14px">
+        <button class="btn btn-outline btn-sm" onclick="editAccount('${acc.id}')">ערוך</button>
+        <button class="btn btn-outline btn-sm" onclick="activeAccountFilter='${acc.id}';updateTopbarAccount();showPage('journal')">עסקאות</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteAccount('${acc.id}')">מחק</button>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function openAccountModal(id) {
+  editingAccountId = id || null;
+  const acc = id ? ACCOUNTS.find(a=>a.id===id) : null;
+  document.getElementById('acc-name').value = acc?.name||'';
+  document.getElementById('acc-type').value = acc?.type||'evaluation';
+  document.getElementById('acc-broker').value = acc?.broker||'Tradovate';
+  document.getElementById('acc-balance').value = acc?.initialBalance||50000;
+  document.getElementById('acc-target').value = acc?.targetProfit||'';
+  document.getElementById('acc-max-loss').value = acc?.maxLoss||'';
+  document.getElementById('acc-notes').value = acc?.notes||'';
+  document.getElementById('account-modal').classList.add('open');
+}
+
+function editAccount(id) { openAccountModal(id); }
+
+function saveAccount() {
+  const acc = {
+    id: editingAccountId || ('ACC' + Date.now()),
+    name: document.getElementById('acc-name').value || 'חשבון חדש',
+    type: document.getElementById('acc-type').value,
+    broker: document.getElementById('acc-broker').value,
+    initialBalance: parseFloat(document.getElementById('acc-balance').value)||0,
+    targetProfit: parseFloat(document.getElementById('acc-target').value)||0,
+    maxLoss: parseFloat(document.getElementById('acc-max-loss').value)||0,
+    notes: document.getElementById('acc-notes').value
+  };
+  if (editingAccountId) {
+    const idx = ACCOUNTS.findIndex(a=>a.id===editingAccountId);
+    if (idx>=0) ACCOUNTS[idx]=acc;
+  } else {
+    ACCOUNTS.push(acc);
+  }
+  save();
+  closeModal('account-modal');
+  renderAccounts();
+}
+
+function deleteAccount(id) {
+  if (!confirm('למחוק חשבון זה? העסקאות ישמרו.')) return;
+  ACCOUNTS = ACCOUNTS.filter(a=>a.id!==id);
+  save();
+  renderAccounts();
+}
+
+// ════════════════════════════════════════════════════════════
+// IMPORT / EXPORT
+// ════════════════════════════════════════════════════════════
+
+function importCSV(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    const lines = e.target.result.split('\n');
+    const headers = lines[0].split(',').map(h=>h.trim().replace(/"/g,''));
+    let imported = 0;
+    for (let i=1; i<lines.length; i++) {
+      const vals = lines[i].split(',').map(v=>v.trim().replace(/"/g,''));
+      if (vals.length < 3) continue;
+      const row = {};
+      headers.forEach((h,j) => row[h] = vals[j]);
+
+      // Map Tradovate CSV columns (adjust as needed)
+      const entryP = parseFloat(row['Entry price'] || row['Price'] || row['Entry'] || 0);
+      const exitP  = parseFloat(row['Exit price'] || row['Exit'] || 0);
+      const pnlRaw = parseFloat(row['P&L'] || row['PnL'] || row['Profit'] || 0);
+
+      const trade = {
+        id: 'CSV' + Date.now() + i,
+        date: (row['Date'] || row['date'] || new Date().toISOString().slice(0,10)).slice(0,10),
+        time: row['Time'] || '00:00',
+        accountId: ACCOUNTS[0]?.id || 'UNKNOWN',
+        symbol: row['Symbol'] || row['Instrument'] || 'MNQ1!',
+        direction: (row['Action']||row['Side']||'').toUpperCase().includes('SELL') ? 'SHORT' : 'LONG',
+        session: 'NY_AM',
+        setupType: 'Other',
+        ictBias: 'NEUTRAL',
+        timeframe: '5',
+        contracts: parseInt(row['Qty'] || row['Contracts'] || 1),
+        entryPrice: entryP,
+        slPrice: 0,
+        tp1Price: 0,
+        tp2Price: 0,
+        tp3Price: 0,
+        exitPrice: exitP,
+        outcome: pnlRaw > 0 ? 'W' : pnlRaw < 0 ? 'L' : 'BE',
+        rr: 0,
+        setupScore: 0,
+        confluenceFactors: {},
+        entryReason: 'ייובא מ-CSV',
+        exitReason: '',
+        mistakes: '',
+        lesson: '',
+        notes: `ייובא מ-Tradovate CSV: P&L ${pnlRaw}`,
+        screenshotUrl: '',
+        followedPlan: true,
+        preMarketDone: false,
+        emotionLevel: 3
+      };
+      TRADES.unshift(trade);
+      imported++;
+    }
+    save();
+    alert(`יובאו ${imported} עסקאות מהקובץ`);
+    event.target.value = '';
+    showPage('journal');
+  };
+  reader.readAsText(file);
+}
+
+function exportJSON() {
+  const data = { trades: TRADES, accounts: ACCOUNTS, config: CONFIG, exportedAt: new Date().toISOString() };
+  download('trading_journal_backup.json', JSON.stringify(data, null, 2), 'application/json');
+}
+
+function exportCSVAll() {
+  const headers = ['date','time','accountId','symbol','direction','session','setupType','entryPrice','slPrice','tp1Price','exitPrice','outcome','rr','setupScore','pnl','mistakes','lesson'];
+  const rows = TRADES.map(t => headers.map(h => t[h]===undefined?calcPnl(t).toFixed(2):String(t[h]||'').replace(/,/g,' ')).join(','));
+  download('trades_export.csv', [headers.join(','), ...rows].join('\n'), 'text/csv');
+}
+
+function importJSON(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const data = JSON.parse(e.target.result);
+      if (data.trades) TRADES = data.trades;
+      if (data.accounts) ACCOUNTS = data.accounts;
+      if (data.config) CONFIG = { ...CONFIG, ...data.config };
+      save();
+      alert('הנתונים שוחזרו בהצלחה!');
+      showPage('dashboard');
+    } catch(err) { alert('שגיאה בקריאת הקובץ: ' + err.message); }
+  };
+  reader.readAsText(file);
+}
+
+function download(filename, content, type) {
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(new Blob([content], {type}));
+  a.download = filename;
+  a.click();
+}
+
+// ════════════════════════════════════════════════════════════
+// SETTINGS
+// ════════════════════════════════════════════════════════════
+
+function loadSettings() {
+  document.getElementById('cfg-contract').value = String(CONFIG.contractPnlPerPoint);
+  document.getElementById('cfg-commission').value = CONFIG.commission;
+  document.getElementById('cfg-min-rr').value = CONFIG.minRR;
+  document.getElementById('cfg-daily-loss').value = CONFIG.dailyLossLimit;
+  document.getElementById('cfg-trader-name').value = CONFIG.traderName;
+}
+
+function saveConfig() {
+  CONFIG.contractPnlPerPoint = parseFloat(document.getElementById('cfg-contract').value)||2;
+  CONFIG.commission = parseFloat(document.getElementById('cfg-commission').value)||0.50;
+  CONFIG.minRR = parseFloat(document.getElementById('cfg-min-rr').value)||2;
+  CONFIG.dailyLossLimit = parseInt(document.getElementById('cfg-daily-loss').value)||2;
+  CONFIG.traderName = document.getElementById('cfg-trader-name').value||'Trader';
+  save();
+}
+
+function confirmClearAll() {
+  if (!confirm('האם אתה בטוח שברצונך למחוק את כל הנתונים? פעולה זו אינה הפיכה!')) return;
+  if (!confirm('בטוח לגמרי? כל העסקאות יימחקו!')) return;
+  TRADES=[]; save();
+  showPage('dashboard');
+}
+
+function testNTConnection() {
+  document.getElementById('nt-status').innerHTML = '<span style="color:var(--warning)">⚠️ בדיקת חיבור מצריכה הרצה מהטרמינל. הפעל: node "C:\\Users\\DELL\\New folder\\ninjatrader-mcp\\src\\server.js" delta</span>';
+}
+
+// ════════════════════════════════════════════════════════════
+// PLAYBOOKS
+// ════════════════════════════════════════════════════════════
+
+function playbookTab(tab, btn) {
+  document.querySelectorAll('#page-playbooks .tab-pill').forEach(b => b.classList.remove('active'));
+  if (btn) btn.classList.add('active');
+  const el = document.getElementById('playbook-content');
+
+  if (tab === 'wyckoff') {
+    el.innerHTML = `
+    <div class="playbook-grid">
+      <div class="playbook-card">
+        <h3>📈 שלבי Wyckoff Accumulation</h3>
+        <ul>
+          <li><strong>1. Preliminary Support (PS)</strong> — קניה ראשונית עוצרת ירידה</li>
+          <li><strong>2. Selling Climax (SC)</strong> — נפח ענק, שפל קיצוני, ריסוק רגשי</li>
+          <li><strong>3. Automatic Rally (AR)</strong> — התאוששות מהירה מ-SC</li>
+          <li><strong>4. Secondary Test (ST)</strong> — חזרה לאזור SC, נפח נמוך יותר</li>
+          <li><strong>5. Spring</strong> — פריצה מטה מזויפת, מנקה Retail Stops</li>
+          <li><strong>6. LPS (Last Point of Support)</strong> — נקודת תמיכה אחרונה לפני עלייה</li>
+          <li><strong>7. SOS (Sign of Strength)</strong> — פריצה מעלה עם נפח גבוה</li>
+          <li><strong>8. Markup</strong> — עלייה מתמשכת — כל OB ב-KZ = קנייה</li>
+        </ul>
+        <div class="rule">⚡ Spring + נפח עולה + מחיר חוזר לריינג' = כניסה LONG</div>
+      </div>
+      <div class="playbook-card">
+        <h3>🎯 כניסה ב-Wyckoff</h3>
+        <ul>
+          <li><strong>SL:</strong> מתחת לנקודת Spring (לא מתחת ל-SC)</li>
+          <li><strong>TP1:</strong> גובה הריינג' מנקודת Spring</li>
+          <li><strong>TP2:</strong> Fibonacci Extension 1.618× הריינג'</li>
+          <li><strong>אינוולידציה:</strong> סגירת יום מתחת ל-SC בנפח גבוה</li>
+          <li><strong>Markup Phase:</strong> כל Secondary Test = הזדמנות קנייה</li>
+          <li><strong>SOS Day:</strong> SL מתחת לשפל היומי, לא כניסה צפופה</li>
+        </ul>
+        <div class="rule">📌 "After Spring + Relevel, every secondary test is a buy opportunity"</div>
+      </div>
+      <div class="playbook-card">
+        <h3>📊 Wyckoff Markup — כלל איתי</h3>
+        <ul>
+          <li>במהלך Markup Phase כל Order Block ב-Kill Zone = כניסה LONG</li>
+          <li>אל תנסה SHORT בזמן Markup — דלג על 6 עסקאות נגד מגמה = חסכת 2,800 נקודות הפסד</li>
+          <li>5× Volume ב-NY Open = נר נפיץ — השתמש ב-Dynamic TP1 על גובה הנר</li>
+          <li>SOS Day = הרחב SL מתחת לשפל היומי, לא כניסה צפודה</li>
+        </ul>
+        <div class="rule">🏆 Win Rate: 80% (4W/1L) | Profit Factor: ~6 | ממוצע R/R: 2.44</div>
+      </div>
+    </div>`;
+  } else if (tab === 'ict') {
+    el.innerHTML = `
+    <div class="playbook-grid">
+      <div class="playbook-card">
+        <h3>🕯️ Fair Value Gap (FVG)</h3>
+        <ul>
+          <li><strong>הגדרה:</strong> Gap בין wick של נר אחד ל-body של נר שלישי</li>
+          <li><strong>Bullish FVG:</strong> מבנה שוק Bullish ב-HTF + impulse חזק + retracement בנפח נמוך + תגובת נר בתוך הגאפ</li>
+          <li><strong>Bearish FVG:</strong> מראה הפוך</li>
+          <li><strong>כניסה:</strong> Midpoint של הגאפ או גבול רלוונטי עם נר אישור</li>
+          <li><strong>SL:</strong> מעבר לכל מבנה ה-FVG</li>
+          <li><strong>TP:</strong> Liquidity Pool הבא מעלה / FVG הבא</li>
+        </ul>
+        <div class="rule">⚡ FVG = Unfilled institutional order — המחיר תמיד חוזר למלא אותו</div>
+      </div>
+      <div class="playbook-card">
+        <h3>🕐 Kill Zones (שעון ישראל)</h3>
+        <ul>
+          <li><strong>🇬🇧 London Open:</strong> 10:00–12:00</li>
+          <li><strong>🇺🇸 NY Open:</strong> 16:30–18:30 ← הכי חזק</li>
+          <li><strong>🌙 Asian Midnight:</strong> 01:00–03:00</li>
+        </ul>
+        <div class="rule">📌 כניסה רק בתוך Kill Zone + אישור נר סגירה</div>
+      </div>
+      <div class="playbook-card">
+        <h3>🏦 Order Block (OB)</h3>
+        <ul>
+          <li>הנר האחרון לפני impulse חזק = OB</li>
+          <li>Bullish OB: נר ירד לפני עלייה חדה</li>
+          <li>Bearish OB: נר עלה לפני ירידה חדה</li>
+          <li>כניסה Limit Order בתוך ה-OB</li>
+          <li>SL מתחת לשפל ה-OB (Bullish) / מעל לשיא (Bearish)</li>
+          <li>TP: FVG הבא / Liquidity Pool</li>
+        </ul>
+        <div class="rule">⚡ Markup Phase: OB ב-Kill Zone = קנייה כמעט בוודאות</div>
+      </div>
+    </div>`;
+  } else if (tab === 'liquidity') {
+    el.innerHTML = `
+    <div class="playbook-grid">
+      <div class="playbook-card">
+        <h3>💧 זיהוי Liquidity Pool</h3>
+        <ul>
+          <li><strong>Equal Highs/Lows</strong> — רמות ברורות שכולם רואים = Pool</li>
+          <li>Wick ארוך שחוצה רמה ואז חוזר פנימה</li>
+          <li>נפח גבוה בנקודת פריצה</li>
+          <li>MSB (Market Structure Break) ב-TF נמוך אחרי הסוויפ</li>
+        </ul>
+        <div class="rule">📌 Equal Highs = Magnet — המחיר מושך אליהם ואז מתהפך</div>
+      </div>
+      <div class="playbook-card">
+        <h3>🎯 כניסה אחרי Sweep</h3>
+        <ul>
+          <li>זהה Pool ב-Daily/4H</li>
+          <li>צפה לפריצה + חזרה ב-1H</li>
+          <li>כניסה ב-15M אחרי MSB</li>
+          <li><strong>SHORT אחרי Upside Sweep:</strong> Bearish Engulfing/Pin + Lower Low ב-15M</li>
+          <li><strong>LONG אחרי Downside Sweep:</strong> Bullish Engulfing + Higher High ב-15M</li>
+          <li>SL: מעבר לנקודת הסוויפ עצמה</li>
+          <li>TP: גובה הריינג' + FVG הסמוך</li>
+        </ul>
+        <div class="rule">⚠️ אל תיכנס בזמן הסוויפ עצמו — חכה לאישור</div>
+      </div>
+      <div class="playbook-card">
+        <h3>⚠️ אזהרות חשובות</h3>
+        <ul>
+          <li>לא כל פריצה = Sweep — בדוק נפח + תגובת מחיר</li>
+          <li>5× Volume = נר נפיץ — Dynamic TP1 על גובה הנר</li>
+          <li>Markup Phase: דלג על Sweeps נגד מגמה</li>
+          <li>הכי טוב לקחת LONG Sweep ב-Markup Phase</li>
+          <li>הכי גרוע: SHORT Sweep כש-HTF Bullish</li>
+        </ul>
+        <div class="rule">✅ Sweep + MSB + OB + Kill Zone = AAA+ Setup</div>
+      </div>
+    </div>`;
+  } else if (tab === 'compare') {
+    const itayTrades = TRADES.filter(t => t.id && t.id.startsWith('ITAY_') && t.outcome !== 'OPEN');
+    const myTrades = TRADES.filter(t => !(t.id && t.id.startsWith('ITAY_')) && t.outcome !== 'OPEN');
+    const itaySt = statsFor(itayTrades);
+    const mySt = statsFor(myTrades);
+
+    function statRow(label, itayVal, myVal, higherIsBetter=true) {
+      const itayBetter = higherIsBetter ? parseFloat(itayVal) >= parseFloat(myVal) : parseFloat(itayVal) <= parseFloat(myVal);
+      return `<div class="detail-row">
+        <span class="detail-key">${label}</span>
+        <span style="color:${itayBetter?'var(--success)':'var(--danger)'};font-weight:600">${itayVal}</span>
+        <span style="color:${!itayBetter?'var(--success)':'var(--danger)'};font-weight:600">${myVal}</span>
+      </div>`;
+    }
+
+    el.innerHTML = `
+    <div class="compare-grid">
+      <div class="compare-card">
+        <h4 style="color:#c2410c">🤖 Itay (Wyckoff + ICT)</h4>
+        <div class="detail-row"><span class="detail-key">עסקאות</span><span>${itaySt.total}</span></div>
+        <div class="detail-row"><span class="detail-key">Win Rate</span><span style="font-weight:700;color:${itaySt.winRate>=60?'var(--success)':'var(--danger)'}">${itaySt.winRate.toFixed(1)}%</span></div>
+        <div class="detail-row"><span class="detail-key">P&L כולל</span><span style="font-weight:700;color:${itaySt.totalPnl>=0?'var(--success)':'var(--danger)'}">${fmt(itaySt.totalPnl)}</span></div>
+        <div class="detail-row"><span class="detail-key">ממוצע R/R</span><span>${itaySt.avgR.toFixed(2)}R</span></div>
+        <div class="detail-row"><span class="detail-key">Profit Factor</span><span>${itaySt.profitFactor.toFixed(2)}</span></div>
+        <div class="detail-row"><span class="detail-key">Max DD</span><span>-${fmt(itaySt.maxDD)}</span></div>
+        <div class="detail-row"><span class="detail-key">ממוצע רווח</span><span style="color:var(--success)">${fmt(itaySt.avgWin)}</span></div>
+        <div class="detail-row"><span class="detail-key">ממוצע הפסד</span><span style="color:var(--danger)">${fmt(itaySt.avgLoss)}</span></div>
+        <div class="detail-row"><span class="detail-key">סטרטגיה</span><span>Wyckoff + OB Only</span></div>
+        <div class="detail-row"><span class="detail-key">כיוון</span><span>LONG בלבד</span></div>
+        <div class="detail-row"><span class="detail-key">סשן</span><span>NY Open בלבד</span></div>
+      </div>
+      <div class="compare-card">
+        <h4 style="color:var(--primary)">👤 Regev (ICT 2022)</h4>
+        <div class="detail-row"><span class="detail-key">עסקאות</span><span>${mySt.total}</span></div>
+        <div class="detail-row"><span class="detail-key">Win Rate</span><span style="font-weight:700;color:${mySt.winRate>=60?'var(--success)':'var(--danger)'}">${mySt.winRate.toFixed(1)}%</span></div>
+        <div class="detail-row"><span class="detail-key">P&L כולל</span><span style="font-weight:700;color:${mySt.totalPnl>=0?'var(--success)':'var(--danger)'}">${fmt(mySt.totalPnl)}</span></div>
+        <div class="detail-row"><span class="detail-key">ממוצע R/R</span><span>${mySt.avgR.toFixed(2)}R</span></div>
+        <div class="detail-row"><span class="detail-key">Profit Factor</span><span>${mySt.profitFactor.toFixed(2)}</span></div>
+        <div class="detail-row"><span class="detail-key">Max DD</span><span>-${fmt(mySt.maxDD)}</span></div>
+        <div class="detail-row"><span class="detail-key">ממוצע רווח</span><span style="color:var(--success)">${fmt(mySt.avgWin)}</span></div>
+        <div class="detail-row"><span class="detail-key">ממוצע הפסד</span><span style="color:var(--danger)">${fmt(mySt.avgLoss)}</span></div>
+        <div class="detail-row"><span class="detail-key">סטרטגיה</span><span>ICT 2022 / AMD</span></div>
+        <div class="detail-row"><span class="detail-key">כיוון</span><span>LONG + SHORT</span></div>
+        <div class="detail-row"><span class="detail-key">סשן</span><span>NY AM Kill Zone</span></div>
+      </div>
+    </div>
+    <div class="insight-card">
+      <div class="insight-title">📊 מה ניתן ללמוד מההשוואה</div>
+      <p>
+        ${itaySt.winRate > mySt.winRate ? `✅ Win Rate של איתי גבוה יותר (${itaySt.winRate.toFixed(0)}% vs ${mySt.winRate.toFixed(0)}%) — הגבלת עצמו ל-LONG בלבד ב-Markup Phase מסננת עסקאות רעות.` : `⚠️ Win Rate זהה או נמוך יותר — שני הסוחרים עובדים על אותה הפצה.`}<br>
+        ✅ איתי דלג על 6 עסקאות נגד מגמה — חסך ~2,800 נקודות הפסד. משמעת = הגנה על ההון.<br>
+        ✅ Limit Orders ב-OB מדויקים בכל עסקה — לא Market Orders אימפולסיביות.<br>
+        💡 שיטת Wyckoff מוסיפה context מאקרו (Spring/Markup Phase) ל-ICT entries — כדאי לשלב.
+      </p>
+    </div>`;
+  } else if (tab === 'insights') {
+    el.innerHTML = `
+    <div class="insight-card">
+      <div class="insight-title">🧠 עקרון #1 — CLAUDE.md של איתי</div>
+      <p>"אין עסקה בלי תוכנית — Entry, SL, TP חובה מראש. SL לא זז לרעתנו. הקהל בדרך כלל בצד ההפוך של העסקה הרווחית."</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-title">📈 עקרון #2 — Markup Phase = One Direction</div>
+      <p>כש-Wyckoff מראה Markup Phase מאושרת, כל OB ב-NY Kill Zone = כניסה LONG. אל תנסה SHORT. איתי דלג על 6 trades SHORT ב-Markup = חסך ~2,800 נקודות הפסד.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-title">💥 עקרון #3 — 5× Volume = Dynamic TP</div>
+      <p>כשנפח NY Open עולה 5× ממוצע, הנר נפיץ. אסטרטגיה: קח TP1 דינמי על גובה הנר המפץ + הזז SL ל-BE מיידית. עסקה ITAY_T5 הפסידה כי לא יישם כלל זה.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-title">🎯 עקרון #4 — Secondary Test = Entry</div>
+      <p>אחרי Spring + Relevel, כל Secondary Test = הזדמנות קנייה. המחיר בודק מחדש את אזור ה-Spring בנפח נמוך = weak selling pressure = הצטברות מוסדית.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-title">🏦 עקרון #5 — Liquidity Targets</div>
+      <p>TP2 תמיד = Swing High של היום הקודם / Buy-Side Liquidity Pool ברור. ב-4 מתוך 5 עסקאות, TP2 הגיע בדיוק לאזור זה. זה לא מקרה — מוסדיים מוכרים שם.</p>
+    </div>
+    <div class="insight-card">
+      <div class="insight-title">⚡ עקרון #6 — Wyckoff + ICT = שיטת הכניסה המשולבת</div>
+      <p>
+        <strong>HTF (4H/Daily):</strong> Wyckoff Phase → מגדיר bias (Bullish/Bearish/Neutral)<br>
+        <strong>MTF (1H):</strong> Order Block Zone → מגדיר אזור כניסה<br>
+        <strong>LTF (15M):</strong> FVG + Kill Zone + אישור נר → timing הכניסה המדויק
+      </p>
+    </div>
+    <div style="margin-top:20px">
+      <button class="btn btn-outline" onclick="showPage('journal');activeAccountFilter='ITAY1';updateTopbarAccount();renderJournal()">
+        צפה בעסקאות של איתי ביומן
+      </button>
+    </div>`;
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+// SCREENSHOTS
+// ════════════════════════════════════════════════════════════
+
+function handleScreenshotUpload(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = e => {
+    compressImage(e.target.result, 1400, 0.82, compressed => {
+      setScreenshotPreview(compressed);
+      document.getElementById('f-screenshot-data').value = compressed;
+      document.getElementById('f-screenshot').value = '';
+    });
+  };
+  reader.readAsDataURL(file);
+}
+
+function compressImage(dataUrl, maxWidth, quality, callback) {
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    const scale = Math.min(1, maxWidth / img.width);
+    canvas.width  = img.width  * scale;
+    canvas.height = img.height * scale;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+    callback(canvas.toDataURL('image/jpeg', quality));
+  };
+  img.src = dataUrl;
+}
+
+function handleUrlInput(url) {
+  if (url) {
+    document.getElementById('f-screenshot-data').value = '';
+    setScreenshotPreview(url);
+  } else {
+    hideScreenshotPreview();
+  }
+}
+
+function setScreenshotPreview(src) {
+  document.getElementById('screenshot-preview-img').src = src;
+  document.getElementById('screenshot-preview').style.display = 'block';
+  document.getElementById('upload-zone').style.display = 'none';
+}
+
+function hideScreenshotPreview() {
+  document.getElementById('screenshot-preview').style.display = 'none';
+  document.getElementById('upload-zone').style.display = 'block';
+}
+
+function removeScreenshot() {
+  document.getElementById('f-screenshot-data').value = '';
+  document.getElementById('f-screenshot').value = '';
+  hideScreenshotPreview();
+}
+
+function saveScreenshot(tradeId, data) {
+  if (!data) return;
+  try { localStorage.setItem('ss_' + tradeId, data); } catch(e) {
+    // localStorage full — try to store anyway
+    console.warn('Screenshot storage failed:', e);
+  }
+}
+
+function loadScreenshot(tradeId, urlFallback) {
+  try {
+    const stored = localStorage.getItem('ss_' + tradeId);
+    if (stored) return stored;
+  } catch(e) {}
+  return urlFallback || null;
+}
+
+function deleteScreenshot(tradeId) {
+  try { localStorage.removeItem('ss_' + tradeId); } catch(e) {}
+}
+
+function openLightbox(src) {
+  document.getElementById('lightbox-img').src = src;
+  document.getElementById('lightbox').classList.add('open');
+}
+
+function closeLightbox() {
+  document.getElementById('lightbox').classList.remove('open');
+}
+
+function initFormScreenshot(trade) {
+  const src = loadScreenshot(trade?.id, trade?.screenshotUrl);
+  if (src) {
+    setScreenshotPreview(src);
+    if (src.startsWith('http')) document.getElementById('f-screenshot').value = src;
+    else document.getElementById('f-screenshot-data').value = src;
+  } else {
+    hideScreenshotPreview();
+  }
+}
+
+// ════════════════════════════════════════════════════════════
+// UTILITIES
+// ════════════════════════════════════════════════════════════
+
+function fmt(n) { return '$' + (n||0).toLocaleString('en',{minimumFractionDigits:2,maximumFractionDigits:2}); }
+function today() { return new Date().toISOString().slice(0,10); }
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
+document.addEventListener('click', e => { if (e.target.classList.contains('modal-overlay')) closeModal(e.target.id); });
+
+// ════════════════════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════════════════════
+
+load();
+renderDashboard();
 </script>
 </body>
 </html>
