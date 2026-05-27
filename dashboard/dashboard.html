@@ -865,6 +865,12 @@ const ITAY_TRADES = [
   { id:'ITAY_T5', date:'2026-05-22', time:'16:30', accountId:'ITAY1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Order Block', ictBias:'BULLISH', timeframe:'15', contracts:6, entryPrice:29645, slPrice:29605, tp1Price:29784, tp2Price:0, exitPrice:29605, outcome:'L', rr:-1, setupScore:6, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:true,displacement:false,oteZone:true,msb:false,higherTfAligned:true,amd:false,lowRiskEntry:false}, entryReason:'Bullish Wyckoff Markup. Institutional stop hunt identified. OB bullish at 29,645. FVG open above targeting 29,784 liquidity. Limit order NY Open KZ 16:30.', exitReason:'NY Open candle volume 151,974 (5× average) spiked to 29,718 (+73pt) — within 66pt of TP1 — then retracted below entry. SL hit at 29,605.', mistakes:'SL too tight (40pt) against a 5× volume explosive NY Open candle. Should have set dynamic TP1 on the spike high (29,720) and moved SL → BE immediately on spike.', lesson:'5× volume at NY Open = explosive candle expected. Use dynamic TP1 on spike high + immediate SL to BE. Spiky candle (range >150pt) → standard SL is too tight.', notes:'Volume: 151,974 = 5× avg. Spike to 29,718. 6 contracts × 40pt × $2 = -$480. Correct bias, execution timing rule missing.', screenshotUrl:'https://raw.githubusercontent.com/Itay-binder/trading-bot/main/trades/2026-05-22_MNQ_chart.png', followedPlan:true, preMarketDone:true, emotionLevel:2 }
 ];
 
+const CLAUDE_ACCOUNT = { id: 'CLAUDE1', name: 'אוטומציה קלוד', type: 'demo', broker: 'NinjaTrader Sim101', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: 'Claude AI autonomous trading — NinjaTrader Sim101 | MNQ1! | Valtos Order Flow + ICT 2022 | $2 לנקודה' };
+
+const CLAUDE_TRADES = [
+  { id:'CLAUDE_T1', date:'2026-05-27', time:'17:14', accountId:'CLAUDE1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Order Block', ictBias:'BULLISH', timeframe:'5', contracts:1, entryPrice:30266, slPrice:30235, tp1Price:30293.5, tp2Price:30328, tp3Price:0, exitPrice:30293.5, outcome:'W', rr:0.89, setupScore:7, confluenceFactors:{killZone:true,fvg:false,liquiditySweep:true,displacement:true,oteZone:false,msb:true,higherTfAligned:true,amd:false,lowRiskEntry:false}, entryReason:'Valtos score +4 BULL | ASK zone 30,238–30,259 (bar 14:05) החזיקה כתמיכה | Delta flip: +57→+186→+332 | CVD 1,172 עולה | ICT sweep bar 14:20 ל-30,251.5 → reversal לCDH | HTF Daily+1H שוריים | Kill Zone NY AM.', exitReason:'יציאה ידנית +27.5 נקודות | CDH 30,292 נבדק (high 30,293.5) | CVD בירידה 1,427→1,326 | נר 14:30 דובי עם BID imbalances | אין SL אוטומטי ב-NT8 בשל באג בקוד.', mistakes:'ClaudeStrategy לא יכלה לסגור פוזיציה קיימת בשל באג בשורה 81 (if Position != Flat return). שני ניסיונות יציאה אוטומטית נכשלו. SL לא הוגדר ב-NT8 כי SetStopLoss לא מושפע על פוזיציה פתוחה. BE לא הוזז אוטומטית ל-1R.', lesson:'תוקן: ClaudeStrategy עכשיו מזהה SELL בזמן LONG → ExitLong() מיד. לפני כל סשן אוטונומי — לוודא קימפול + Disable/Enable של האסטרטגיה. CDH = יעד TP סביר, לא לתכנן TP מעבר לו ללא אישור מומנטום.', notes:'עסקה ראשונה על חשבון אוטומציה קלוד. Valtos +4 BULL. באג NT8 מנע יציאה אוטומטית — תוקן לאחר העסקה. סגירה ידנית ע"י המשתמש.', screenshotUrl:'', followedPlan:true, preMarketDone:true, emotionLevel:5 }
+];
+
 const LUCID2_ACCOUNT = { id: 'LUCID2', name: 'Lucid Trader — חדש (2026-05-25)', type: 'evaluation', broker: 'Tradovate', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: 'חשבון חדש — החל מ-2026-05-25 | MNQ1! | $2 לנקודה' };
 
 const LUCID2_TRADES = [
@@ -890,6 +896,7 @@ function load() {
   } else {
     if (!ACCOUNTS.find(a => a.id === 'ITAY1')) { ACCOUNTS.push(ITAY_ACCOUNT); save(); }
     if (!ACCOUNTS.find(a => a.id === 'LUCID2')) { ACCOUNTS.push(LUCID2_ACCOUNT); save(); }
+    if (!ACCOUNTS.find(a => a.id === 'CLAUDE1')) { ACCOUNTS.push(CLAUDE_ACCOUNT); save(); }
   }
 
   // Seed Itay's trades if not yet imported
@@ -903,6 +910,13 @@ function load() {
   const hasLucid2 = TRADES.some(t => t.id && t.id.startsWith('LUCID2_'));
   if (!hasLucid2) {
     TRADES = [...LUCID2_TRADES, ...TRADES];
+    save();
+  }
+
+  // Seed Claude automation trades if not yet imported
+  const hasClaude = TRADES.some(t => t.id && t.id.startsWith('CLAUDE_'));
+  if (!hasClaude) {
+    TRADES = [...CLAUDE_TRADES, ...TRADES];
     save();
   }
 
