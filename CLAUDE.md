@@ -24,16 +24,22 @@
 
 **אסור** לנתח ידנית ללא הסקילים — הם מבטיחים MTF מלא + Pine levels + HTF gate.
 
-## 📦 כלל Git — Auto Commit לאחר כל אירוע
+## 📦 כלל Git + Dashboard — עדכון לאחר כל אירוע
 
-**חובה להפעיל `/auto-commit` (או לבצע commit ידני) בכל אחד מהמקרים הבאים:**
+**כשמעדכנים את הדשבורד — חובה לעשות את שלושת הפעולות הבאות:**
+
+1. **עדכן `dashboard/dashboard.html`** — קובץ הפרויקט
+2. **העתק לדסקטופ:** `cp dashboard/dashboard.html C:\Users\DELL\Desktop\trading_journal_PRO.html`
+3. **git add + commit + push** → Vercel מתעדכן אוטומטית מ-GitHub
+
+**חובה לבצע commit בכל אחד מהמקרים הבאים:**
 
 | אירוע | מתי לעשות commit |
 |-------|-----------------|
 | סיום `/tv-analysis` | מיד אחרי הדוח הסופי |
 | סיום `/nt-orderflow` | אחרי שהסיגנל נשלח (או NEUTRAL) |
 | כתיבת trade_signal.json | מיד אחרי הכתיבה |
-| עסקה נסגרה (position.json) | אחרי עדכון הדשבורד |
+| עסקה נסגרה — עדכון דשבורד | dashboard + desktop + commit + push |
 | סוף שיחה | לפני הסיכום האחרון |
 
 **הפקודה:** `/auto-commit` — מבצע git add + commit + push לmaster בGitHub.
