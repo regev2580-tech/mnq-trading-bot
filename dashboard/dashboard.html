@@ -865,7 +865,7 @@ const ITAY_TRADES = [
   { id:'ITAY_T5', date:'2026-05-22', time:'16:30', accountId:'ITAY1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Order Block', ictBias:'BULLISH', timeframe:'15', contracts:6, entryPrice:29645, slPrice:29605, tp1Price:29784, tp2Price:0, exitPrice:29605, outcome:'L', rr:-1, setupScore:6, confluenceFactors:{killZone:true,fvg:true,liquiditySweep:true,displacement:false,oteZone:true,msb:false,higherTfAligned:true,amd:false,lowRiskEntry:false}, entryReason:'Bullish Wyckoff Markup. Institutional stop hunt identified. OB bullish at 29,645. FVG open above targeting 29,784 liquidity. Limit order NY Open KZ 16:30.', exitReason:'NY Open candle volume 151,974 (5× average) spiked to 29,718 (+73pt) — within 66pt of TP1 — then retracted below entry. SL hit at 29,605.', mistakes:'SL too tight (40pt) against a 5× volume explosive NY Open candle. Should have set dynamic TP1 on the spike high (29,720) and moved SL → BE immediately on spike.', lesson:'5× volume at NY Open = explosive candle expected. Use dynamic TP1 on spike high + immediate SL to BE. Spiky candle (range >150pt) → standard SL is too tight.', notes:'Volume: 151,974 = 5× avg. Spike to 29,718. 6 contracts × 40pt × $2 = -$480. Correct bias, execution timing rule missing.', screenshotUrl:'https://raw.githubusercontent.com/Itay-binder/trading-bot/main/trades/2026-05-22_MNQ_chart.png', followedPlan:true, preMarketDone:true, emotionLevel:2 }
 ];
 
-const CLAUDE_ACCOUNT = { id: 'CLAUDE1', name: 'אוטומציה קלוד', type: 'demo', broker: 'NinjaTrader Sim101', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: 'Claude AI autonomous trading — NinjaTrader Sim101 | MNQ1! | Valtos Order Flow + ICT 2022 | $2 לנקודה' };
+const CLAUDE_ACCOUNT = { id: 'CLAUDE1', name: 'קלוד אוטומציה', type: 'demo', broker: 'NinjaTrader Sim101', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: 'Claude AI autonomous trading — NinjaTrader Sim101 | MNQ1! | Valtos Order Flow + ICT 2022 | $2 לנקודה' };
 
 const CLAUDE_TRADES = [
   { id:'CLAUDE_T2', date:'2026-05-28', time:'15:52', accountId:'CLAUDE1', symbol:'MNQ1!', direction:'LONG', session:'NY_AM', setupType:'Momentum Continuation', ictBias:'BULLISH', timeframe:'3', contracts:1, entryPrice:30050, slPrice:30020, tp1Price:30137, tp2Price:0, tp3Price:0, exitPrice:30055, outcome:'W', rr:0.17, setupScore:6, confluenceFactors:{killZone:false,fvg:false,liquiditySweep:false,displacement:true,oteZone:false,msb:false,higherTfAligned:true,amd:false,lowRiskEntry:false}, entryReason:'Valtos score +6 BULL | CVD +2,765 ועולה | delta +892 | 21 ASK imbalances בבר אחד | staircase breakout מ-29,932 | HTF BULLISH (Pine Directional Bias) | כניסה לפני KZ על מומנטום חזק', exitReason:'סגירה ידנית קלוד | delta -433 | CVD ירד 4,000→3,034 (-966 ב-4 דקות) | 14 BID imbalances | תמיכת 30,059-30,060 נשברה | שיא +36.25 pts ב-30,086 | יצאתי ב-~+5 pts', mistakes:'לא היה trailing stop — הרשיתי לרווח של +36 pts להישחק ל-+5 pts. היה צריך להגן על חצי הרווח ב-+20-25 pts. יציאה ריאקטיבית מאוחרת במקום פרואקטיבית.', lesson:'trailing stop: כשמגיעים ל-+30 pts, להזיז mental stop ל-+15 pts. לנטר CVD בצורה אגרסיבית — ירידה של 500+ = אזהרה לשקול סגירה חלקית.', notes:'כניסה 15:52 ישראל, לפני Kill Zone. מומנטום breakout עם score +6 BULL. Peak: +36.25 pts (+$72.50) ב-30,086. סגירה ~+5 pts (אומדן). ניהול מלא ע"י קלוד אוטונומי ללא התערבות.', screenshotUrl:'', followedPlan:true, preMarketDone:true, emotionLevel:5 },
@@ -891,13 +891,16 @@ function load() {
       { id: 'EVAL1', name: 'Lucid Trader Evaluation', type: 'evaluation', broker: 'Tradovate', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: '' },
       { id: 'DEMO1', name: 'Demo Account', type: 'demo', broker: 'Tradovate', initialBalance: 50000, targetProfit: 0, maxLoss: 0, notes: '' },
       ITAY_ACCOUNT,
-      LUCID2_ACCOUNT
+      LUCID2_ACCOUNT,
+      CLAUDE_ACCOUNT
     ];
     save();
   } else {
     if (!ACCOUNTS.find(a => a.id === 'ITAY1')) { ACCOUNTS.push(ITAY_ACCOUNT); save(); }
     if (!ACCOUNTS.find(a => a.id === 'LUCID2')) { ACCOUNTS.push(LUCID2_ACCOUNT); save(); }
-    if (!ACCOUNTS.find(a => a.id === 'CLAUDE1')) { ACCOUNTS.push(CLAUDE_ACCOUNT); save(); }
+    const claudeIdx = ACCOUNTS.findIndex(a => a.id === 'CLAUDE1');
+    if (claudeIdx === -1) { ACCOUNTS.push(CLAUDE_ACCOUNT); save(); }
+    else if (ACCOUNTS[claudeIdx].name !== CLAUDE_ACCOUNT.name) { ACCOUNTS[claudeIdx].name = CLAUDE_ACCOUNT.name; save(); }
   }
 
   // Seed Itay's trades if not yet imported
