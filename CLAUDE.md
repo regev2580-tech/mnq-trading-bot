@@ -138,32 +138,74 @@ Daily  → bias (bull/bear), PDH/PDL
 4. **לחכות לסגירת נר** — לא להיכנס תוך כדי בר
 5. **לא לסחור נגד daily trend** — ללא reversal signal ברור
 6. **BE ב-1R** — להזיז SL לכניסה אחרי +1R
+7. **לא לכבות ClaudeStrategy בסגירה ידנית** — רק לשנות SL/TP בגרף NT8. כיבוי = מחמיצים את כל הסטאפ הבא (2026-05-28: missed 265 pts)
+8. **position.json timestamp > 30 שניות = stale** — לחכות לעדכון לפני כל שליחת סיגנל. אחרת: עלול לפתוח פוזיציה הפוכה בשגגה
+9. **CDH = resistance קריטי** — לסגור חצי ב-CDH ולהעביר SL ל-BE. לא לתכנן TP מעבר ל-CDH ללא breakout ברור
+10. **SELL = סגירת LONG בלבד** — לעולם לא לשלוח SELL כשלא בטוח שיש LONG פתוח. לפתיחת SHORT מכוונת: action "SHORT"
+11. **ניטור כל 60 שניות** במהלך Kill Zone — לא 2-3 דקות. מחיר זז מהר
 
-## הפעלה מלאה
+## לקחים מהסשנים
 
-### NT8 Live/Replay
+### 2026-05-28 — Kill Zone NY AM
+**מה קרה:**
+- CLAUDE_T3: LONG @ 29,981.25 — נסגר ידנית @ 29,963 (-18 pts). המשתמש כיבה ClaudeStrategy → missed move של 265 pts (29,920→30,185)
+- CLAUDE_T4: LONG @ 30,150 — כניסת capitulation rule (bar 17:25 vol 35,921 delta -963 + bar 17:30 delta +1,364). יצא @ 30,117 (-33 pts) על CDH rejection
+- CLAUDE_T5: SHORT בשגגה @ 30,128.5 — position.json היה stale, SELL signal פתח SHORT. נסגר מיד @ 30,150 (-21.5 pts)
+
+**תיקונים שבוצעו (2026-06-01):**
+- ClaudeStrategy: `SELL` כשFLAT = no-op (לא פותח SHORT). רק `SHORT` פותח שורט מכוון
+- ClaudeOrderFlow: throttle 500ms — מונע lag של NT8 על bars עתירי ticks
+
+### Capitulation Rule — איך לזהות
 ```
-1. NinjaTrader 8 → גרף NQ/MNQ 5M Volumetric
-2. ClaudeOrderFlow indicator → מוסיף על הגרף
-3. ClaudeStrategy → Sim101 (paper) או Playback101 (replay)
-4. node ninjatrader-mcp/auto_trader.js --test   (--test = מעקף Kill Zone)
+bar קודם: volume > 15,000 AND delta שלילי חזק (< -500)
+bar נוכחי: delta חיובי (buyers absorbing)
+→ LONG signal גם אם score < 3
+SL = מתחת ל-low של bar הקפיטולציה
 ```
 
-### TradingView
+### Momentum Mode
+```
+CVD > 8,000 rising = momentum mode
+→ אין pullbacks עמוקים
+→ כניסה קרובה יותר למחיר (לא לחכות ל-OTE)
+→ SL קצר יותר (swing low האחרון)
+```
+
+## הפעלה מלאה לפני כל סשן
+
+### שלב 1 — NT8 (לפני הכל)
+```
+1. NinjaTrader 8 → NinjaScript Editor → Compile (F5) אם שינית קוד
+2. גרף חדש: MNQ 06-26 | 5M Volumetric | Bid Ask delta | 3 Days to load
+3. ClaudeOrderFlow indicator → הוסף על הגרף
+4. ClaudeStrategy → Sim101 → Enable
+5. בדוק: orderflow.json timestamp מתחלף כל ~0.5 שניות
+6. בדוק: position.json מראה "flat" עם timestamp טרי
+```
+
+### שלב 2 — TradingView
 ```
 1. TradingView Desktop פתוח (CDP port 9222)
 2. גרף: CME_MINI:MNQ1! | 5M
 3. Indicators: Sav FX PDA, ICT 5M Stress Test, PSP, SMT/PSP/PCP MTF
-4. /tv-analysis → ניתוח מלא
+4. בדוק חיבור: /tv-analysis יריץ tv_health_check אוטומטית
 ```
 
-### Workflow משולב (מחר)
+### שלב 3 — 10 דקות לפני Kill Zone (16:20 ישראל)
 ```
-/tv-analysis          → HTF bias + key levels
-/nt-orderflow         → confirm with orderflow → signal
+/tv-analysis    → HTF bias Daily→1H→15M→5M + Pine levels
+/nt-orderflow   → orderflow score + סיגנל אם תנאים מתקיימים
 ```
+
+### חוזים עתידיים — לוח זמנים
+| חוזה | תוקף | גלגול |
+|------|------|-------|
+| MNQ 06-26 | עד 19/06/2026 | לגלגל ל-09-26 בתאריך 16-17/06 |
+| MNQ 09-26 | עד 18/09/2026 | — |
 
 ## Dashboard
-- `dashboard/dashboard.html` — local trading journal
-- חשבון EVAL1 (ישן): 6 עסקאות (1W/1BE/4L)
-- חשבון LUCID2: פעיל, נרשמות עסקאות חדשות
+- `dashboard/dashboard.html` — local trading journal → Desktop → Vercel
+- **חשבון CLAUDE1** (קלוד אוטומציה): 5 עסקאות | T1(W) T2(W) T3(L) T4(L) T5(L-שגיאה)
+- **חשבון LUCID2**: פעיל
+- **חשבון EVAL1** (ישן): 6 עסקאות (1W/1BE/4L)
