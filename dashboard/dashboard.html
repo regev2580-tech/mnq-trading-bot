@@ -907,11 +907,12 @@ function load() {
     ];
     save();
   } else {
+    if (!ACCOUNTS.find(a => a.id === 'EVAL1')) { ACCOUNTS.push({ id: 'EVAL1', name: 'Lucid Trader Evaluation', type: 'evaluation', broker: 'Tradovate', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: '' }); save(); }
     if (!ACCOUNTS.find(a => a.id === 'ITAY1')) { ACCOUNTS.push(ITAY_ACCOUNT); save(); }
     if (!ACCOUNTS.find(a => a.id === 'LUCID2')) { ACCOUNTS.push(LUCID2_ACCOUNT); save(); }
     const claudeIdx = ACCOUNTS.findIndex(a => a.id === 'CLAUDE1');
     if (claudeIdx === -1) { ACCOUNTS.push(CLAUDE_ACCOUNT); save(); }
-    else if (ACCOUNTS[claudeIdx].name !== CLAUDE_ACCOUNT.name) { ACCOUNTS[claudeIdx].name = CLAUDE_ACCOUNT.name; save(); }
+    else { ACCOUNTS[claudeIdx] = { ...ACCOUNTS[claudeIdx], ...CLAUDE_ACCOUNT }; save(); }
   }
 
   // Seed Itay's trades if not yet imported
