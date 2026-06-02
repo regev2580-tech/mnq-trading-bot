@@ -98,9 +98,11 @@ C:\Users\DELL\Desktop\trading_journal_PRO.html
 ## שיטת המסחר — ICT 2022 + Valtos Order Flow
 
 ### Kill Zone
-- **ישראל:** 16:30–18:00 (UTC+3 קיץ)
-- **UTC:** 13:30–15:00
-- סשן NY AM — הכי חשוב
+| סשן | ישראל (UTC+3) | UTC | חשיבות |
+|-----|--------------|-----|---------|
+| **NY AM** | 16:30–18:00 | 13:30–15:00 | ⭐⭐⭐ ראשי |
+| **NY PM** | 20:30–22:00 | 17:30–19:00 | ⭐⭐ משני |
+| London | 11:00–13:00 | 08:00–10:00 | ⭐ |
 
 ### MTF Workflow (חובה לפני כל עסקה)
 ```
@@ -148,8 +150,34 @@ Daily  → bias (bull/bear), PDH/PDL
 14. **BUY = market order (EnterLong)** — לא limit. כניסות capitulation/AMD דורשות fill מיידי. limit orders מפספסים כי NT8 מעבד 5-8 שניות מאוחר
 15. **יציאה: trigger מחיר ברור** — לא delta. הגדר מחיר יציאה מבעוד מועד (לדוג' "אם מחיר יורד מתחת X → SELL"). לא לשנות trigger תוך כדי
 16. **NT8 sl:0 = SL לא מוגדר** — ClaudeStrategy לא מצליח לשמור SL לעיתים. לנהל יציאות ידנית דרך SELL signals
+17. **Capitulation Rule: רק על סגירת בר מלאה** — delta חיובי בדקה הראשונה של בר = FALSE. בר 17:25 (2026-06-02): +590 delta בדקה 1, סגר ב-(-4,828). לעולם לא להיכנס על capitulation לפני שהבר סגר עם delta > +500 בסגירה הסופית
+18. **BSL sweep: בר חייב לסגור מתחת לרמת הsweep** — מחיר שנוגע מעל PDH ואז עולה שוב = breakout, לא reversal. שני touches מעל PDH + CDH חדש = continuation, לא SHORT. (2026-06-02: 30,698 sweep → 30,702.5 CDH)
+19. **Cron delay = עד 60 שניות** — כשמחיר מתקרב לrמה קריטית — לנטר ידנית, לא לסמוך על cron בלבד
 
 ## לקחים מהסשנים
+
+### 2026-06-02 — NY AM + NY PM Kill Zone
+**מה קרה:**
+- T1: CDH breakout retest @ 30,620 → SL @ 30,609 (-11 pts). Sellers חזרו מיידית — בר לא נסגר מעל CDH
+- T2: Capitulation Rule @ 30,615 → SELL @ ~30,586 (-29 pts). delta +590 בדקה 1 הפך ל-(-4,828) בסגירה
+- T3 (SHORT): BSL sweep @ 30,698 → SL @ 30,703 (-21 pts). מה שנראה כBSL reversal היה breakout continuation לCDH 30,702.5
+
+**שלושה לקחים קריטיים:**
+1. **Capitulation = סגירת בר, לא דקה אחת** — delta +590 בתחילת בר ≠ capitulation. מחכים לסגירה
+2. **CDH breakout retest** — להיכנס רק אחרי שבר סגר מעל CDH + pullback נקי לרמת השבירה
+3. **BSL sweep vs Breakout** — אם מחיר עושה high חדש אחרי ה"sweep" = breakout. SHORT רק אם בר סגר מתחת לרמת הsweep
+
+**ICT AMD — מה שהיה בשוק:**
+```
+Accumulation: 30,537–30,549 (True NY Open low)
+Manipulation: spike ל-30,537 (CDL sweep) → bounce
+Distribution UP: 30,537→30,702.5 (אמיתי breakout)
+→ PDH (30,692) נשבר = bias bull ממשיך
+```
+
+**תוצאות:** T1(-11) + T2(-29) + T3(-21) = **-61 pts (-$122)**
+
+---
 
 ### 2026-05-28 — Kill Zone NY AM
 **מה קרה:**
@@ -228,6 +256,7 @@ CVD > 8,000 rising = momentum mode
 
 ## Dashboard
 - `dashboard/dashboard.html` — local trading journal → Desktop → Vercel
-- **חשבון CLAUDE1** (קלוד אוטומציה): 5 עסקאות | T1(W) T2(W) T3(L) T4(L) T5(L-שגיאה)
+- **חשבון CLAUDE1** (קלוד אוטומציה): 8 עסקאות | T1(W) T2(W) T3(L) T4(L) T5(L-שגיאה) T6(L-11) T7(L-29) T8(L-21)
 - **חשבון LUCID2**: פעיל
 - **חשבון EVAL1** (ישן): 6 עסקאות (1W/1BE/4L)
+- **רמות אחרון ידוע (2026-06-02 ~19:10):** PDH=30,692 | CDH=30,702.5 | Low=30,537
