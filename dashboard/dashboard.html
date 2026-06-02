@@ -575,6 +575,7 @@ tbody tr:hover { background: #f8fafc; }
 
 <!-- JOURNAL -->
 <div id="page-journal" class="page">
+  <div id="journal-stats-bar" style="display:none;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;margin-bottom:16px;"></div>
   <div class="table-card">
     <div class="table-toolbar">
       <div class="table-toolbar-title">יומן עסקאות</div>
@@ -976,7 +977,7 @@ function showPage(id) {
   updateTopbarAccount();
 
   if (id === 'dashboard') renderDashboard();
-  else if (id === 'journal') { populateFilterAccounts(); renderJournal(); }
+  else if (id === 'journal') { populateFilterAccounts(); if(activeAccountFilter) document.getElementById('filter-account').value=activeAccountFilter; renderJournal(); }
   else if (id === 'add') { editingTradeId = null; document.getElementById('form-page-title').textContent = 'עסקה חדשה'; renderTradeForm(null); }
   else if (id === 'stats') { statsTab('overview', document.querySelector('#page-stats .tab-pill.active') || document.querySelector('#page-stats .tab-pill')); }
   else if (id === 'calendar') renderCalendar();
@@ -1224,6 +1225,28 @@ function renderJournal() {
   );
 
   document.getElementById('journal-table-wrap').innerHTML = buildTradeTable(trades, false);
+
+  // Stats bar for filtered trades
+  const statsBar = document.getElementById('journal-stats-bar');
+  if (accFilter && trades.length) {
+    const st = statsFor(trades);
+    const totalPnl = trades.filter(t=>t.outcome!=='OPEN').reduce((s,t)=>s+calcPnl(t),0);
+    const pnlColor = totalPnl>=0?'var(--success)':'var(--danger)';
+    const accName = (ACCOUNTS.find(a=>a.id===accFilter)||{name:accFilter}).name;
+    statsBar.style.display = 'grid';
+    statsBar.innerHTML = `
+      <div class="stat-card"><div class="stat-label">חשבון</div><div class="stat-value blue" style="font-size:14px">${accName}</div></div>
+      <div class="stat-card"><div class="stat-label">עסקאות</div><div class="stat-value blue">${st.total}</div></div>
+      <div class="stat-card"><div class="stat-label">Win Rate</div><div class="stat-value ${st.winRate>=50?'green':'red'}">${st.winRate.toFixed(0)}%</div></div>
+      <div class="stat-card"><div class="stat-label">P&L כולל</div><div class="stat-value" style="color:${pnlColor}">${totalPnl>=0?'+':''}$${Math.abs(totalPnl).toFixed(0)}</div></div>
+      <div class="stat-card"><div class="stat-label">ממוצע ניצחון</div><div class="stat-value green">$${st.avgWin.toFixed(0)}</div></div>
+      <div class="stat-card"><div class="stat-label">ממוצע הפסד</div><div class="stat-value red">-$${Math.abs(st.avgLoss).toFixed(0)}</div></div>
+      <div class="stat-card"><div class="stat-label">Profit Factor</div><div class="stat-value ${st.profitFactor>=1.5?'green':st.profitFactor>=1?'':'red'}">${st.profitFactor.toFixed(2)}</div></div>
+      <div class="stat-card"><div class="stat-label">Max DD</div><div class="stat-value red">$${Math.abs(st.maxDD).toFixed(0)}</div></div>
+    `;
+  } else {
+    statsBar.style.display = 'none';
+  }
 }
 
 function buildTradeTable(trades, mini) {
