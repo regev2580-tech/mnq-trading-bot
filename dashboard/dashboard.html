@@ -897,23 +897,26 @@ function load() {
     if (cfg) CONFIG = { ...CONFIG, ...cfg };
   } catch(e) { TRADES=[]; ACCOUNTS=[]; }
 
+  // Always ensure all required accounts exist — runs every load
+  const REQUIRED_ACCOUNTS = [
+    { id: 'EVAL1', name: 'Lucid Trader Evaluation', type: 'evaluation', broker: 'Tradovate', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: '' },
+    { id: 'DEMO1', name: 'Demo Account', type: 'demo', broker: 'Tradovate', initialBalance: 50000, targetProfit: 0, maxLoss: 0, notes: '' },
+    ITAY_ACCOUNT,
+    LUCID2_ACCOUNT,
+    CLAUDE_ACCOUNT
+  ];
+  let accountsChanged = false;
   if (!ACCOUNTS.length) {
-    ACCOUNTS = [
-      { id: 'EVAL1', name: 'Lucid Trader Evaluation', type: 'evaluation', broker: 'Tradovate', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: '' },
-      { id: 'DEMO1', name: 'Demo Account', type: 'demo', broker: 'Tradovate', initialBalance: 50000, targetProfit: 0, maxLoss: 0, notes: '' },
-      ITAY_ACCOUNT,
-      LUCID2_ACCOUNT,
-      CLAUDE_ACCOUNT
-    ];
-    save();
+    ACCOUNTS = [...REQUIRED_ACCOUNTS];
+    accountsChanged = true;
   } else {
-    if (!ACCOUNTS.find(a => a.id === 'EVAL1')) { ACCOUNTS.push({ id: 'EVAL1', name: 'Lucid Trader Evaluation', type: 'evaluation', broker: 'Tradovate', initialBalance: 50000, targetProfit: 3000, maxLoss: 2500, notes: '' }); save(); }
-    if (!ACCOUNTS.find(a => a.id === 'ITAY1')) { ACCOUNTS.push(ITAY_ACCOUNT); save(); }
-    if (!ACCOUNTS.find(a => a.id === 'LUCID2')) { ACCOUNTS.push(LUCID2_ACCOUNT); save(); }
-    const claudeIdx = ACCOUNTS.findIndex(a => a.id === 'CLAUDE1');
-    if (claudeIdx === -1) { ACCOUNTS.push(CLAUDE_ACCOUNT); save(); }
-    else { ACCOUNTS[claudeIdx] = { ...ACCOUNTS[claudeIdx], ...CLAUDE_ACCOUNT }; save(); }
+    REQUIRED_ACCOUNTS.forEach(req => {
+      const idx = ACCOUNTS.findIndex(a => a.id === req.id);
+      if (idx === -1) { ACCOUNTS.push(req); accountsChanged = true; }
+      else if (req.id === 'CLAUDE1' && ACCOUNTS[idx].name !== req.name) { ACCOUNTS[idx].name = req.name; accountsChanged = true; }
+    });
   }
+  if (accountsChanged) save();
 
   // Seed Itay's trades if not yet imported
   const hasItay = TRADES.some(t => t.id && t.id.startsWith('ITAY_'));
