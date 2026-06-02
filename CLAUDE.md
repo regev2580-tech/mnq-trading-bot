@@ -143,6 +143,11 @@ Daily  → bias (bull/bear), PDH/PDL
 9. **CDH = resistance קריטי** — לסגור חצי ב-CDH ולהעביר SL ל-BE. לא לתכנן TP מעבר ל-CDH ללא breakout ברור
 10. **SELL = סגירת LONG בלבד** — לעולם לא לשלוח SELL כשלא בטוח שיש LONG פתוח. לפתיחת SHORT מכוונת: action "SHORT"
 11. **ניטור כל 60 שניות** במהלך Kill Zone — לא 2-3 דקות. מחיר זז מהר
+12. **SL מבני = גבול אחד בלבד** — לא לצאת מוקדם על תנודות delta. אם הגדרת SL מבני — תכבד אותו. יציאה מוקדמת גרמה להפסד מיותר פעמיים (T1+T4 ב-2026-06-01)
+13. **Capitulation absorption: delta > +500** — לא רק > 0. +52 delta = false absorption. +524 ומעלה = אמיתי
+14. **BUY = market order (EnterLong)** — לא limit. כניסות capitulation/AMD דורשות fill מיידי. limit orders מפספסים כי NT8 מעבד 5-8 שניות מאוחר
+15. **יציאה: trigger מחיר ברור** — לא delta. הגדר מחיר יציאה מבעוד מועד (לדוג' "אם מחיר יורד מתחת X → SELL"). לא לשנות trigger תוך כדי
+16. **NT8 sl:0 = SL לא מוגדר** — ClaudeStrategy לא מצליח לשמור SL לעיתים. לנהל יציאות ידנית דרך SELL signals
 
 ## לקחים מהסשנים
 
@@ -156,12 +161,29 @@ Daily  → bias (bull/bear), PDH/PDL
 - ClaudeStrategy: `SELL` כשFLAT = no-op (לא פותח SHORT). רק `SHORT` פותח שורט מכוון
 - ClaudeOrderFlow: throttle 500ms — מונע lag של NT8 על bars עתירי ticks
 
+### 2026-06-01 — Kill Zone NY AM (ICT AMD Pattern)
+**מה קרה:**
+- שוק עלה עד 30,595 (liquidity grab מעל PSP) → ירד חד ל-30,291 (CDL sweep)
+- Capitulation: bar 16:15 delta -4,051 vol 42,625 → bar 16:30 delta +1,827 = reversal
+- עסקה T5 מצוינת: LONG @ 30,337 (capitulation ICT + displacement bar 17:10 delta +3,304)
+  יציאה @ 30,379 (trigger מחיר ברור: מתחת 30,385) → **+43 pts (+$86)**
+- שגיאות בעסקות T1+T4: יציאה מוקדמת לפני SL מבני — שתיהן היו רווחיות אם נשמרו
+
+**ICT AMD Pattern שהתממש:**
+```
+Accumulation: Asia session 30,270-30,380
+Manipulation UP: spike ל-30,595 (liquidity grab)
+Distribution DOWN: חזרה ל-30,291 (CDL sweep)
+→ כניסה LONG בסוף Distribution, TP לשיא הManipulation
+```
+
 ### Capitulation Rule — איך לזהות
 ```
 bar קודם: volume > 15,000 AND delta שלילי חזק (< -500)
-bar נוכחי: delta חיובי (buyers absorbing)
+bar נוכחי: delta > +500 (absorption חזק — לא רק > 0!)
 → LONG signal גם אם score < 3
 SL = מתחת ל-low של bar הקפיטולציה
+כניסה: BUY (market) — לא limit!
 ```
 
 ### Momentum Mode
