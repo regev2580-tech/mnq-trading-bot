@@ -153,8 +153,40 @@ Daily  → bias (bull/bear), PDH/PDL
 17. **Capitulation Rule: רק על סגירת בר מלאה** — delta חיובי בדקה הראשונה של בר = FALSE. בר 17:25 (2026-06-02): +590 delta בדקה 1, סגר ב-(-4,828). לעולם לא להיכנס על capitulation לפני שהבר סגר עם delta > +500 בסגירה הסופית
 18. **BSL sweep: בר חייב לסגור מתחת לרמת הsweep** — מחיר שנוגע מעל PDH ואז עולה שוב = breakout, לא reversal. שני touches מעל PDH + CDH חדש = continuation, לא SHORT. (2026-06-02: 30,698 sweep → 30,702.5 CDH)
 19. **Cron delay = עד 60 שניות** — כשמחיר מתקרב לrמה קריטית — לנטר ידנית, לא לסמוך על cron בלבד
+20. **CVD < -5,000 = NO LONG בכל מקרה** — גם Capitulation Rule לא תקף כשCVD עמוק שלילי. 2026-06-03: CVD -7,373 בעת bounce מ-30,495 = כל bounce נכשל. סף T13 (-1,864) לא מספיק — CVD -5,000+ = שוק בfree fall, לא reversal
+21. **SHORT trigger מוכן מראש** — לא לחשב R/R תוך כדי move. להגדיר לפני KZ: "אם בר סוגר מתחת PDH + delta < -1,000 → SHORT מיד | SL מעל high הבר (לא CDH) | TP = CDL". 2026-06-03: CDH spike → -312 pts missed כי חישבתי תוך כדי
+22. **KZ AM: להיכנס רק 16:50–17:20** — לא 16:30-16:50. נתונים היסטוריים: כל כניסה ב-16:30-16:50 = הפסד (T3, T7, T9). שוק עדיין volatile בפתיחה — לחכות ל-structure להתבהר
 
 ## לקחים מהסשנים
+
+### 2026-06-03 — NY AM Kill Zone | ICT AMD + Free Fall
+**מה קרה:**
+- Pre-KZ: Dead Zone פעיל + Directional Bias Bearish → FLAT נכון
+- Bar 16:35: Liquidity grab ל-CDH 30,807.75 (מעל PDH 30,763.5) → rejection delta -1,031, vol 69,181
+- Bar 16:45: Free fall -7,988 delta, vol 58,000 → CDL sweep 30,495 (-312 pts מCDH!)
+- Bar 16:50-16:55: Bounces ל-30,625 → כולם נכשלו. CVD נשאר -8,000+
+- תוצאה: **0 עסקאות, 0 הפסדים, 0 רווחים**
+
+**3 לקחים קריטיים:**
+1. **SHORT היה ה-trade** — בר 16:35 סגר 30,714 + delta -1,031 = SHORT signal. SL מעל bar high (30,737) = 23 pts. TP = CDL. R/R = 9:1. פספסתי כי חישבתי SL מעל CDH (93 pts) במקום מעל הבר
+2. **CVD -5,000+ = אין LONG** — bounce מ-30,495 (+130 pts) אמיתי אבל CVD -8,000 = כל bounce נמכר. כלל 20 נולד כאן
+3. **Trigger מוכן מראש** — אם הייתי מגדיר לפני KZ "בר סוגר מתחת PDH + delta < -1,000 → SHORT | SL מעל bar high", הייתי נכנס אוטומטית. כלל 21 נולד כאן
+
+**ICT AMD שהתממש:**
+```
+Accumulation: Asia session ~30,700
+Manipulation: CDH spike 30,807 (BSL above PDH 30,763)
+Distribution:  30,807 → 30,495 (-312 pts, vol 250,000+)
+→ שוק חזר לאזור הAccumulation
+```
+
+**רמות לסשן הבא (2026-06-04):**
+- PDH: 30,807.75 (CDH היום)
+- PDL: 30,495.5 (CDL היום)
+- אם פותח מתחת PDL → bias bear continuation
+- אם פותח מעל True Day Open (30,706) → bias bull recovery
+
+---
 
 ### 2026-06-02 — NY AM + NY PM Kill Zone
 **מה קרה:**
