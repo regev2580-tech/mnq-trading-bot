@@ -51,9 +51,11 @@ TradingView (MTF Analysis)
         ↓ bias + levels
 orderflow.json ← NT8 ClaudeOrderFlow (כל טיק)
         ↓ score ≥ 3 + HTF confirmed
-trade_signal.json ← Claude כותב
+trade_signal.json ← Claude כותב  ← **חובה במקביל: monitor_config.json + הפעל position_monitor.ps1**
         ↓ NT8 ClaudeStrategy קורא (TTL 30 שניות)
 position.json ← NT8 ClaudeStrategy כותב
+        ↓ position open
+position_monitor.ps1 רץ ב-background (כל 5 שניות: SL/BE/TP אוטומטי)
 ```
 
 ## סקילים — פקודות זמינות
@@ -69,9 +71,11 @@ position.json ← NT8 ClaudeStrategy כותב
 ```
 ninjatrader-mcp/
 ├── auto_trader.js              # autonomous bot — node auto_trader.js --test
+├── position_monitor.ps1        # ⭐ ניהול פוזיציה אוטונומי — כל 5 שניות (SL/BE/TP)
 ├── data/
 │   ├── orderflow.json          # NT8 → Claude (live, כל טיק)
 │   ├── position.json           # NT8 → Claude (מצב פוזיציה)
+│   ├── monitor_config.json     # Claude כותב עם פתיחת פוזיציה (sl, tp, be_trigger, entry)
 │   ├── trade_signal.json       # Claude → NT8 (סיגנל לביצוע)
 │   ├── auto_log.txt            # לוג bot
 │   └── auto_state.json         # מספר עסקאות + last signal time
@@ -144,7 +148,16 @@ Daily  → bias (bull/bear), PDH/PDL
 8. **position.json timestamp > 30 שניות = stale** — לחכות לעדכון לפני כל שליחת סיגנל. אחרת: עלול לפתוח פוזיציה הפוכה בשגגה
 9. **CDH = resistance קריטי** — לסגור חצי ב-CDH ולהעביר SL ל-BE. לא לתכנן TP מעבר ל-CDH ללא breakout ברור
 10. **SELL = סגירת LONG בלבד** — לעולם לא לשלוח SELL כשלא בטוח שיש LONG פתוח. לפתיחת SHORT מכוונת: action "SHORT"
-11. **ניטור כל 60 שניות** במהלך Kill Zone — לא 2-3 דקות. מחיר זז מהר
+11. **ניטור כל 60 שניות לפני כניסה** — כשאין פוזיציה פתוחה. מחיר זז מהר
+23. **position_monitor.ps1 — חובה עם כל BUY/SHORT signal** — לא לשלוח signal בלי להפעיל את הscript. רצף חובה:
+```powershell
+# 1. כתוב monitor_config.json
+$cfg = "{`"entry`":$entry,`"sl`":$sl,`"tp`":$tp,`"be_trigger`":$beTrigger,`"direction`":`"LONG`",`"active`":true}"
+[System.IO.File]::WriteAllText("C:\Users\DELL\New folder\ninjatrader-mcp\data\monitor_config.json", $cfg, [System.Text.UTF8Encoding]::new($false))
+# 2. הפעל monitor ב-background
+Start-Job -ScriptBlock { & "C:\Users\DELL\New folder\ninjatrader-mcp\position_monitor.ps1" }
+```
+הscript מנהל SL/BE/TP כל 5 שניות — בלי תלות ב-Claude loop. T14: אם היה פעיל, SL היה מוזז ל-BE ב-30,305 (+53 pts) ויצאנו ב-0 במקום -65
 12. **SL מבני = גבול אחד בלבד** — לא לצאת מוקדם על תנודות delta. אם הגדרת SL מבני — תכבד אותו. יציאה מוקדמת גרמה להפסד מיותר פעמיים (T1+T4 ב-2026-06-01)
 13. **Capitulation absorption: delta > +500** — לא רק > 0. +52 delta = false absorption. +524 ומעלה = אמיתי
 14. **BUY = market order (EnterLong)** — לא limit. כניסות capitulation/AMD דורשות fill מיידי. limit orders מפספסים כי NT8 מעבד 5-8 שניות מאוחר
