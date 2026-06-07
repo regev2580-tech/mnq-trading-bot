@@ -143,7 +143,7 @@ Daily  → bias (bull/bear), PDH/PDL
 3. **Timestamp = Get-Date** — לא replay time (NT8 TTL 30 שניות)
 4. **לחכות לסגירת נר** — לא להיכנס תוך כדי בר
 5. **לא לסחור נגד daily trend** — ללא reversal signal ברור
-6. **BE ב-1R** — להזיז SL לכניסה אחרי +1R
+6. **BE ב-1R** — להזיז SL לכניסה אחרי +1R. ביום bearish קיצוני (ירידה >300 pts) או NFP week → BE ב-**0.75R** (לא 1R). T14: שיא +53 pts, BE trigger היה ב-+65 — החסיר ב-12 pts → הפסד -65
 7. **לא לכבות ClaudeStrategy בסגירה ידנית** — רק לשנות SL/TP בגרף NT8. כיבוי = מחמיצים את כל הסטאפ הבא (2026-05-28: missed 265 pts)
 8. **position.json timestamp > 30 שניות = stale** — לחכות לעדכון לפני כל שליחת סיגנל. אחרת: עלול לפתוח פוזיציה הפוכה בשגגה
 9. **CDH = resistance קריטי** — לסגור חצי ב-CDH ולהעביר SL ל-BE. לא לתכנן TP מעבר ל-CDH ללא breakout ברור
@@ -169,6 +169,8 @@ Start-Job -ScriptBlock { & "C:\Users\DELL\New folder\ninjatrader-mcp\position_mo
 20. **CVD < -5,000 = NO LONG בכל מקרה** — גם Capitulation Rule לא תקף כשCVD עמוק שלילי. 2026-06-03: CVD -7,373 בעת bounce מ-30,495 = כל bounce נכשל. סף T13 (-1,864) לא מספיק — CVD -5,000+ = שוק בfree fall, לא reversal
 21. **SHORT trigger מוכן מראש** — לא לחשב R/R תוך כדי move. להגדיר לפני KZ: "אם בר סוגר מתחת PDH + delta < -1,000 → SHORT מיד | SL מעל high הבר (לא CDH) | TP = CDL". 2026-06-03: CDH spike → -312 pts missed כי חישבתי תוך כדי
 22. **KZ AM: להיכנס רק 16:50–17:20** — לא 16:30-16:50. נתונים היסטוריים: כל כניסה ב-16:30-16:50 = הפסד (T3, T7, T9). שוק עדיין volatile בפתיחה — לחכות ל-structure להתבהר
+24. **NFP Friday = אסור לסחור אוטונומי ללא אישור מפורש** — Non-Farm Payrolls (ראשון שישי בחודש, ~15:30 ישראל) = volatility spike חסר תקדים. לבדוק: האם היום NFP? אם כן → לא לשלוח signal בלי הודעה מהמשתמש "אפשר לסחור היום". אם כן סוחרים: SL מינימום 25 pts (לא 15)
+25. **Wakeup 45 שניות לסגירות בר קריטיות** — כשמצפה לסגירת בר שיכולה לייצר signal בחלון Rule 22 → לתזמן wakeup כל 45 שניות (לא 65). 2026-06-04: wakeup ב-17:17 במקום 17:15 → מחיר עלה 22 pts → R/R ירד מ-2.72 ל-1.63 → missed
 
 ## לקחים מהסשנים
 
