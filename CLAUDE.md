@@ -171,6 +171,8 @@ Start-Job -ScriptBlock { & "C:\Users\DELL\New folder\ninjatrader-mcp\position_mo
 22. **KZ AM: להיכנס רק 16:50–17:20** — לא 16:30-16:50. נתונים היסטוריים: כל כניסה ב-16:30-16:50 = הפסד (T3, T7, T9). שוק עדיין volatile בפתיחה — לחכות ל-structure להתבהר
 24. **NFP Friday = אסור לסחור אוטונומי ללא אישור מפורש** — Non-Farm Payrolls (ראשון שישי בחודש, ~15:30 ישראל) = volatility spike חסר תקדים. לבדוק: האם היום NFP? אם כן → לא לשלוח signal בלי הודעה מהמשתמש "אפשר לסחור היום". אם כן סוחרים: SL מינימום 25 pts (לא 15)
 25. **Wakeup 45 שניות לסגירות בר קריטיות** — כשמצפה לסגירת בר שיכולה לייצר signal בחלון Rule 22 → לתזמן wakeup כל 45 שניות (לא 65). 2026-06-04: wakeup ב-17:17 במקום 17:15 → מחיר עלה 22 pts → R/R ירד מ-2.72 ל-1.63 → missed
+26. **לאחר שליחת signal — לוודא position נפתחה תוך 30 שניות** — NT8 משנה status ל-"executed" אבל לא תמיד פותח פוזיציה. לאחר כתיבת trade_signal.json: לחכות 10 שניות ולקרוא position.json. אם עדיין flat → ClaudeStrategy לא ביצע → לבדוק NT8 לפני signal הבא. 2026-06-08: BUY "executed" תוך שניות אבל position=flat → תוצאה -$3 (נסגר מיידית)
+27. **Momentum Mode מ-CVD +3,000** — לא רק CVD +8,000. CVD +3,000+ עולה = שוק בmomemtum, אין pullbacks עמוקים. לא לחכות לOTE — להיכנס על כל דיפ קטן עם SL בר אחרון. 2026-06-08: CVD +5,132 ושוק עלה ברציפות בלי pullback עמוק → כניסות missed כי חיכיתי לpullback עמוק מדי
 
 ## לקחים מהסשנים
 
