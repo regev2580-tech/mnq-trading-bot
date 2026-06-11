@@ -173,8 +173,29 @@ Start-Job -ScriptBlock { & "C:\Users\DELL\New folder\ninjatrader-mcp\position_mo
 25. **Wakeup 45 שניות לסגירות בר קריטיות** — כשמצפה לסגירת בר שיכולה לייצר signal בחלון Rule 22 → לתזמן wakeup כל 45 שניות (לא 65). 2026-06-04: wakeup ב-17:17 במקום 17:15 → מחיר עלה 22 pts → R/R ירד מ-2.72 ל-1.63 → missed
 26. **לאחר שליחת signal — לוודא position נפתחה תוך 30 שניות** — NT8 משנה status ל-"executed" אבל לא תמיד פותח פוזיציה. לאחר כתיבת trade_signal.json: לחכות 10 שניות ולקרוא position.json. אם עדיין flat → ClaudeStrategy לא ביצע → לבדוק NT8 לפני signal הבא. 2026-06-08: BUY "executed" תוך שניות אבל position=flat → תוצאה -$3 (נסגר מיידית)
 27. **Momentum Mode מ-CVD +3,000** — לא רק CVD +8,000. CVD +3,000+ עולה = שוק בmomemtum, אין pullbacks עמוקים. לא לחכות לOTE — להיכנס על כל דיפ קטן עם SL בר אחרון. 2026-06-08: CVD +5,132 ושוק עלה ברציפות בלי pullback עמוק → כניסות missed כי חיכיתי לpullback עמוק מדי
+28. **Sim101 סוגר פוזיציות ב-23:00 Israel — לא overnight** — חלון ניהול אמיתי הוא 17:00-23:00 בלבד. SL=0 בSim ≠ "עסקה ללא סטופ" — זה פוזיציה פרוצה. **רווח בSim ≠ אימות עסקה** אם SL לא עבד. T15 (2026-06-10): SHORT @ 29,028.75 | SL=0 (לא נשמר) | מחיר עלה ל-29,256 (מעל SL 29,174.75 ב-81 pts!) | בחשבון אמיתי = הפסד -146 pts. הSim שרד בגלל SL=0 וסגר ב-23:00 ברווח — מזל גרידא. אם SL לא נרשם ב-NT8 → לא לסחור בלי position_monitor.ps1 פעיל (Rule 23)
 
 ## לקחים מהסשנים
+
+### 2026-06-10 — NY AM Kill Zone | CDH Rejection SHORT — T15
+**מה קרה:**
+- Pre-KZ: Directional Bias BEARISH | CVD -724 | score -7 | CDH 29,169 = TDO 28,995 = resistance cluster
+- Bar 16:35: Distribution -3,008 delta, 68K vol → bounce
+- Bar 16:40: Capitulation Rule +3,845 delta, 84K vol → +242 pts (28,780→29,022) — Sim הפרה Rule 22 (לפני 16:50)
+- Bar 16:55: CDH rejection — סגר 29,029 מ-29,144, delta -1,863, vol 60K ✅
+- 16:58: שלחתי SHORT @ 29,065 | SL 29,174.75 | TP 28,610.25 | R/R 4.14
+- NT8 ביצע @ 29,028.75
+
+**מה שקרה אחר כך (הלקח הקריטי):**
+- מחיר עלה ל-**29,256** — מעל SL 29,174.75 ב-81 pts!
+- SL=0 (לא נשמר בNT8, Rule 16) → פוזיציה שרדה במקרה
+- Sim נסגר ב-23:00 → יצא ברווח
+- בחשבון אמיתי עם SL תקין = **הפסד -146 pts (-$292)**
+
+**הכיוון היה נכון. הסטאפ היה נכון. אבל:**
+1. SL לא נשמר → Rule 16 + Rule 23 (position_monitor לא הופעל)
+2. רווח בSim = מזל, לא ניהול
+3. Sim סוגר ב-23:00 — לא overnight → Rule 28
 
 ### 2026-06-03 — NY AM Kill Zone | ICT AMD + Free Fall
 **מה קרה:**
