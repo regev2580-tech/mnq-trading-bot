@@ -1,0 +1,14 @@
+{
+  "date": "2026-06-16",
+  "time": "09:27",
+  "niche": "finance",
+  "queries": [
+    "reddit r/daytrading frustrated trade journal app complaint",
+    "reddit prop firm evaluation tool wish there was",
+    "reddit futures trading bot scam expensive alternative",
+    "reddit day trading discord community worth the money",
+    "reddit trading risk management tool missing feature",
+    "reddit retail trader paid for mentor course regret"
+  ],
+  "report": "PAIN_POINTS:\n• מתאמני prop firm נכשלים שוב ושוב במבחני ה-evaluation ומרגישים שהם \"scammy\" — אבל אין להם כלי שמכין אותם ספציפית לחוקי הערכה (profit target, daily drawdown, max loss)\n• סוחרים מבזבזים $5,000+ על מנטורים שמסתבר שהם \"great at marketing but suck at trading\" — ומחפשים אלטרנטיבה זולה ומבוססת-נתונים\n• כלי היומן הקיימים (TradeZella, TradesViz) מנתחים ביצועים כלליים, אבל אף אחד לא בודק עמידה בחוקי prop firm ספציפי בזמן אמת\n\nGAP: כל היומנים וכלי ה-AI מנתחים PnL ו\"edge\" כללי — אבל אף אחד לא מתרגם את החוקים הספציפיים של כל prop firm (Apex, Topstep, FTMO וכו') לכלי שבודק חי האם הסוחר עומד בהם ומדמה את ה-evaluation לפני שמשלמים עליו.\n\nPRODUCT_IDEA: **PropPass Simulator** — כלי דיגיטלי שבו הסוחר מזין את החוקים של ה-prop firm הספציפי שלו (יעד רווח, drawdown יומי, max loss, ימי מסחר מינימליים) ומתרגל evaluation מלא על נתונים היסטוריים/דמו. הכלי מסמן בזמן אמת מתי הוא היה \"נכשל\" ומפיק דוח: \"באיזה אחוז סיכוי תעבור, ומה הטעות החוזרת שמפילה אותך\".\n\nTARGET_AUDIENCE: סוחרי futures/forex מתחילים-בינוניים (בעיקר r/Daytrading, r/Forex) ששוקלים או נכשלו ב-prop firm evaluation, ולא רוצים לשרוף עוד $150-$300 על ניסיון נוסף.\n\nPRICING_MODEL: ONE_TIME $49 + UPSELL RETAINER $19/חודש. ה-one-time מוריד את החסם לקנייה (זול משמעותית מ-evaluation אחד), וה-retainer למי שעבר וצריך מעקב חוקים מתמשך בחשבון funded.\n\nWHY_NOW: ה-evaluation business התפוצץ (Apex/Topstep וכו'), אבל הסוחרים מתלוננים שהוא \"scammy\" — הם משלמים שוב ושוב בלי הכנה ממוקדת. היומנים הקיימים גנריים מדי ולא מכירים את חוקי כל firm. אף אחד לא בנה כלי שממוקד ספציפית בלעבור את המבחן, לא בלשפר מסחר באופן כללי.\n\nWHY_NOW (המשך): זה gap אמיתי כי הפתרון הקיים היחיד הוא \"תתרגל ותקווה\" — אין מוצר שמדמה את החוקים המדויקים ומכמת סיכוי מעבר.\n\nMVP_NEXT_STEP: בנה Google Sheet / Notion template פשוט עם 3 firms פופולריים (Apex, Topstep, FTMO) שמחשב אוטומטית האם trades שהוזנו עוברים את החוקים. פרסם פוסט אחד ב-r/"
+}

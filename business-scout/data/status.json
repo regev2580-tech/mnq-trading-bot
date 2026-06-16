@@ -1,6 +1,6 @@
 {
   "name": "Business Scout",
-  "status": "not built yet",
-  "last_action": "-",
-  "timestamp": "2026-06-16T00:00:00"
+  "status": "idle",
+  "last_action": "completed scan: finance -> 2026-06-16_0927.json",
+  "timestamp": "2026-06-16T09:27:46.662336+03:00"
 }
