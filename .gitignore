@@ -46,6 +46,8 @@ config.local.json
 # NinjaTrader data output (runtime files)
 mcp-servers/ninjatrader-mcp/data/*.json
 ninjatrader-mcp/data/*.json
+!ninjatrader-mcp/data/jimmy_brain.json
+!ninjatrader-mcp/data/trade_journal.json
 
 # MCP test logs
 docs/mcp_test*.txt

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>Agent Hub</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0f1117; color: #eee; padding: 40px; }
+    h1 { margin-bottom: 30px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
+    .card { background: #1a1d27; border-radius: 12px; padding: 20px; border: 1px solid #2a2d3a; }
+    .card h2 { margin: 0 0 10px; font-size: 18px; }
+    .status { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; margin-bottom: 10px; }
+    .status.running { background: #1f4d2e; color: #6fdc8c; }
+    .status.idle { background: #4d4a1f; color: #e0d56f; }
+    .status.offline, .status.error { background: #4d1f1f; color: #e07f7f; }
+    a { color: #7fb3ff; text-decoration: none; }
+    .meta { font-size: 13px; color: #999; margin-top: 8px; }
+  </style>
+</head>
+<body>
+  <h1>🤖 Agent Hub</h1>
+  <div class="grid">
+    {% for c in cards %}
+    <div class="card">
+      <h2>{{ c.label }}</h2>
+      <span class="status {{ c.status|replace(' ', '-') }}">{{ c.status }}</span>
+      <div class="meta">פעולה אחרונה: {{ c.last_action }}</div>
+      <div class="meta">{{ c.timestamp }}</div>
+      <div style="margin-top: 12px;"><a href="{{ c.url }}" target="_blank">פתח דשבורד →</a></div>
+    </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
