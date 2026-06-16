@@ -1,11 +1,11 @@
-# start_asaf.ps1 — הפעלת אסף (Business Scout)
+﻿# start_max.ps1 — הפעלת מקס (Business Scout)
 
 $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 
 Write-Host ""
 Write-Host "╔══════════════════════════════════════╗" -ForegroundColor Yellow
-Write-Host "║   אסף — Business Scout 🧭            ║" -ForegroundColor Yellow
+Write-Host "║   מקס — Business Scout 🧭            ║" -ForegroundColor Yellow
 Write-Host "╚══════════════════════════════════════╝" -ForegroundColor Yellow
 Write-Host ""
 
@@ -18,8 +18,8 @@ if (-not $env:ANTHROPIC_API_KEY) {
 }
 
 Write-Host "🌐 Dashboard: http://localhost:5001" -ForegroundColor Cyan
-Write-Host "מפעיל את אסף... (Ctrl+C לעצירה)" -ForegroundColor Green
+Write-Host "מפעיל את מקס... (Ctrl+C לעצירה)" -ForegroundColor Green
 Write-Host ""
 
 Set-Location $ScriptDir
-python -X utf8 asaf_web.py
+python -X utf8 max_web.py

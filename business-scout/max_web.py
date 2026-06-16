@@ -1,5 +1,5 @@
 """
-asaf_web.py — אסף Web Dashboard + Chat
+max_web.py — מקס Web Dashboard + Chat
 גישה מ-http://localhost:5001 בכל עת
 
 מבנה זהה ל-ninjatrader-mcp/jimmy_web.py (status + chat + dashboard),
@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent
 app = Flask(__name__)
 app.config["JSON_ENSURE_ASCII"] = False
 
-asaf_state = {
+max_state = {
     "status": "online",
     "scanning": False,
     "started_at": datetime.now(ISRAEL_TZ).isoformat(),
@@ -30,7 +30,7 @@ asaf_state = {
 
 chat_history: list[dict] = []
 
-ASAF_CHAT_SYSTEM = """אתה אסף — סוכן שמחפש הזדמנויות עסקיות דיגיטליות. אתה מדבר ישירות עם היזם שלך בעברית.
+MAX_CHAT_SYSTEM = """אתה מקס — סוכן שמחפש הזדמנויות עסקיות דיגיטליות. אתה מדבר ישירות עם היזם שלך בעברית.
 אתה יצירתי ופתוח-ראש — לא נצמד לתחום אחד. אתה סורק תחומים מגוונים (בריאות, חינוך, B2B,
 תחביבים, שירותים מקומיים, פיננסים ועוד), מזהה כאבים אמיתיים, ומציע מוצר קונקרטי + מודל תמחור
 (retainer חודשי או רכישה חד-פעמית).
@@ -45,7 +45,7 @@ ASAF_CHAT_SYSTEM = """אתה אסף — סוכן שמחפש הזדמנויות �
 
 def build_chat_context() -> str:
     ctx = [f"⏰ שעה: {datetime.now(ISRAEL_TZ).strftime('%H:%M')} | יום: {datetime.now(ISRAEL_TZ).strftime('%A %Y-%m-%d')}"]
-    ctx.append(f"🔍 סורק כרגע: {'כן' if asaf_state['scanning'] else 'לא'}")
+    ctx.append(f"🔍 סורק כרגע: {'כן' if max_state['scanning'] else 'לא'}")
 
     explored = get_explored_domains()
     if explored:
@@ -61,17 +61,17 @@ def build_chat_context() -> str:
 
 
 def _trigger_scan(forced_domain: str | None = None) -> str:
-    asaf_state["scanning"] = True
+    max_state["scanning"] = True
     try:
         report = run_scout(forced_domain)
     finally:
-        asaf_state["scanning"] = False
+        max_state["scanning"] = False
     if report.get("error"):
         return f"הסקאן נכשל: {report['error']}"
     return f"סקאן הושלם — תחומים: {', '.join(report.get('domains_explored', []))}\n\n{report.get('report', '')[:1500]}"
 
 
-def asaf_chat(user_message: str) -> str:
+def max_chat(user_message: str) -> str:
     lower = user_message.lower()
 
     scan_triggers = ["תרוץ סקאן", "סרוק", "תחפש הזדמנות", "scan:", "תעשה סקאן"]
@@ -95,7 +95,7 @@ def asaf_chat(user_message: str) -> str:
     response = client.messages.create(
         model="claude-haiku-4-5",
         max_tokens=800,
-        system=ASAF_CHAT_SYSTEM,
+        system=MAX_CHAT_SYSTEM,
         messages=messages,
     )
     reply = response.content[0].text.strip()
@@ -111,7 +111,7 @@ DASHBOARD_HTML = r"""
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>אסף — Business Scout</title>
+<title>מקס — Business Scout</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', sans-serif; height: 100vh; display: flex; flex-direction: column; }
@@ -128,8 +128,8 @@ body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', sans-serif;
 .chat-messages { flex: 1; overflow-y: auto; padding: 14px; display: flex; flex-direction: column; gap: 10px; }
 .msg { max-width: 78%; padding: 10px 13px; border-radius: 14px; font-size: 13px; line-height: 1.6; white-space: pre-wrap; }
 .msg.user { background: #1f6feb; color: white; align-self: flex-end; border-radius: 14px 14px 4px 14px; }
-.msg.asaf { background: #161b22; border: 1px solid #30363d; align-self: flex-start; border-radius: 14px 14px 14px 4px; }
-.msg.asaf .who { font-size: 11px; color: #d29922; font-weight: 700; margin-bottom: 4px; }
+.msg.max { background: #161b22; border: 1px solid #30363d; align-self: flex-start; border-radius: 14px 14px 14px 4px; }
+.msg.max .who { font-size: 11px; color: #d29922; font-weight: 700; margin-bottom: 4px; }
 .chat-input-row { padding: 10px; border-top: 1px solid #30363d; display: flex; gap: 8px; background: #161b22; }
 .chat-input { flex: 1; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; color: #e6edf3; padding: 9px 12px; font-size: 13px; outline: none; resize: none; font-family: inherit; }
 .send-btn { background: #1f6feb; border: none; color: white; border-radius: 8px; padding: 9px 16px; cursor: pointer; font-weight: 600; }
@@ -139,7 +139,7 @@ body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', sans-serif;
 </head>
 <body>
 <div class="header">
-  <h1>🧭 <span>אסף</span> — Business Scout</h1>
+  <h1>🧭 <span>מקס</span> — Business Scout</h1>
   <span class="status-badge" id="status-badge">טוען...</span>
 </div>
 <div class="main">
@@ -147,11 +147,11 @@ body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', sans-serif;
     <h3>תחומים שנסקרו לאחרונה</h3>
     <div class="domains" id="domains-box">—</div>
     <h3>הדוח האחרון</h3>
-    <div class="report-box" id="report-box">אין עדיין דוח. בקש מאסף לסרוק.</div>
+    <div class="report-box" id="report-box">אין עדיין דוח. בקש ממקס לסרוק.</div>
   </div>
   <div class="chat-panel">
     <div class="chat-messages" id="chat-messages">
-      <div class="msg asaf"><div class="who">אסף</div>שלום! אני אסף 🧭<br>אני מחפש הזדמנויות עסקיות בתחומים מגוונים.<br><br>בקש ממני: "תרוץ סקאן" (אני בוחר תחומים) או "סקאן: שם תחום" (תחום ספציפי).</div>
+      <div class="msg max"><div class="who">מקס</div>שלום! אני מקס 🧭<br>אני מחפש הזדמנויות עסקיות בתחומים מגוונים.<br><br>בקש ממני: "תרוץ סקאן" (אני בוחר תחומים) או "סקאן: שם תחום" (תחום ספציפי).</div>
     </div>
     <div class="quick-btns">
       <button class="qbtn" onclick="sendQuick('תרוץ סקאן')">🔍 תרוץ סקאן</button>
@@ -159,7 +159,7 @@ body { background: #0d1117; color: #e6edf3; font-family: 'Segoe UI', sans-serif;
       <button class="qbtn" onclick="sendQuick('אילו תחומים סרקת?')">תחומים שנסקרו</button>
     </div>
     <div class="chat-input-row">
-      <textarea class="chat-input" id="chat-input" rows="2" placeholder="דבר עם אסף..."
+      <textarea class="chat-input" id="chat-input" rows="2" placeholder="דבר עם מקס..."
         onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
       <button class="send-btn" onclick="sendChat()">שלח</button>
     </div>
@@ -185,16 +185,16 @@ async function sendChat() {
   input.value='';
   addMsg('user', msg);
   const typingId = 'typing-'+Date.now();
-  addMsg('asaf', '...', typingId);
+  addMsg('max', '...', typingId);
   try {
     const r = await fetch('/api/chat', {method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({message: msg})});
     const d = await r.json();
     document.getElementById(typingId)?.remove();
-    addMsg('asaf', d.reply||'שגיאה');
+    addMsg('max', d.reply||'שגיאה');
     fetchStatus();
   } catch(e) {
     document.getElementById(typingId)?.remove();
-    addMsg('asaf', '❌ שגיאת חיבור');
+    addMsg('max', '❌ שגיאת חיבור');
   }
 }
 function sendQuick(msg){ document.getElementById('chat-input').value = msg; sendChat(); }
@@ -203,7 +203,7 @@ function addMsg(role, text, id) {
   const div = document.createElement('div');
   div.className = 'msg '+role;
   if(id) div.id = id;
-  if(role==='asaf') div.innerHTML = `<div class="who">אסף</div>${text.replace(/\n/g,'<br>')}`;
+  if(role==='max') div.innerHTML = `<div class="who">מקס</div>${text.replace(/\n/g,'<br>')}`;
   else div.textContent = text;
   box.appendChild(div);
   box.scrollTop = box.scrollHeight;
@@ -225,7 +225,7 @@ def index():
 def api_status():
     latest = get_latest_report()
     return jsonify({
-        **asaf_state,
+        **max_state,
         "domains_explored": get_explored_domains()[-15:],
         "latest_report": latest.get("report", ""),
     })
@@ -240,7 +240,7 @@ def api_chat():
     if not os.environ.get("ANTHROPIC_API_KEY"):
         return jsonify({"reply": "❌ ANTHROPIC_API_KEY לא מוגדר"}), 500
     try:
-        reply = asaf_chat(message)
+        reply = max_chat(message)
         return jsonify({"reply": reply, "time": datetime.now(ISRAEL_TZ).strftime("%H:%M")})
     except Exception as e:
         return jsonify({"reply": f"❌ שגיאה: {e}"}), 500

@@ -1,7 +1,7 @@
 """
-scout.py — אסף: core scanning logic (no domain lock-in).
+scout.py — מקס (Max): core scanning logic (no domain lock-in).
 
-Each run: Asaf brainstorms a handful of diverse, currently-promising domains
+Each run: Max brainstorms a handful of diverse, currently-promising domains
 (health, education, B2B SaaS, hobbies, local services, finance, etc.) himself,
 avoiding domains he's already covered recently, then searches for real
 complaints in each and proposes a product + pricing model per domain that
@@ -52,7 +52,7 @@ def _write_status(status: str, last_action: str) -> None:
     STATUS_FILE.write_text(
         json.dumps(
             {
-                "name": "אסף",
+                "name": "מקס",
                 "status": status,
                 "last_action": last_action,
                 "timestamp": datetime.now(ISRAEL_TZ).isoformat(),
@@ -90,7 +90,7 @@ def brainstorm_domains(n: int = DOMAINS_PER_RUN) -> list[dict]:
     explored = get_explored_domains()
     explored_text = ", ".join(explored[-20:]) or "(אף תחום עדיין)"
 
-    prompt = f"""אתה אסף — סוכן שמחפש הזדמנויות עסקיות דיגיטליות. אתה יצירתי ופתוח-ראש,
+    prompt = f"""אתה מקס — סוכן שמחפש הזדמנויות עסקיות דיגיטליות. אתה יצירתי ופתוח-ראש,
 לא נצמד לתחום אחד. המטרה: למצוא תחומים מגוונים שבהם יש כאב אמיתי וכדאי לבדוק.
 
 תחומים שכבר נסקרו לאחרונה (השתדל להימנע מהם, אלא אם אין ברירה): {explored_text}
@@ -162,7 +162,7 @@ def run_scout(forced_domain: str | None = None) -> dict:
         for domain, snips in domain_snippets.items()
     )
 
-    prompt = f"""אתה אסף — סוכן שמחפש הזדמנויות עסקיות. הנה מה שמצאת בכמה תחומים:
+    prompt = f"""אתה מקס — סוכן שמחפש הזדמנויות עסקיות. הנה מה שמצאת בכמה תחומים:
 
 {domains_block}
 

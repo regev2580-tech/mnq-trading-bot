@@ -24,8 +24,8 @@ AGENTS = [
         "chat_url": "http://localhost:5000/api/chat",
     },
     {
-        "key": "asaf",
-        "label": "אסף (הזדמנויות עסקיות)",
+        "key": "max",
+        "label": "מקס (הזדמנויות עסקיות)",
         "status_file": ROOT / "business-scout" / "data" / "status.json",
         "url": "http://localhost:5001",
         "chat_url": "http://localhost:5001/api/chat",

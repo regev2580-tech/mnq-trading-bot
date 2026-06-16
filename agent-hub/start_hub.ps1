@@ -1,4 +1,4 @@
-# start_hub.ps1 — הפעלת Agent Hub (סטטוס כל הסוכנים + ישיבת צוות)
+﻿# start_hub.ps1 — הפעלת Agent Hub (סטטוס כל הסוכנים + ישיבת צוות)
 
 $ErrorActionPreference = "Stop"
 $ScriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
