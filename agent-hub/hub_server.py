@@ -7,15 +7,29 @@ or unmodified agent just shows as "no status file yet" instead of crashing the h
 """
 import json
 from pathlib import Path
-from flask import Flask, render_template
+
+import requests
+from flask import Flask, jsonify, render_template, request
 
 app = Flask(__name__)
 
 ROOT = Path(__file__).resolve().parent.parent
 
 AGENTS = [
-    {"key": "jimmy", "label": "Jimmy (Trading)", "status_file": ROOT / "ninjatrader-mcp" / "data" / "status.json", "url": "http://localhost:5000"},
-    {"key": "business-scout", "label": "Business Scout", "status_file": ROOT / "business-scout" / "data" / "status.json", "url": "http://localhost:5001"},
+    {
+        "key": "jimmy",
+        "label": "ג'ימי (מסחר)",
+        "status_file": ROOT / "ninjatrader-mcp" / "data" / "status.json",
+        "url": "http://localhost:5000",
+        "chat_url": "http://localhost:5000/api/chat",
+    },
+    {
+        "key": "asaf",
+        "label": "אסף (הזדמנויות עסקיות)",
+        "status_file": ROOT / "business-scout" / "data" / "status.json",
+        "url": "http://localhost:5001",
+        "chat_url": "http://localhost:5001/api/chat",
+    },
 ]
 
 
@@ -36,6 +50,43 @@ def index():
         info = load_status(agent)
         cards.append({**agent, **info})
     return render_template("index.html", cards=cards)
+
+
+@app.route("/meeting")
+def meeting():
+    return render_template("meeting.html", agents=AGENTS)
+
+
+@app.route("/api/meeting", methods=["POST"])
+def api_meeting():
+    """Round-table: each agent answers in turn, seeing what previous agents said."""
+    data = request.get_json() or {}
+    message = data.get("message", "").strip()
+    if not message:
+        return jsonify({"error": "no message"}), 400
+
+    transcript = []
+    prior_context = ""
+    for agent in AGENTS:
+        if prior_context:
+            full_msg = (
+                f"[ישיבת צוות] שאלה מהיזם: {message}\n\n"
+                f"מה שנאמר עד כה בישיבה:\n{prior_context}\n\n"
+                f"הגב לשאלה מנקודת המבט שלך. אם רלוונטי, התייחס למה שנאמר."
+            )
+        else:
+            full_msg = f"[ישיבת צוות] שאלה מהיזם: {message}\n\nהגב מנקודת המבט שלך."
+
+        try:
+            r = requests.post(agent["chat_url"], json={"message": full_msg}, timeout=60)
+            reply = r.json().get("reply", "(אין תשובה)")
+        except Exception as e:
+            reply = f"({agent['label']} לא מגיב כרגע — הדשבורד שלו לא רץ? [{e}])"
+
+        transcript.append({"label": agent["label"], "reply": reply})
+        prior_context += f"\n{agent['label']}: {reply}\n"
+
+    return jsonify({"transcript": transcript})
 
 
 if __name__ == "__main__":

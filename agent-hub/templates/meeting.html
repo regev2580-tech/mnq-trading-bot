@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>ישיבת צוות — Agent Hub</title>
+  <style>
+    body { font-family: system-ui, sans-serif; background: #0f1117; color: #eee; padding: 30px; max-width: 800px; margin: 0 auto; }
+    h1 { margin-bottom: 6px; }
+    .back { color: #7fb3ff; text-decoration: none; font-size: 13px; }
+    .roster { margin: 16px 0 24px; display: flex; gap: 8px; flex-wrap: wrap; }
+    .tag { background: #1a1d27; border: 1px solid #2a2d3a; border-radius: 14px; padding: 4px 12px; font-size: 12px; color: #9aa; }
+    textarea { width: 100%; background: #1a1d27; border: 1px solid #2a2d3a; border-radius: 8px; color: #eee; padding: 12px; font-size: 14px; resize: vertical; min-height: 70px; font-family: inherit; }
+    button { margin-top: 10px; background: #2a5fd9; border: none; color: white; border-radius: 8px; padding: 10px 20px; font-size: 14px; cursor: pointer; }
+    button:disabled { background: #2a2d3a; color: #777; }
+    .transcript { margin-top: 24px; display: flex; flex-direction: column; gap: 14px; }
+    .turn { background: #1a1d27; border: 1px solid #2a2d3a; border-radius: 10px; padding: 14px; }
+    .turn .who { font-weight: 700; margin-bottom: 6px; color: #7fb3ff; }
+    .turn .body { white-space: pre-wrap; line-height: 1.6; font-size: 13px; }
+    .you { background: #142a1c; border-color: #1f4d2e; }
+    .you .who { color: #6fdc8c; }
+  </style>
+</head>
+<body>
+  <a class="back" href="/">← חזרה ל-Hub</a>
+  <h1>🗣️ ישיבת צוות</h1>
+  <div class="roster">
+    {% for a in agents %}
+      <span class="tag">{{ a.label }}</span>
+    {% endfor %}
+  </div>
+
+  <textarea id="msg" placeholder="כתוב שאלה אחת — כל הסוכנים יגיבו בתורם, כל אחד רואה את מה שהקודם אמר..."></textarea>
+  <br>
+  <button id="send" onclick="startMeeting()">התחל ישיבה</button>
+
+  <div class="transcript" id="transcript"></div>
+
+  <script>
+    async function startMeeting() {
+      const msg = document.getElementById('msg').value.trim();
+      if (!msg) return;
+      const btn = document.getElementById('send');
+      btn.disabled = true; btn.textContent = 'הסוכנים חושבים...';
+
+      const box = document.getElementById('transcript');
+      box.innerHTML = '';
+      const youDiv = document.createElement('div');
+      youDiv.className = 'turn you';
+      youDiv.innerHTML = `<div class="who">אתה</div><div class="body">${msg}</div>`;
+      box.appendChild(youDiv);
+
+      try {
+        const r = await fetch('/api/meeting', {
+          method: 'POST',
+          headers: {'Content-Type': 'application/json'},
+          body: JSON.stringify({message: msg})
+        });
+        const d = await r.json();
+        (d.transcript || []).forEach(t => {
+          const div = document.createElement('div');
+          div.className = 'turn';
+          div.innerHTML = `<div class="who">${t.label}</div><div class="body">${t.reply}</div>`;
+          box.appendChild(div);
+        });
+      } catch (e) {
+        box.innerHTML += `<div class="turn">שגיאה: ${e}</div>`;
+      }
+      btn.disabled = false; btn.textContent = 'התחל ישיבה';
+    }
+  </script>
+</body>
+</html>
