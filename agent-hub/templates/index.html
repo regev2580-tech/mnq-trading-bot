@@ -2,34 +2,204 @@
 <html lang="he" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>Agent Hub</title>
+  <title>Agent Hub — Console</title>
   <style>
-    body { font-family: system-ui, sans-serif; background: #0f1117; color: #eee; padding: 40px; }
-    h1 { margin-bottom: 30px; }
-    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; }
-    .card { background: #1a1d27; border-radius: 12px; padding: 20px; border: 1px solid #2a2d3a; }
-    .card h2 { margin: 0 0 10px; font-size: 18px; }
-    .status { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 12px; margin-bottom: 10px; }
-    .status.running { background: #1f4d2e; color: #6fdc8c; }
-    .status.idle { background: #4d4a1f; color: #e0d56f; }
-    .status.offline, .status.error { background: #4d1f1f; color: #e07f7f; }
-    a { color: #7fb3ff; text-decoration: none; }
-    .meta { font-size: 13px; color: #999; margin-top: 8px; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #f6f7fb;
+      --panel: #ffffff;
+      --border: #e7e9f0;
+      --text: #1c1f2e;
+      --muted: #8a8fa3;
+      --accent: #4f6df5;
+      --accent-soft: #eef1ff;
+      --accent2: #8b5cf6;
+      --green: #1aa96e;
+      --green-soft: #e6f7ef;
+      --red: #e24c5c;
+      --red-soft: #fdecee;
+      --amber: #c98a17;
+    }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh; display: flex; overflow: hidden;
+    }
+
+    /* ── SIDEBAR ── */
+    .sidebar {
+      width: 250px; flex-shrink: 0;
+      background: var(--panel);
+      border-left: 1px solid var(--border);
+      display: flex; flex-direction: column; padding: 22px 0;
+      box-shadow: -1px 0 0 rgba(0,0,0,0.02);
+    }
+    .brand { padding: 0 22px 24px; display: flex; align-items: center; gap: 11px; }
+    .brand .logo {
+      width: 36px; height: 36px; border-radius: 11px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex; align-items: center; justify-content: center; font-size: 18px;
+      box-shadow: 0 6px 16px rgba(79,109,245,0.28);
+    }
+    .brand h1 { font-size: 15.5px; font-weight: 700; letter-spacing: 0.2px; color: var(--text); }
+    .brand .sub { font-size: 10.5px; color: var(--muted); margin-top: 1px; }
+
+    .nav-section { font-size: 10.5px; color: var(--muted); text-transform: uppercase;
+      padding: 18px 22px 8px; letter-spacing: 1.2px; font-weight: 700; }
+
+    .nav-item {
+      margin: 2px 12px; padding: 11px 13px; cursor: pointer; font-size: 13.5px;
+      color: #5b5f73; border-radius: 11px;
+      display: flex; align-items: center; gap: 10px;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-item:hover { background: #f1f2f8; color: var(--text); }
+    .nav-item.active { background: var(--accent-soft); color: var(--accent); font-weight: 700; }
+    .nav-item .icon { font-size: 16px; width: 20px; text-align: center; flex-shrink: 0; }
+    .nav-item .label { flex: 1; }
+
+    .dot { width: 7px; height: 7px; border-radius: 50%; background: #d4d6e2; flex-shrink: 0; }
+    .dot.running, .dot.idle, .dot.online { background: var(--green); box-shadow: 0 0 0 3px var(--green-soft); }
+    .dot.offline, .dot.error, .dot.no-status-file-yet { background: var(--red); box-shadow: 0 0 0 3px var(--red-soft); }
+
+    /* ── CONTENT ── */
+    .content { flex: 1; position: relative; overflow: hidden; background: var(--bg); }
+    .panel { position: absolute; inset: 0; display: none; opacity: 0; transition: opacity 0.18s ease; }
+    .panel.active { display: block; opacity: 1; }
+    .panel iframe { width: 100%; height: 100%; border: none; background: #fff; }
+
+    .overview { padding: 44px 50px; overflow-y: auto; height: 100%; }
+    .overview-head { margin-bottom: 30px; }
+    .overview-head h1 { font-size: 25px; font-weight: 800; margin-bottom: 6px; color: var(--text); }
+    .overview-head p { color: var(--muted); font-size: 13.5px; }
+
+    .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 18px; }
+    .card {
+      background: var(--panel);
+      border-radius: 16px; padding: 22px; border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(20,20,43,0.04);
+      transition: transform 0.15s, box-shadow 0.15s; cursor: pointer;
+    }
+    .card:hover { transform: translateY(-3px); box-shadow: 0 10px 24px rgba(20,20,43,0.08); }
+    .card-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .card h2 { font-size: 16.5px; font-weight: 700; display: flex; align-items: center; gap: 8px; color: var(--text); }
+    .status {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 4px 11px; border-radius: 20px; font-size: 11.5px; font-weight: 700;
+    }
+    .status.running, .status.idle { background: var(--green-soft); color: var(--green); }
+    .status.offline, .status.error, .status.no-status-file-yet { background: var(--red-soft); color: var(--red); }
+    .meta { font-size: 12.5px; color: var(--muted); margin-top: 6px; line-height: 1.6; }
+    .card-link { margin-top: 16px; font-size: 12.5px; color: var(--accent); font-weight: 700; }
+
+    .meeting-card {
+      margin-top: 26px; padding: 22px 24px; border-radius: 16px;
+      background: linear-gradient(120deg, #eef1ff, #f5eeff);
+      border: 1px solid #e1e4fb; cursor: pointer;
+      display: flex; align-items: center; gap: 16px;
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .meeting-card:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(79,109,245,0.12); }
+    .meeting-card .emoji {
+      font-size: 24px; width: 48px; height: 48px; border-radius: 14px;
+      background: #fff; display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 2px 8px rgba(20,20,43,0.06);
+    }
+    .meeting-card .txt h3 { font-size: 15px; margin-bottom: 3px; color: var(--text); }
+    .meeting-card .txt p { font-size: 12.5px; color: var(--muted); }
   </style>
 </head>
 <body>
-  <h1>🤖 Agent Hub</h1>
-  <p style="margin-bottom: 20px;"><a href="/meeting" style="color:#7fb3ff;">🗣️ ישיבת צוות — דבר עם כל הסוכנים בבת אחת →</a></p>
-  <div class="grid">
+
+  <div class="sidebar">
+    <div class="brand">
+      <div class="logo">🤖</div>
+      <div>
+        <h1>Agent Hub</h1>
+        <div class="sub">Operations Console</div>
+      </div>
+    </div>
+
+    <div class="nav-section">ניהול</div>
+    <div class="nav-item active" data-target="overview" onclick="showPanel('overview', this)">
+      <span class="icon">📊</span><span class="label">סקירה כללית</span>
+    </div>
+
+    <div class="nav-section">סוכנים</div>
     {% for c in cards %}
-    <div class="card">
-      <h2>{{ c.label }}</h2>
-      <span class="status {{ c.status|replace(' ', '-') }}">{{ c.status }}</span>
-      <div class="meta">פעולה אחרונה: {{ c.last_action }}</div>
-      <div class="meta">{{ c.timestamp }}</div>
-      <div style="margin-top: 12px;"><a href="{{ c.url }}" target="_blank">פתח דשבורד →</a></div>
+    <div class="nav-item" data-target="agent-{{ c.key }}" onclick="showPanel('agent-{{ c.key }}', this)">
+      <span class="icon">{{ '🎯' if c.key == 'jimmy' else '🧭' }}</span>
+      <span class="label">{{ c.label }}</span>
+      <span class="dot {{ c.status|replace(' ', '-') }}"></span>
     </div>
     {% endfor %}
+
+    <div class="nav-section">צוות</div>
+    <div class="nav-item" data-target="meeting" onclick="showPanel('meeting', this)">
+      <span class="icon">🗣️</span><span class="label">ישיבת צוות</span>
+    </div>
   </div>
+
+  <div class="content">
+    <div class="panel active" id="panel-overview">
+      <div class="overview">
+        <div class="overview-head">
+          <h1>📊 סקירה כללית</h1>
+          <p>מצב כל הסוכנים שלך, בזמן אמת</p>
+        </div>
+        <div class="grid">
+          {% for c in cards %}
+          <div class="card" onclick="showPanelByKey('agent-{{ c.key }}')">
+            <div class="card-top">
+              <h2>{{ '🎯' if c.key == 'jimmy' else '🧭' }} {{ c.label }}</h2>
+              <span class="status {{ c.status|replace(' ', '-') }}">
+                <span class="dot {{ c.status|replace(' ', '-') }}"></span>{{ c.status }}
+              </span>
+            </div>
+            <div class="meta">פעולה אחרונה: {{ c.last_action }}</div>
+            <div class="meta">{{ c.timestamp }}</div>
+            <div class="card-link">פתח כאן בלשונית →</div>
+          </div>
+          {% endfor %}
+        </div>
+
+        <div class="meeting-card" onclick="showPanelByKey('meeting')">
+          <span class="emoji">🗣️</span>
+          <div class="txt">
+            <h3>ישיבת צוות</h3>
+            <p>שאלה אחת — כל הסוכנים מגיבים בתורם, כל אחד רואה את מה שהקודם אמר</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    {% for c in cards %}
+    <div class="panel" id="panel-agent-{{ c.key }}" data-url="{{ c.url }}"></div>
+    {% endfor %}
+
+    <div class="panel" id="panel-meeting" data-url="/meeting"></div>
+  </div>
+
+  <script>
+    function showPanel(target, navEl) {
+      document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
+      navEl.classList.add('active');
+      document.querySelectorAll('.panel').forEach(el => el.classList.remove('active'));
+      const panel = document.getElementById('panel-' + target);
+      panel.classList.add('active');
+
+      if (panel.dataset.url && !panel.querySelector('iframe')) {
+        const iframe = document.createElement('iframe');
+        iframe.src = panel.dataset.url;
+        panel.appendChild(iframe);
+      }
+    }
+
+    function showPanelByKey(target) {
+      const navEl = document.querySelector('.nav-item[data-target="' + target + '"]');
+      if (navEl) showPanel(target, navEl);
+    }
+  </script>
 </body>
 </html>
