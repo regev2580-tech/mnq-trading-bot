@@ -6,7 +6,7 @@ Pure Price Action: Liquidity Sweeps, Premium/Discount, Market Structure
 import json, subprocess, statistics, sys
 from datetime import datetime, timezone, timedelta
 
-MCP_DIR = r"C:\Users\DELL\New folder\tradingview-mcp"
+MCP_DIR = r"C:\Users\regev\New folder\tradingview-mcp"
 
 def get_bars():
     r = subprocess.run(

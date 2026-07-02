@@ -6,7 +6,7 @@ Reads trade_log.json and prints full performance report
 import json, statistics
 from datetime import datetime
 
-LOG_FILE = r"C:\Users\DELL\New folder\trade_log.json"
+LOG_FILE = r"C:\Users\regev\New folder\trade_log.json"
 
 def load():
     with open(LOG_FILE, "r", encoding="utf-8") as f:

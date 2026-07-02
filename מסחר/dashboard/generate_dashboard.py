@@ -6,8 +6,8 @@
 import json, statistics, webbrowser
 from datetime import datetime
 
-LOG_FILE  = r"C:\Users\DELL\New folder\trade_log.json"
-HTML_FILE = r"C:\Users\DELL\New folder\dashboard.html"
+LOG_FILE  = r"C:\Users\regev\New folder\trade_log.json"
+HTML_FILE = r"C:\Users\regev\New folder\dashboard.html"
 
 def load():
     with open(LOG_FILE, "r", encoding="utf-8") as f:

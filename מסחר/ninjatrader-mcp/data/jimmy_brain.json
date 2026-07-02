@@ -1,0 +1,157 @@
+{
+  "lessons": [
+    {
+      "id": 1,
+      "text": "כניסה רק אחרי סגירת נר מלאה — 5 מתוך 6 ההפסדים הראשונים (T3,T7,T8,T9,T10) היו מכניסה תוך כדי בר. אפס WIN הגיע מכניסה לפני סגירה.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 2,
+      "text": "SL תמיד מעל/מתחת swing — לא בתוך liquidity zone. T4 (-47.5) הפסיד כי ה-SL היה בתוך האזור.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 3,
+      "text": "כשיש rejection ברור — SL מעל bar high, לא מעל CDH. ב-2026-06-03 פספסתי SHORT של R/R 9:1 כי חישבתי SL של 93 pts במקום 23 pts.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 4,
+      "text": "מקסימום 2 עסקאות ביום — חד משמעית. ב-EVAL1 העסקה ה-3+ (T5,T6) תמיד הפסידה. 10 עסקאות ב-2 ימים = spiral.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 5,
+      "text": "אחרי 2 הפסדים — STOP מוחלט, ללא יוצא מן הכלל. T5 (-40) ו-T6 (-42) נכנסו אחרי שכבר היו 2 הפסדים.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 6,
+      "text": "HTF חייב לאשר לפני כל כניסה. 2026-05-27 = 3 הפסדים רצופים עם orderflow score ≥3 אבל בלי אישור HTF.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 7,
+      "text": "CVD < -5,000 = אסור LONG בהחלט. CVD שלילי גרם ל-3 הפסדים (T10,T12,T13).",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 8,
+      "text": "CVD +3,000+ = Momentum Mode — אל תחכה ל-OTE/pullback עמוק. 2026-06-08 פספסתי יום שלם (+5,132 CVD) בהמתנה לדיפ שלא הגיע.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 9,
+      "text": "Capitulation אמיתית = סגירת בר מלאה עם delta > +500. T2 (2026-06-02) הפסיד כי delta היה +590 בדקה 1 אבל -4,828 בסגירה.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 10,
+      "text": "BSL sweep = reversal רק אם הבר סגר מתחת לרמה. T3 (2026-06-02) הפסיד כי המחיר עשה high חדש = breakout, לא reversal.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 11,
+      "text": "CDH retest = כניסה רק אחרי בר שסגר מעל CDH + pullback נקי. T1 (2026-06-02) נכנס לפני שהבר סגר מעל = -11.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 12,
+      "text": "אל תכבה את ClaudeStrategy — רק שנה SL/TP. כיבוי ידני (2026-05-28) עלה 265 pts שפוספסו (29,920→30,185).",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 13,
+      "text": "position.json stale (>30s) = לא נכנסים. ה-SHORT השגוי @ 30,128.5 נבע מ-data ישן.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 14,
+      "text": "SL=0 ב-NT8 = לא הוגדר = לא סוחרים. T15 (2026-06-10) שרד רק במזל; בחשבון אמיתי = -146 pts.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 15,
+      "text": "SL מבני = גבול אחד — לא יוצאים מוקדם. T1,T4 (2026-06-01) היו רווחיים אבל יציאה מוקדמת הרגה אותם.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 16,
+      "text": "הגדר trigger מחיר ליציאה לפני הכניסה. T5 (2026-06-01, +43 WIN) הצליח כי היה trigger מוגדר מראש (מתחת 30,385).",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 17,
+      "text": "אחרי WIN — חכה לסטאפ חדש, אל תחפש מיד. T2 (-28) נכנס ישר אחרי T1 בלי סטאפ.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 18,
+      "text": "KZ AM — כניסות רק 16:50–17:20, לא ב-16:30. תזמון של 2 דקות איחור (2026-06-04) הוריד R/R מ-2.72 ל-1.63.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 19,
+      "text": "Wakeup 45 שניות לפני סגירת בר קריטי. איחור של 2 דקות (17:17 במקום 17:15) פספס עסקה שלמה.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 20,
+      "text": "אחרי signal — אמת position.json תוך 30 שניות. ב-2026-06-08 ה-BUY \"executed\" אבל position נשאר flat — NT8 לא ביצע בפועל.",
+      "category": "historical_trade",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 21,
+      "text": "[PATTERN_WIN] כל הניצחונות (T1 EVAL, T5 CLAUDE, T15) שיתפו ארבעה תנאים יחד: HTF מאושר, CVD חיובי/ניטרלי, בר סגור לפני כניסה, ו-SL מבני מעל/מתחת swing. בנוסף — trigger יציאה הוגדר מראש והייתה סבלנות עד לסטאפ מלא. ה-WINS הגיעו דווקא מ-ICT sequence נקי (sweep→reversal) ולא ממרדף.",
+      "category": "meta_pattern",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 22,
+      "text": "[PATTERN_LOSS] כמעט כל ההפסדים נבעו מאחת משלוש: כניסה לפני סגירת נר (5 הפסדים), מסחר נגד CVD/momentum (3 הפסדים), ו-over-trading אחרי הפסדים (spiral). מתחת לכולם — חוסר סבלנות: כניסה מוקדמת, SL לא מבני, או רדיפה אחרי שוק במקום המתנה לסטאפ. ה-Win Rate של 23% ב-CLAUDE1 מעיד שהבעיה היא משמעת ביצו",
+      "category": "meta_pattern",
+      "date": "2026-06-16 00:30"
+    },
+    {
+      "id": 23,
+      "text": "[בוקר 2026-06-16] Macro: דולר חלש (DXY במצב ירידה) בדרך כלל תומך בעליות טכנולוגיה ו-NQ, אבל כאן הירידה מונעת מ\"safe-haven off\" בגלל החדשות על הסכם ארה\"ב-איראן — זה יכול להוביל לתנודתיות גבוהה במיוחד בפתיחה של Kill Zone, שימו לב לאם הרצון לקנות NQ הוא אורגני (growth rotation) או רק flight-to-risk.",
+      "category": "morning_research",
+      "date": "2026-06-16 09:00"
+    },
+    {
+      "id": 24,
+      "text": "[ICT] בזמן Kill Zone של NQ (9:30-10:30 ET), חפש CVD Divergence כאשר המחיר עושה Higher High אבל CVD לא מאשר (Lower High או stall) — זה אות שהאגרסיביות של הקונים נחלשת והחיזוי הוא pullback לכיוון Liquidation Clusters או Support קרוב, עם Stop מעבר ה-Recent Extreme.",
+      "category": "ict_research",
+      "date": "2026-06-16 09:00"
+    }
+  ],
+  "rules_override": [],
+  "trade_notes": [
+    {
+      "date": "2026-06-16 00:30",
+      "summary": "היסטוריה מלאה נטענה — EVAL1 + LUCID2 + CLAUDE1 | 20+ עסקאות",
+      "rules": "28 כללי ברזל נלמדו"
+    }
+  ],
+  "updated_at": "2026-06-16 09:00"
+}

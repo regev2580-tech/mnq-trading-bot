@@ -24,7 +24,7 @@ import time as _time
 from datetime import datetime, timezone, timedelta
 from collections import defaultdict
 
-MCP_DIR = r"C:\Users\DELL\New folder\tradingview-mcp"
+MCP_DIR = r"C:\Users\regev\New folder\tradingview-mcp"
 
 # ─── CONFIG ───────────────────────────────────────────────
 RISK_R          = 1.0          # R per trade (normalised)

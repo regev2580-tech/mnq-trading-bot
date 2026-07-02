@@ -44,10 +44,14 @@ secrets.json
 config.local.json
 
 # NinjaTrader data output (runtime files)
-mcp-servers/ninjatrader-mcp/data/*.json
 ninjatrader-mcp/data/*.json
 !ninjatrader-mcp/data/jimmy_brain.json
 !ninjatrader-mcp/data/trade_journal.json
+מסחר/ninjatrader-mcp/data/*.json
+!מסחר/ninjatrader-mcp/data/jimmy_brain.json
+!מסחר/ninjatrader-mcp/data/trade_journal.json
+ninjatrader-mcp/data/screenshots/
+מסחר/ninjatrader-mcp/data/screenshots/
 
 # MCP test logs
 docs/mcp_test*.txt
@@ -56,6 +60,9 @@ docs/mcp_test*.txt
 .claude/settings.local.json
 .claude/scheduled_tasks.lock
 
-mcp-servers/tradingview-mcp/node_modules/
-mcp-servers/ninjatrader-mcp/node_modules/
+מסחר/mcp-servers/tradingview-mcp/node_modules/
+מסחר/ninjatrader-mcp/node_modules/
 
+
+# launcher bats with embedded API keys — never commit
+*הפעל את גימי*.bat

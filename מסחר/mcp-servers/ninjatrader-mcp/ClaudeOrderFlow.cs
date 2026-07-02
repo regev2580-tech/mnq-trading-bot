@@ -19,7 +19,7 @@ namespace NinjaTrader.NinjaScript.Indicators
 {
     public class ClaudeOrderFlow : Indicator
     {
-        private const string OUTPUT_PATH = @"C:\Users\DELL\New folder\ninjatrader-mcp\data\orderflow.json";
+        private const string OUTPUT_PATH = @"C:\Users\regev\New folder\ninjatrader-mcp\data\orderflow.json";
         private const double IMBALANCE_RATIO = 3.0;   // 300% = stacked imbalance
         private const int BARS_TO_EXPORT    = 10;
         private const int CVD_LOOKBACK      = 20;

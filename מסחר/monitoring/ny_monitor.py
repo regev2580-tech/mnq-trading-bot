@@ -6,7 +6,7 @@ Monitors price at 16:30 Israel time (13:30 UTC) and identifies first setup
 import json, subprocess, time, sys
 from datetime import datetime, timezone, timedelta
 
-MCP_DIR = r"C:\Users\DELL\New folder\tradingview-mcp"
+MCP_DIR = r"C:\Users\regev\New folder\tradingview-mcp"
 
 def get_quote():
     r = subprocess.run(

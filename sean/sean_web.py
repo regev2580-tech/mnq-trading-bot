@@ -17,8 +17,22 @@ DATA_DIR = BASE_DIR / "data"
 DATA_DIR.mkdir(exist_ok=True)
 STATUS_FILE = DATA_DIR / "status.json"
 
-SUPABASE_URL = os.environ.get("SUPABASE_URL", "")
-SUPABASE_ANON_KEY = os.environ.get("SUPABASE_ANON_KEY", "")
+# טעינת Supabase credentials — מenv vars או מ-.env של beautyai
+def _load_env():
+    url = os.environ.get("SUPABASE_URL", "")
+    key = os.environ.get("SUPABASE_ANON_KEY", "")
+    if not url or not key:
+        env_path = BASE_DIR.parent / "beautyai" / ".env"
+        if env_path.exists():
+            for line in env_path.read_text(encoding="utf-8").splitlines():
+                if line.startswith("SUPABASE_URL=") and not url:
+                    url = line.split("=", 1)[1].strip()
+                elif line.startswith("SUPABASE_ANON_KEY=") and not key:
+                    key = line.split("=", 1)[1].strip()
+    return url, key
+
+SUPABASE_URL, SUPABASE_ANON_KEY = _load_env()
+BEAUTYAI_URL = "http://localhost:3000"
 
 app = Flask(__name__)
 app.config["JSON_ENSURE_ASCII"] = False
@@ -47,11 +61,35 @@ def sb_get(table, params=None):
         return []
 
 
+def get_whatsapp_status():
+    """סטטוס חיבור הוואטסאפ הגלובלי של המערכת (instance אחד משותף לכל הקליניקות, ראה הערה ב-README)."""
+    try:
+        r = requests.get(f"{BEAUTYAI_URL}/api/whatsapp/status", timeout=5)
+        return bool(r.json().get("connected")) if r.ok else False
+    except Exception:
+        return False
+
+
 def fetch_all():
     businesses = sb_get("businesses", {
-        "select": "id,name,owner_name,owner_phone,whatsapp_number,active,created_at",
+        "select": "id,name,owner_name,owner_phone,whatsapp_number,active,created_at,google_refresh_token,working_hours",
         "order": "created_at.desc",
     })
+    treatments = sb_get("treatments", {"select": "id,business_id,name,duration_min,price,description,active"})
+    treatments_per_biz: dict[str, int] = {}
+    for t in (treatments or []):
+        if t.get("active", True):
+            bid = t.get("business_id")
+            treatments_per_biz[bid] = treatments_per_biz.get(bid, 0) + 1
+
+    whatsapp_connected = get_whatsapp_status()
+
+    for b in (businesses or []):
+        b["calendar_connected"] = bool(b.get("google_refresh_token"))
+        b.pop("google_refresh_token", None)  # לא חושפים את הטוקן עצמו לדפדפן
+        b["treatments_count"] = treatments_per_biz.get(b.get("id"), 0)
+        b["whatsapp_connected"] = whatsapp_connected  # גלובלי כרגע — לא per-clinic
+
     unanswered = sb_get("unanswered_questions", {
         "select": "id,question,client_phone,created_at,answered,business_id",
         "answered": "eq.false",
@@ -97,6 +135,7 @@ def fetch_all():
 
     return {
         "businesses": businesses or [],
+        "treatments": treatments or [],
         "unanswered": unanswered or [],
         "appointments": appointments or [],
         "knowledge": knowledge or [],
@@ -178,41 +217,45 @@ DASHBOARD_HTML = r"""<!DOCTYPE html>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>שון — BeautyAI Manager</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;600;700;800&family=Frank+Ruhl+Libre:wght@700&display=swap" rel="stylesheet">
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{background:#f6f7fb;color:#1c1f2e;font-family:'Segoe UI',sans-serif;height:100vh;display:flex;flex-direction:column;font-size:13px}
-.header{background:#fff;border-bottom:1px solid #e7e9f0;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
-.header h1{font-size:17px;font-weight:700}.header h1 span{color:#e8608a}
-.badge{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;background:#fdeef4;color:#e8608a}
-.tabs{display:flex;gap:0;background:#fff;border-bottom:1px solid #e7e9f0;padding:0 18px;flex-shrink:0}
+body{background:#faf8f6;color:#241a26;font-family:'Heebo',sans-serif;height:100vh;display:flex;flex-direction:column;font-size:13px}
+h1{font-family:'Frank Ruhl Libre',serif}
+.header{background:#fff;border-bottom:1px solid #ece7ea;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.header h1{font-size:17px;font-weight:700}.header h1 span{color:#d6456f}
+.badge{padding:4px 11px;border-radius:20px;font-size:11px;font-weight:600;background:#fbeff3;color:#d6456f}
+.tabs{display:flex;gap:0;background:#fff;border-bottom:1px solid #ece7ea;padding:0 18px;flex-shrink:0}
 .tab{padding:10px 16px;cursor:pointer;border-bottom:2px solid transparent;font-size:12px;font-weight:600;color:#8a8fa3;transition:.15s;white-space:nowrap}
-.tab.active{color:#e8608a;border-bottom-color:#e8608a}
+.tab.active{color:#d6456f;border-bottom-color:#d6456f}
 .tab:hover{color:#1c1f2e}
-.tab .cnt{background:#e8608a;color:#fff;border-radius:10px;padding:1px 6px;font-size:10px;margin-right:5px}
+.tab .cnt{background:#d6456f;color:#fff;border-radius:10px;padding:1px 6px;font-size:10px;margin-right:5px}
 .body{flex:1;overflow:hidden;display:flex;flex-direction:column}
 .panel{display:none;flex:1;overflow-y:auto;padding:16px}
 .panel.active{display:flex;flex-direction:column;gap:12px}
 /* Stats row */
 .stats{display:flex;gap:10px;flex-wrap:wrap}
-.stat-card{background:#fff;border:1px solid #e7e9f0;border-radius:10px;padding:14px 18px;flex:1;min-width:130px}
-.stat-card .num{font-size:28px;font-weight:700;color:#e8608a}
+.stat-card{background:#fff;border:1px solid #ece7ea;border-radius:10px;padding:14px 18px;flex:1;min-width:130px}
+.stat-card .num{font-size:28px;font-weight:700;color:#d6456f}
 .stat-card .lbl{font-size:11px;color:#8a8fa3;margin-top:2px}
 /* Cards grid */
 .cards{display:flex;flex-wrap:wrap;gap:10px}
-.biz-card{background:#fff;border:1px solid #e7e9f0;border-radius:10px;padding:14px;width:260px}
+.biz-card{background:#fff;border:1px solid #ece7ea;border-radius:10px;padding:14px;width:260px}
 .biz-card .biz-name{font-weight:700;font-size:14px;margin-bottom:6px}
 .biz-card .biz-row{display:flex;justify-content:space-between;color:#5b5f73;font-size:11px;margin-top:3px}
 .active-dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#22c55e;margin-left:5px}
 .inactive-dot{background:#d1d5db}
 /* Table */
-table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e7e9f0}
-th{background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #e7e9f0}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #ece7ea}
+th{background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #ece7ea}
 td{padding:9px 12px;border-bottom:1px solid #f1f2f8;font-size:12px;color:#1c1f2e}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:#fdf8fa}
 .q-text{max-width:260px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .pill{display:inline-block;padding:2px 8px;border-radius:10px;font-size:10px;font-weight:600}
-.pill.open{background:#fdeef4;color:#e8608a}
+.pill.open{background:#fbeff3;color:#d6456f}
 .pill.done{background:#dcfce7;color:#16a34a}
 .pill.confirmed{background:#dbeafe;color:#1d4ed8}
 .pill.pending{background:#fef9c3;color:#a16207}
@@ -220,23 +263,38 @@ tr:hover td{background:#fdf8fa}
 .chat-wrap{flex:1;display:flex;flex-direction:column;overflow:hidden}
 .chat-messages{flex:1;overflow-y:auto;display:flex;flex-direction:column;gap:8px;padding-bottom:8px}
 .msg{max-width:76%;padding:9px 13px;border-radius:13px;font-size:13px;line-height:1.6;white-space:pre-wrap}
-.msg.user{background:#e8608a;color:#fff;align-self:flex-end;border-radius:13px 13px 3px 13px}
-.msg.sean{background:#fff;border:1px solid #e7e9f0;align-self:flex-start;border-radius:13px 13px 13px 3px;color:#1c1f2e}
-.msg.sean .who{font-size:10px;color:#e8608a;font-weight:700;margin-bottom:3px}
+.msg.user{background:#d6456f;color:#fff;align-self:flex-end;border-radius:13px 13px 3px 13px}
+.msg.sean{background:#fff;border:1px solid #ece7ea;align-self:flex-start;border-radius:13px 13px 13px 3px;color:#1c1f2e}
+.msg.sean .who{font-size:10px;color:#d6456f;font-weight:700;margin-bottom:3px}
 .chat-input-row{padding:10px 0 0;display:flex;gap:8px;flex-shrink:0}
-.chat-input{flex:1;background:#fff;border:1px solid #e7e9f0;border-radius:8px;color:#1c1f2e;padding:9px 12px;font-size:13px;outline:none;resize:none;font-family:inherit}
-.send-btn{background:#e8608a;border:none;color:#fff;border-radius:8px;padding:9px 18px;cursor:pointer;font-weight:700;font-size:13px}
-.send-btn:hover{background:#d44a74}
+.chat-input{flex:1;background:#fff;border:1px solid #ece7ea;border-radius:8px;color:#1c1f2e;padding:9px 12px;font-size:13px;outline:none;resize:none;font-family:inherit}
+.send-btn{background:#d6456f;border:none;color:#fff;border-radius:8px;padding:9px 18px;cursor:pointer;font-weight:700;font-size:13px}
+.send-btn:hover{background:#b23458}
 .quick-btns{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:8px}
-.qbtn{background:#fff;border:1px solid #e7e9f0;color:#5b5f73;border-radius:14px;padding:4px 10px;font-size:11px;cursor:pointer}
-.qbtn:hover{background:#fdeef4;color:#e8608a;border-color:#e8608a}
+.qbtn{background:#fff;border:1px solid #ece7ea;color:#5b5f73;border-radius:14px;padding:4px 10px;font-size:11px;cursor:pointer}
+.qbtn:hover{background:#fbeff3;color:#d6456f;border-color:#d6456f}
 .section-title{font-size:11px;font-weight:700;color:#8a8fa3;text-transform:uppercase;letter-spacing:.5px;margin-bottom:6px}
 .empty{color:#8a8fa3;font-size:12px;text-align:center;padding:24px}
+.biz-card{cursor:pointer;transition:.15s}
+.biz-card:hover{border-color:#d6456f;box-shadow:0 2px 8px rgba(232,96,138,.12)}
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(28,31,46,.45);z-index:50;align-items:center;justify-content:center}
+.modal-overlay.active{display:flex}
+.modal-box{background:#fff;border-radius:14px;width:420px;max-width:92vw;max-height:86vh;overflow-y:auto;padding:20px}
+.modal-box h2{font-size:16px;margin-bottom:14px;display:flex;align-items:center;gap:8px}
+.modal-close{cursor:pointer;color:#8a8fa3;font-size:18px;margin-right:auto}
+.check-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #f1f2f8;font-size:13px}
+.check-row:last-child{border-bottom:none}
+.check-row .lbl{color:#5b5f73}
+.status-ok{color:#16a34a;font-weight:700;font-size:12px}
+.status-bad{color:#d6456f;font-weight:700;font-size:12px}
+.modal-link{display:inline-block;margin-top:4px;background:#d6456f;color:#fff;text-decoration:none;border-radius:7px;padding:5px 12px;font-size:11px;font-weight:600}
+.modal-link.secondary{background:#fff;color:#5b5f73;border:1px solid #ece7ea}
+.modal-section-title{font-size:11px;font-weight:700;color:#8a8fa3;text-transform:uppercase;letter-spacing:.5px;margin:16px 0 4px}
 </style>
 </head>
 <body>
 <div class="header">
-  <h1>💄 <span>שון</span> — מפקח BeautyAI</h1>
+  <h1><span>שון</span> · BeautyAI Manager</h1>
   <span class="badge" id="badge">טוען...</span>
 </div>
 <div class="tabs">
@@ -254,7 +312,7 @@ tr:hover td{background:#fdf8fa}
 <div class="panel active" id="panel-overview">
   <div class="stats" id="stats-row">
     <div class="stat-card"><div class="num" id="s-biz">—</div><div class="lbl">קליניקות רשומות</div></div>
-    <div class="stat-card"><div class="num" id="s-open" style="color:#e8608a">—</div><div class="lbl">שאלות פתוחות</div></div>
+    <div class="stat-card"><div class="num" id="s-open" style="color:#d6456f">—</div><div class="lbl">שאלות פתוחות</div></div>
     <div class="stat-card"><div class="num" id="s-appt" style="color:#1d4ed8">—</div><div class="lbl">תורים</div></div>
     <div class="stat-card"><div class="num" id="s-conv" style="color:#16a34a">—</div><div class="lbl">שיחות</div></div>
   </div>
@@ -308,23 +366,23 @@ tr:hover td{background:#fdf8fa}
 <div class="panel" id="panel-teach">
   <div style="display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start">
     <!-- Add new -->
-    <div style="background:#fff;border:1px solid #e7e9f0;border-radius:10px;padding:16px;width:340px;flex-shrink:0">
+    <div style="background:#fff;border:1px solid #ece7ea;border-radius:10px;padding:16px;width:340px;flex-shrink:0">
       <div class="section-title" style="margin-bottom:10px">הוסף ידע חדש לקליניקה</div>
       <div style="margin-bottom:8px">
         <label style="font-size:11px;color:#8a8fa3;display:block;margin-bottom:3px">קליניקה</label>
-        <select id="teach-biz" style="width:100%;border:1px solid #e7e9f0;border-radius:6px;padding:7px 10px;font-size:13px;background:#fafbfd;color:#1c1f2e;outline:none">
+        <select id="teach-biz" style="width:100%;border:1px solid #ece7ea;border-radius:6px;padding:7px 10px;font-size:13px;background:#fafbfd;color:#1c1f2e;outline:none">
           <option value="">— בחר קליניקה —</option>
         </select>
       </div>
       <div style="margin-bottom:8px">
         <label style="font-size:11px;color:#8a8fa3;display:block;margin-bottom:3px">שאלה</label>
-        <input id="teach-q" type="text" placeholder="מה שעות הפתיחה?" style="width:100%;border:1px solid #e7e9f0;border-radius:6px;padding:7px 10px;font-size:13px;background:#fafbfd;color:#1c1f2e;outline:none">
+        <input id="teach-q" type="text" placeholder="מה שעות הפתיחה?" style="width:100%;border:1px solid #ece7ea;border-radius:6px;padding:7px 10px;font-size:13px;background:#fafbfd;color:#1c1f2e;outline:none">
       </div>
       <div style="margin-bottom:10px">
         <label style="font-size:11px;color:#8a8fa3;display:block;margin-bottom:3px">תשובה</label>
-        <textarea id="teach-a" rows="3" placeholder="אנחנו פתוחות א׳-ה׳ 09:00-20:00, שישי 09:00-14:00." style="width:100%;border:1px solid #e7e9f0;border-radius:6px;padding:7px 10px;font-size:13px;background:#fafbfd;color:#1c1f2e;outline:none;resize:vertical;font-family:inherit"></textarea>
+        <textarea id="teach-a" rows="3" placeholder="אנחנו פתוחות א׳-ה׳ 09:00-20:00, שישי 09:00-14:00." style="width:100%;border:1px solid #ece7ea;border-radius:6px;padding:7px 10px;font-size:13px;background:#fafbfd;color:#1c1f2e;outline:none;resize:vertical;font-family:inherit"></textarea>
       </div>
-      <button onclick="addKnowledge()" style="background:#e8608a;color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;width:100%">+ הוסף לבוט</button>
+      <button onclick="addKnowledge()" style="background:#d6456f;color:#fff;border:none;border-radius:8px;padding:9px 20px;font-size:13px;font-weight:700;cursor:pointer;width:100%">+ הוסף לבוט</button>
       <div id="teach-msg" style="margin-top:8px;font-size:12px;text-align:center;min-height:18px"></div>
     </div>
     <!-- Table -->
@@ -332,17 +390,17 @@ tr:hover td{background:#fdf8fa}
       <div class="section-title" style="margin-bottom:6px">ידע קיים — ניתן לעריכה ומחיקה</div>
       <div style="margin-bottom:8px;display:flex;gap:8px;align-items:center">
         <label style="font-size:11px;color:#8a8fa3">סנן לפי קליניקה:</label>
-        <select id="teach-filter" onchange="filterKnowledge()" style="border:1px solid #e7e9f0;border-radius:6px;padding:5px 8px;font-size:12px;background:#fafbfd;color:#1c1f2e;outline:none">
+        <select id="teach-filter" onchange="filterKnowledge()" style="border:1px solid #ece7ea;border-radius:6px;padding:5px 8px;font-size:12px;background:#fafbfd;color:#1c1f2e;outline:none">
           <option value="">כולן</option>
         </select>
       </div>
-      <table id="teach-table" style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #e7e9f0">
+      <table id="teach-table" style="width:100%;border-collapse:collapse;background:#fff;border-radius:10px;overflow:hidden;border:1px solid #ece7ea">
         <thead><tr>
-          <th style="background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #e7e9f0">קליניקה</th>
-          <th style="background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #e7e9f0">שאלה</th>
-          <th style="background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #e7e9f0">תשובה</th>
-          <th style="background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #e7e9f0">מקור</th>
-          <th style="background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #e7e9f0"></th>
+          <th style="background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #ece7ea">קליניקה</th>
+          <th style="background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #ece7ea">שאלה</th>
+          <th style="background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #ece7ea">תשובה</th>
+          <th style="background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #ece7ea">מקור</th>
+          <th style="background:#f9fafb;padding:9px 12px;text-align:right;font-size:11px;color:#8a8fa3;font-weight:600;border-bottom:1px solid #ece7ea"></th>
         </tr></thead>
         <tbody id="teach-tbody"></tbody>
       </table>
@@ -370,6 +428,11 @@ tr:hover td{background:#fdf8fa}
   </div>
 </div>
 
+</div>
+
+<!-- CLINIC DETAIL MODAL -->
+<div class="modal-overlay" id="clinic-modal" onclick="if(event.target===this) closeClinicModal()">
+  <div class="modal-box" id="clinic-modal-box"></div>
 </div>
 
 <script>
@@ -457,13 +520,158 @@ function bizCard(b, convMap) {
   const active = b.active;
   const convs = convMap ? (convMap[b.id] || 0) : 0;
   const since = b.created_at ? new Date(b.created_at).toLocaleDateString('he-IL') : '?';
-  return `<div class="biz-card">
+  return `<div class="biz-card" onclick="openClinicModal('${b.id}')">
     <div class="biz-name"><span class="${active?'active-dot':'inactive-dot'}"></span>${b.name||'?'}</div>
     <div class="biz-row"><span>בעלים:</span><span>${b.owner_name||'?'}</span></div>
     <div class="biz-row"><span>וואטסאפ:</span><span>${b.whatsapp_number||'?'}</span></div>
     <div class="biz-row"><span>שיחות:</span><span>${convs}</span></div>
     <div class="biz-row"><span>נרשם:</span><span>${since}</span></div>
   </div>`;
+}
+
+let clinicModalEditing = false;
+
+function beautyaiBase() {
+  return `${location.protocol}//${location.hostname}:3000`;
+}
+
+function openClinicModal(bizId) {
+  clinicModalEditing = false;
+  renderClinicModal(bizId);
+  document.getElementById('clinic-modal').classList.add('active');
+}
+
+function closeClinicModal() {
+  document.getElementById('clinic-modal').classList.remove('active');
+}
+
+function renderClinicModal(bizId) {
+  const b = (allData.businesses || []).find(x => x.id === bizId);
+  if (!b) return;
+  const convs = (allData.conv_per_biz || {})[bizId] || 0;
+  const openQ = (allData.unanswered || []).filter(u => u.business_id === bizId).length;
+  const appts = (allData.appointments || []).filter(a => a.business_id === bizId).length;
+  const know = (allData.knowledge || []).filter(k => k.business_id === bizId).length;
+  const treats = (allData.treatments || []).filter(t => t.business_id === bizId);
+  const since = b.created_at ? new Date(b.created_at).toLocaleDateString('he-IL') : '?';
+  const wh = b.working_hours || {start:'09:00', end:'19:00'};
+
+  const calRow = b.calendar_connected
+    ? `<span class="status-ok">✅ מחובר</span>`
+    : `<div><span class="status-bad">❌ לא מחובר</span><br>
+        <a class="modal-link" href="${beautyaiBase()}/auth/google?businessId=${b.id}" target="_blank">חברי יומן גוגל</a></div>`;
+
+  const waRow = b.whatsapp_connected
+    ? `<span class="status-ok">✅ מחובר (גלובלי)</span>`
+    : `<div><span class="status-bad">❌ לא מחובר</span><br>
+        <a class="modal-link" href="${beautyaiBase()}/register.html?businessId=${b.id}&step=4" target="_blank">חברי / חברי מחדש וואטסאפ</a></div>`;
+
+  const detailsBlock = clinicModalEditing ? `
+    <div class="check-row"><span class="lbl">שם קליניקה</span><input id="ed-name" value="${b.name||''}" style="width:55%;border:1px solid #ece7ea;border-radius:6px;padding:4px 8px;font-size:12px"></div>
+    <div class="check-row"><span class="lbl">בעלים</span><input id="ed-owner_name" value="${b.owner_name||''}" style="width:55%;border:1px solid #ece7ea;border-radius:6px;padding:4px 8px;font-size:12px"></div>
+    <div class="check-row"><span class="lbl">טלפון בעלים</span><input id="ed-owner_phone" value="${b.owner_phone||''}" style="width:55%;border:1px solid #ece7ea;border-radius:6px;padding:4px 8px;font-size:12px"></div>
+    <div class="check-row"><span class="lbl">מספר וואטסאפ</span><input id="ed-whatsapp_number" value="${b.whatsapp_number||''}" style="width:55%;border:1px solid #ece7ea;border-radius:6px;padding:4px 8px;font-size:12px"></div>
+    <div class="check-row"><span class="lbl">שעות פעילות</span>
+      <span><input id="ed-wh-start" value="${wh.start||'09:00'}" style="width:60px;border:1px solid #ece7ea;border-radius:6px;padding:4px 6px;font-size:12px">–
+      <input id="ed-wh-end" value="${wh.end||'19:00'}" style="width:60px;border:1px solid #ece7ea;border-radius:6px;padding:4px 6px;font-size:12px"></span></div>
+    <div class="check-row"><span class="lbl">פעיל</span><input id="ed-active" type="checkbox" ${b.active?'checked':''}></div>
+    <div style="display:flex;gap:8px;margin-top:8px">
+      <button class="modal-link" style="border:none" onclick="saveClinicEdit('${b.id}')">שמור</button>
+      <button class="modal-link secondary" onclick="clinicModalEditing=false;renderClinicModal('${b.id}')">ביטול</button>
+    </div>
+  ` : `
+    <div class="check-row"><span class="lbl">בעלים</span><span>${b.owner_name||'?'}</span></div>
+    <div class="check-row"><span class="lbl">טלפון בעלים</span><span>${b.owner_phone||'—'}</span></div>
+    <div class="check-row"><span class="lbl">מספר וואטסאפ</span><span>${b.whatsapp_number||'?'}</span></div>
+    <div class="check-row"><span class="lbl">שעות פעילות</span><span>${wh.start||'?'}–${wh.end||'?'}</span></div>
+    <div class="check-row"><span class="lbl">נרשם בתאריך</span><span>${since}</span></div>
+    <button class="modal-link secondary" style="margin-top:6px" onclick="clinicModalEditing=true;renderClinicModal('${b.id}')">✏️ ערוך פרטים</button>
+  `;
+
+  const treatsRows = treats.map(t => `
+    <div class="check-row" id="tr-${t.id}">
+      <span class="lbl" contenteditable="true" id="trn-${t.id}" onblur="saveTreatmentEdit('${t.id}','${bizId}')" style="outline:none">${t.name||''}</span>
+      <span style="display:flex;gap:6px;align-items:center">
+        <span contenteditable="true" id="trd-${t.id}" onblur="saveTreatmentEdit('${t.id}','${bizId}')" style="outline:none;width:40px;display:inline-block">${t.duration_min||60}</span>ד׳
+        <span contenteditable="true" id="trp-${t.id}" onblur="saveTreatmentEdit('${t.id}','${bizId}')" style="outline:none;width:45px;display:inline-block">${t.price||0}</span>₪
+        <span onclick="deleteTreatment('${t.id}','${bizId}')" style="cursor:pointer;color:#d6456f">🗑</span>
+      </span>
+    </div>`).join('') || `<div class="check-row"><span class="lbl status-bad">⚠️ אין טיפולים מוגדרים</span></div>`;
+
+  document.getElementById('clinic-modal-box').innerHTML = `
+    <h2><span class="${b.active?'active-dot':'inactive-dot'}"></span>${b.name||'?'} <span class="modal-close" onclick="closeClinicModal()">✕</span></h2>
+    ${detailsBlock}
+
+    <div class="modal-section-title">חיבורים</div>
+    <div class="check-row"><span class="lbl">וואטסאפ</span>${waRow}</div>
+    <div class="check-row"><span class="lbl">יומן גוגל</span>${calRow}</div>
+
+    <div class="modal-section-title">פעילות</div>
+    <div class="check-row"><span class="lbl">שיחות פעילות</span><span>${convs}</span></div>
+    <div class="check-row"><span class="lbl">תורים</span><span>${appts}</span></div>
+    <div class="check-row"><span class="lbl">פריטי ידע</span><span>${know}</span></div>
+    <div class="check-row"><span class="lbl">שאלות פתוחות</span><span>${openQ>0?`<span class="status-bad">${openQ}</span>`:'0'}</span></div>
+
+    <div class="modal-section-title">טיפולים (${treats.length})</div>
+    ${treatsRows}
+    <div style="display:flex;gap:6px;margin-top:8px">
+      <input id="nt-name-${bizId}" placeholder="שם טיפול" style="flex:1;border:1px solid #ece7ea;border-radius:6px;padding:5px 8px;font-size:12px">
+      <input id="nt-dur-${bizId}" placeholder="דק'" style="width:48px;border:1px solid #ece7ea;border-radius:6px;padding:5px 6px;font-size:12px">
+      <input id="nt-price-${bizId}" placeholder="₪" style="width:48px;border:1px solid #ece7ea;border-radius:6px;padding:5px 6px;font-size:12px">
+      <button class="modal-link" style="border:none" onclick="addTreatmentFromModal('${bizId}')">+ הוסף</button>
+    </div>
+  `;
+}
+
+async function saveClinicEdit(bizId) {
+  const payload = {
+    name: document.getElementById('ed-name').value.trim(),
+    owner_name: document.getElementById('ed-owner_name').value.trim(),
+    owner_phone: document.getElementById('ed-owner_phone').value.trim(),
+    whatsapp_number: document.getElementById('ed-whatsapp_number').value.trim(),
+    working_hours_start: document.getElementById('ed-wh-start').value.trim(),
+    working_hours_end: document.getElementById('ed-wh-end').value.trim(),
+    active: document.getElementById('ed-active').checked,
+  };
+  try {
+    await fetch('/api/business/' + bizId, {method:'PUT', headers:{'Content-Type':'application/json'}, body: JSON.stringify(payload)});
+    clinicModalEditing = false;
+    await loadData();
+    renderClinicModal(bizId);
+  } catch(e) { alert('שגיאת שמירה'); }
+}
+
+async function addTreatmentFromModal(bizId) {
+  const name = document.getElementById('nt-name-'+bizId).value.trim();
+  const duration_min = document.getElementById('nt-dur-'+bizId).value.trim();
+  const price = document.getElementById('nt-price-'+bizId).value.trim();
+  if (!name) return;
+  try {
+    await fetch('/api/treatments', {method:'POST', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({business_id: bizId, name, duration_min, price})});
+    await loadData();
+    renderClinicModal(bizId);
+  } catch(e) {}
+}
+
+async function saveTreatmentEdit(id, bizId) {
+  const name = document.getElementById('trn-'+id)?.textContent.trim();
+  const duration_min = document.getElementById('trd-'+id)?.textContent.trim();
+  const price = document.getElementById('trp-'+id)?.textContent.trim();
+  try {
+    await fetch('/api/treatments/'+id, {method:'PUT', headers:{'Content-Type':'application/json'},
+      body: JSON.stringify({name, duration_min: parseInt(duration_min)||60, price: parseInt(price)||0})});
+    await loadData();
+  } catch(e) {}
+}
+
+async function deleteTreatment(id, bizId) {
+  if (!confirm('למחוק טיפול זה?')) return;
+  try {
+    await fetch('/api/treatments/'+id, {method:'DELETE'});
+    await loadData();
+    renderClinicModal(bizId);
+  } catch(e) {}
 }
 
 async function loadData() {
@@ -561,7 +769,7 @@ async function addKnowledge() {
   const q = document.getElementById('teach-q').value.trim();
   const a = document.getElementById('teach-a').value.trim();
   const msg = document.getElementById('teach-msg');
-  if(!biz || !q || !a) { msg.style.color='#e8608a'; msg.textContent='חסרים שדות'; return; }
+  if(!biz || !q || !a) { msg.style.color='#d6456f'; msg.textContent='חסרים שדות'; return; }
   msg.style.color='#8a8fa3'; msg.textContent='שומר...';
   try {
     const r = await fetch('/api/knowledge',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({business_id:biz,question:q,answer:a})});
@@ -571,8 +779,8 @@ async function addKnowledge() {
       document.getElementById('teach-q').value='';
       document.getElementById('teach-a').value='';
       loadData();
-    } else { msg.style.color='#e8608a'; msg.textContent='❌ '+JSON.stringify(d.error); }
-  } catch(e){ msg.style.color='#e8608a'; msg.textContent='❌ שגיאת רשת'; }
+    } else { msg.style.color='#d6456f'; msg.textContent='❌ '+JSON.stringify(d.error); }
+  } catch(e){ msg.style.color='#d6456f'; msg.textContent='❌ שגיאת רשת'; }
 }
 
 async function saveEdit(id) {
@@ -714,6 +922,100 @@ def api_businesses():
     """רשימת קליניקות בלבד — לטופס הוספת ידע."""
     biz = sb_get("businesses", {"select": "id,name", "order": "name.asc"})
     return jsonify(biz or [])
+
+
+# ── Business edit ────────────────────────────────────────────────────────────
+
+@app.route("/api/business/<biz_id>", methods=["PUT"])
+def api_business_edit(biz_id):
+    """עריכת פרטי קליניקה מהדשבורד הניהולי."""
+    body = request.get_json() or {}
+    allowed = ("name", "owner_name", "owner_phone", "whatsapp_number", "active")
+    patch = {k: body[k] for k in allowed if k in body}
+    if "working_hours_start" in body or "working_hours_end" in body:
+        patch["working_hours"] = {
+            "start": body.get("working_hours_start", "09:00"),
+            "end": body.get("working_hours_end", "19:00"),
+        }
+    if not patch:
+        return jsonify({"error": "אין מה לעדכן"}), 400
+    try:
+        r = requests.patch(
+            f"{SUPABASE_URL}/rest/v1/businesses",
+            headers={**sb_headers(), "Prefer": "return=representation"},
+            params={"id": f"eq.{biz_id}"},
+            json=patch,
+            timeout=10,
+        )
+        write_status(f"עודכנו פרטי קליניקה {biz_id[:8]}")
+        return jsonify({"ok": r.ok, "status": r.status_code})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+# ── Treatments CRUD ───────────────────────────────────────────────────────────
+
+@app.route("/api/treatments", methods=["POST"])
+def api_treatment_add():
+    body = request.get_json() or {}
+    business_id = body.get("business_id", "").strip()
+    name = body.get("name", "").strip()
+    if not business_id or not name:
+        return jsonify({"error": "חסרים שדות"}), 400
+    try:
+        r = requests.post(
+            f"{SUPABASE_URL}/rest/v1/treatments",
+            headers={**sb_headers(), "Prefer": "return=representation"},
+            json={
+                "business_id": business_id,
+                "name": name,
+                "duration_min": int(body.get("duration_min") or 60),
+                "price": int(body.get("price") or 0),
+                "description": body.get("description") or None,
+                "active": True,
+            },
+            timeout=10,
+        )
+        if r.ok:
+            write_status(f"נוסף טיפול לקליניקה {business_id[:8]}")
+            return jsonify({"ok": True, "row": r.json()[0] if r.json() else {}})
+        return jsonify({"error": r.text}), 400
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/treatments/<row_id>", methods=["PUT"])
+def api_treatment_edit(row_id):
+    body = request.get_json() or {}
+    patch = {k: body[k] for k in ("name", "duration_min", "price", "description", "active") if k in body}
+    if not patch:
+        return jsonify({"error": "אין מה לעדכן"}), 400
+    try:
+        r = requests.patch(
+            f"{SUPABASE_URL}/rest/v1/treatments",
+            headers={**sb_headers(), "Prefer": "return=representation"},
+            params={"id": f"eq.{row_id}"},
+            json=patch,
+            timeout=10,
+        )
+        return jsonify({"ok": r.ok, "status": r.status_code})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+
+@app.route("/api/treatments/<row_id>", methods=["DELETE"])
+def api_treatment_delete(row_id):
+    try:
+        r = requests.delete(
+            f"{SUPABASE_URL}/rest/v1/treatments",
+            headers=sb_headers(),
+            params={"id": f"eq.{row_id}"},
+            timeout=10,
+        )
+        write_status(f"נמחק טיפול {row_id[:8]}")
+        return jsonify({"ok": r.ok})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
 
 
 if __name__ == "__main__":

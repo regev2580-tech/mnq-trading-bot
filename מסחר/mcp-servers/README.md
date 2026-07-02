@@ -19,7 +19,7 @@ NinjaTrader (פקודות) ← ninjatrader-mcp ←──┘
 
 ## הגדרת MCP ב-Claude Code
 
-קובץ תצורה: `C:\Users\DELL\.claude\mcp.json`
+קובץ תצורה: `C:\Users\regev\.claude\mcp.json`
 
 ## הפעלה
 

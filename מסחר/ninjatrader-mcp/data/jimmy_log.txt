@@ -1,0 +1,1425 @@
+[21:55:06] ============================================================
+[21:55:06] ג'ימי 24/7 Server מתחיל 🤖
+[21:55:06] Dashboard: http://localhost:5000
+[21:55:06] ============================================================
+[21:55:06] ❌ ANTHROPIC_API_KEY לא מוגדר!
+[21:55:06] הגדר: $env:ANTHROPIC_API_KEY='sk-ant-...'
+[21:56:24] ============================================================
+[21:56:24] ג'ימי 24/7 Server מתחיל 🤖
+[21:56:24] Dashboard: http://localhost:5000
+[21:56:24] ============================================================
+[21:56:24] ❌ ANTHROPIC_API_KEY לא מוגדר!
+[21:56:24] הגדר: $env:ANTHROPIC_API_KEY='sk-ant-...'
+[22:57:37] ============================================================
+[22:57:37] ג'ימי 24/7 Server מתחיל 🤖
+[22:57:37] Dashboard: http://localhost:5000
+[22:57:37] ============================================================
+[22:57:37] ❌ ANTHROPIC_API_KEY לא מוגדר!
+[22:57:37] הגדר: $env:ANTHROPIC_API_KEY='sk-ant-...'
+[23:01:25] ============================================================
+[23:01:25] ג'ימי 24/7 Server מתחיל 🤖
+[23:01:25] Dashboard: http://localhost:5000
+[23:01:25] ============================================================
+[23:01:25] 🌐 Dashboard פעיל: http://localhost:5000
+[23:01:29] ⚠️ TradingView: לא זמין
+[23:01:29] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[23:01:29] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[23:01:29] Ctrl+C לכיבוי מלא
+[00:02:45] ============================================================
+[00:02:45] ג'ימי 24/7 Server מתחיל 🤖
+[00:02:45] Dashboard: http://localhost:5000
+[00:02:45] ============================================================
+[00:02:45] ❌ ANTHROPIC_API_KEY לא מוגדר!
+[00:02:45] הגדר: $env:ANTHROPIC_API_KEY='sk-ant-...'
+[00:05:56] ============================================================
+[00:05:56] ג'ימי 24/7 Server מתחיל 🤖
+[00:05:56] Dashboard: http://localhost:5000
+[00:05:56] ============================================================
+[00:05:56] 🌐 Dashboard פעיל: http://localhost:5000
+[00:06:00] ⚠️ TradingView: לא זמין
+[00:06:00] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[00:06:00] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[00:06:00] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[00:06:00] Ctrl+C לכיבוי מלא
+[00:06:16] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[00:07:45] ============================================================
+[00:07:45] ג'ימי 24/7 Server מתחיל 🤖
+[00:07:45] Dashboard: http://localhost:5000
+[00:07:45] ============================================================
+[00:07:45] 🌐 Dashboard פעיל: http://localhost:5000
+[00:07:49] ⚠️ TradingView: לא זמין
+[00:07:49] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[00:07:49] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[00:07:49] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[00:07:49] Ctrl+C לכיבוי מלא
+[00:07:59] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[00:23:09] ============================================================
+[00:23:09] ג'ימי 24/7 Server מתחיל 🤖
+[00:23:09] Dashboard: http://localhost:5000
+[00:23:09] ============================================================
+[00:23:09] 🌐 Dashboard פעיל: http://localhost:5000
+[00:23:13] ⚠️ TradingView: לא זמין
+[00:23:13] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[00:23:13] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[00:23:13] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[00:23:13] Ctrl+C לכיבוי מלא
+[00:23:24] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[00:32:19] ============================================================
+[00:32:19] ג'ימי 24/7 Server מתחיל 🤖
+[00:32:19] Dashboard: http://localhost:5000
+[00:32:19] ============================================================
+[00:32:19] 🌐 Dashboard פעיל: http://localhost:5000
+[00:32:26] ⚠️ TradingView: לא זמין
+[00:32:26] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[00:32:26] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[00:32:26] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[00:32:26] Ctrl+C לכיבוי מלא
+[00:32:33] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[00:58:35] ============================================================
+[00:58:35] ג'ימי 24/7 Server מתחיל 🤖
+[00:58:35] Dashboard: http://localhost:5000
+[00:58:35] ============================================================
+[00:58:35] 🌐 Dashboard פעיל: http://localhost:5000
+[00:58:37] 📺 TV tab: נמצא
+[00:58:43] ✅ TradingView: מחובר
+[00:58:43] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[00:58:43] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[00:58:43] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[00:58:43] Ctrl+C לכיבוי מלא
+[00:58:48] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[08:56:04] ============================================================
+[08:56:04] ג'ימי 24/7 Server מתחיל 🤖
+[08:56:04] Dashboard: http://localhost:5000
+[08:56:04] ============================================================
+[08:56:04] 🌐 Dashboard פעיל: http://localhost:5000
+[08:56:08] 📺 TV tab: לא נמצא
+[08:56:12] ⚠️ TradingView: לא זמין
+[08:56:12] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[08:56:12] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[08:56:12] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[08:56:12] Ctrl+C לכיבוי מלא
+[08:56:17] 📅 לוח כלכלי: יום רגיל ללא קטליסטים ממשלתיים/מדיניות — סחור בגודל נורמלי
+[15:10:50] ============================================================
+[15:10:50] ג'ימי 24/7 Server מתחיל 🤖
+[15:10:50] Dashboard: http://localhost:5000
+[15:10:50] ============================================================
+[15:10:50] 🌐 Dashboard פעיל: http://localhost:5000
+[15:10:55] 📺 TV tab: לא נמצא
+[15:10:59] ⚠️ TradingView: לא זמין
+[15:10:59] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[15:10:59] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[15:10:59] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[15:10:59] Ctrl+C לכיבוי מלא
+[15:11:18] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[15:47:39] ============================================================
+[15:47:39] ג'ימי 24/7 Server מתחיל 🤖
+[15:47:39] Dashboard: http://localhost:5000
+[15:47:39] ============================================================
+[15:47:39] 🌐 Dashboard פעיל: http://localhost:5000
+[15:47:43] 📺 TV tab: לא נמצא
+[15:47:47] ⚠️ TradingView: לא זמין
+[15:47:47] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[15:47:47] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[15:47:47] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[15:47:47] Ctrl+C לכיבוי מלא
+[15:48:06] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[16:30:16] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:30:16] ============================================================
+[16:30:16] ג'ימי v2.0 — MNQ Trading Agent 🤖
+[16:30:16] Dashboard: http://localhost:5000
+[16:30:16] ============================================================
+[16:30:16] 🌐 Dashboard פעיל: http://localhost:5000
+[16:30:17] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:30:17] ============================================================
+[16:30:17] ג'ימי v2.0 — MNQ Trading Agent 🤖
+[16:30:17] Dashboard: http://localhost:5000
+[16:30:17] ============================================================
+[16:30:17] 🌐 Dashboard פעיל: http://localhost:5000
+[16:30:22] ✅ TradingView CDP: מחובר
+[16:30:22] 📈 price=30766.25 | score=-2 | CVD=-2506 | δ=-2258
+[16:30:22] 📷 קורא TradingView...
+[16:30:24] ✅ TradingView CDP: מחובר
+[16:30:24] 📈 price=30787.75 | score=-2 | CVD=-2484 | δ=-2236
+[16:30:24] 📷 קורא TradingView...
+[16:30:53] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163053.png
+[16:30:53] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:30:55] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163055.png
+[16:30:55] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:31:00] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:30, חלון 16:50–17:20) + Valtos -2 לא עבר סף -3
+[16:31:06] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:30, נדרש 16:50–17:20) + Valtos -2 לא עבר סף -3
+[16:33:00] 📈 price=30788.5 | score=-2 | CVD=-2141 | δ=-1893
+[16:33:00] 📷 קורא TradingView...
+[16:33:06] 📈 price=30788.5 | score=-2 | CVD=-2079 | δ=-1831
+[16:33:06] 📷 קורא TradingView...
+[16:33:32] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163332.png
+[16:33:32] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:33:37] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163337.png
+[16:33:37] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:33:38] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:33, פתוח רק 16:50–17:20) + Valtos -2 לא חצה סף -3
+[16:33:42] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון הכניסה (16:33, נפתח 16:50) + Valtos -2 לא עבר סף -3
+[16:35:38] 📈 price=30819.75 | score=+0 | CVD=-868 | δ=+1027
+[16:35:38] 📷 קורא TradingView...
+[16:35:42] 📈 price=30825 | score=+0 | CVD=-637 | δ=+1258
+[16:35:42] 📷 קורא TradingView...
+[16:36:09] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163609.png
+[16:36:09] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:36:13] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163613.png
+[16:36:13] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:36:14] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:36, פתיחה 16:50) + Valtos score 0 לא עבר סף ±3
+[16:36:18] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:36, פותח 16:50) + Valtos score 0 לא עבר סף ±3
+[16:38:14] 📈 price=30833.5 | score=+1 | CVD=-393 | δ=+1502
+[16:38:14] 📷 קורא TradingView...
+[16:38:18] 📈 price=30834.75 | score=+1 | CVD=-327 | δ=+1568
+[16:38:18] 📷 קורא TradingView...
+[16:38:46] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163846.png
+[16:38:46] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:38:49] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163849.png
+[16:38:49] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:38:54] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:38, נפתח 16:50) + Valtos score +1 מתחת לסף, אין סטאפ שורט תקף עדיין
+[16:38:55] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:38, פותח 16:50) + Valtos +1 מתחת לסף ±3 ו-bias BEARISH דורש שורט
+[16:40:54] 📈 price=30830.25 | score=+0 | CVD=-2124 | δ=+1383
+[16:40:54] 📷 קורא TradingView...
+[16:40:55] 📈 price=30833.25 | score=+0 | CVD=-2044 | δ=+1463
+[16:40:55] 📷 קורא TradingView...
+[16:41:26] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164126.png
+[16:41:26] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:41:26] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164126.png
+[16:41:26] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:41:32] 🤖 ג'ימי החליט: FLAT | חלון כניסה נפתח רק ב-16:50 (עכשיו 16:41) + Valtos score 0 לא חצה סף ±3
+[16:41:32] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:41, חלון נפתח 16:50) + Valtos score 0 לא עבר סף ±3
+[16:43:32] 📈 price=30847.75 | score=+2 | CVD=515 | δ=+4022
+[16:43:32] 📷 קורא TradingView...
+[16:43:32] 📈 price=30847.75 | score=+2 | CVD=515 | δ=+4022
+[16:43:32] 📷 קורא TradingView...
+[16:44:04] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164404.png
+[16:44:04] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:44:05] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164405.png
+[16:44:05] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:54:12] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:44, נפתח 16:50) + Valtos +2 < סף 3 + bias BEARISH מול בר long +4022 delta — קונפליקט
+[16:54:14] 🤖 ג'ימי החליט: FLAT | חלון כניסה נפתח רק ב-16:50 (כעת 16:44) — בנוסף Valtos +2 מתחת לסף, ו-BEARISH bias סותר את הספייק האחרון
+[16:56:12] 📈 price=30875.25 | score=+3 | CVD=1195 | δ=+400
+[16:56:12] 📷 קורא TradingView...
+[16:56:14] 📈 price=30875 | score=+3 | CVD=1186 | δ=+391
+[16:56:14] 📷 קורא TradingView...
+[16:56:43] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165643.png
+[16:56:43] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:56:45] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165645.png
+[16:56:45] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:56:54] 🤖 ג'ימי החליט: FLAT | no text response
+[16:56:54] 🤖 ג'ימי החליט: FLAT | בלוק: HTF bias BEARISH מתיר רק SHORT, אך Valtos +
+[16:58:54] 📈 price=30850.75 | score=-1 | CVD=-321 | δ=-1116
+[16:58:54] 📷 קורא TradingView...
+[16:58:54] 📈 price=30850.75 | score=-1 | CVD=-321 | δ=-1116
+[16:58:54] 📷 קורא TradingView...
+[16:59:26] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165926.png
+[16:59:26] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:59:26] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165926.png
+[16:59:26] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:59:34] 🤖 ג'ימי החליט: FLAT | Valtos score -1 לא עבר סף ≤-3 לשורט; CVD -321 חלש, אין סטאפ מאושר למרות bias BEARISH
+[16:59:34] 🤖 ג'ימי החליט: FLAT | Valtos score -1 לא עבר סף -3 לשורט; דלתא ממוכנת (16:50 +1385 מול 17:00 -1116), אין PSP ברור ולא נזילות עליונה נטאפת
+[17:01:34] 📈 price=30817.5 | score=+0 | CVD=-3684 | δ=+617
+[17:01:34] 📷 קורא TradingView...
+[17:01:34] 📈 price=30824 | score=+0 | CVD=-3629 | δ=+672
+[17:01:34] 📷 קורא TradingView...
+[17:02:06] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170206.png
+[17:02:06] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:02:06] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170206.png
+[17:02:06] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:02:15] 🤖 ג'ימי החליט: FLAT | no text response
+[17:02:18] 🤖 ג'ימי החליט: FLAT | Valtos score 0 (צריך ≤-3 לשורט), bias BEARISH חוסם LONG, אין edge — בר 17:00 כבר עשה את המהלך (delta -4135) ועכשיו ריבאונד delta +617, מאוחר מדי לרדוף
+[17:04:15] 📈 price=30821.25 | score=+0 | CVD=-3697 | δ=+604
+[17:04:15] 📷 קורא TradingView...
+[17:04:18] 📈 price=30827 | score=+0 | CVD=-3680 | δ=+621
+[17:04:18] 📷 קורא TradingView...
+[17:04:46] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170446.png
+[17:04:46] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:04:49] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170449.png
+[17:04:49] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:04:55] 🤖 ג'ימי החליט: FLAT | Valtos score 0 (לא עבר סף ±3), bias BEARISH אך אין confirmation לשורט — דלתא +604 בבר אחרון סותר את המכירה, סיגנלים מעורבים
+[17:04:59] 🤖 ג'ימי החליט: FLAT | Valtos score=0 לא הגיע לסף -3 לשורט; delta נוכחי +621 חיובי סותר את ה-CVD, אין confluence לכניסה למרות bias BEARISH
+[17:06:55] 📈 price=30817 | score=-3 | CVD=-4170 | δ=-932
+[17:06:55] 📷 קורא TradingView...
+[17:06:59] 📈 price=30813.75 | score=-3 | CVD=-4166 | δ=-928
+[17:06:59] 📷 קורא TradingView...
+[17:07:27] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170727.png
+[17:07:27] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:07:30] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170730.png
+[17:07:30] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:07:36] 🤖 ג'ימי החליט: FLAT | no text response
+[17:07:38] 🤖 ג'ימי החליט: FLAT | no text response
+[17:09:36] 📈 price=30838.25 | score=+0 | CVD=-2369 | δ=+869
+[17:09:36] 📷 קורא TradingView...
+[17:09:39] 📈 price=30831.5 | score=+0 | CVD=-2467 | δ=+771
+[17:09:39] 📷 קורא TradingView...
+[17:10:08] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171008.png
+[17:10:08] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:10:10] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171010.png
+[17:10:10] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:10:16] 🤖 ג'ימי החליט: FLAT | Valtos score=0 לא הגיע לסף SHORT (≤-3), ובר 17:05-17:10 delta +1439/+869 = קונים דוחפים נגד ה-bias — אין confirmation לשורט
+[17:10:18] 🤖 ג'ימי החליט: FLAT | Valtos score=0 לא הגיע לסף ±3, ו-bias BEARISH חוסם LONG בעוד delta חיובי (+771/+1439) מראה קונים — אין edge לשורט
+[17:12:16] 📈 price=30837.25 | score=-2 | CVD=-2743 | δ=-466
+[17:12:16] 📷 קורא TradingView...
+[17:12:18] 📈 price=30844 | score=-2 | CVD=-2703 | δ=-426
+[17:12:18] 📷 קורא TradingView...
+[17:12:47] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171247.png
+[17:12:47] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:12:50] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171250.png
+[17:12:50] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:12:55] 🤖 ג'ימי החליט: FLAT | Valtos score -2 לא הגיע לסף -3, ובר 17:10 delta +1242 מנוגד — אין confluence לשורט למרות bias BEARISH
+[17:12:57] 🤖 ג'ימי החליט: FLAT | Valtos score -2 לא עבר סף SHORT (-3); CVD -2703 חלש, ברים אחרונים delta חיובי (+1439,+1242) סותרים מומנטום שורט — אין edge
+[17:14:55] 📈 price=30817.75 | score=-2 | CVD=-4831 | δ=-2554
+[17:14:55] 📷 קורא TradingView...
+[17:14:57] 📈 price=30813 | score=-2 | CVD=-4848 | δ=-2571
+[17:14:57] 📷 קורא TradingView...
+[17:15:27] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171527.png
+[17:15:27] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:15:29] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171529.png
+[17:15:29] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:15:37] 🤖 ג'ימי החליט: FLAT | Valtos score -2 לא עבר סף ה-SHORT (-3); CVD -4831 קרוב אך לא חצה -5000, ואין ריטרייס לנזילות — רדיפה אחרי בר -2
+[17:15:38] 🤖 ג'ימי החליט: FLAT | Valtos score -2 לא עבר סף -3 לשורט; bias BEARISH אך הראיות לא מספיקות, מחיר כבר נפל לתחתית הטווח (30813) — רדיפה אחרי תנועה, לא תיקון לנזילות
+[17:17:37] 📈 price=30772.75 | score=-2 | CVD=-6963 | δ=-2797
+[17:17:37] 📷 קורא TradingView...
+[17:17:38] 📈 price=30772.25 | score=-2 | CVD=-7087 | δ=-2921
+[17:17:38] 📷 קורא TradingView...
+[17:18:12] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171812.png
+[17:18:12] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:18:12] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171812.png
+[17:18:12] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:18:21] 🤖 ג'ימי החליט: FLAT | no text response
+[17:18:23] 🤖 ג'ימי החליט: FLAT | no text response
+[17:20:21] 📈 price=30747.75 | score=+0 | CVD=-7848 | δ=+534
+[17:20:21] 📷 קורא TradingView...
+[17:20:23] 📈 price=30748.5 | score=+0 | CVD=-7880 | δ=+502
+[17:20:23] 📷 קורא TradingView...
+[17:20:56] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172056.png
+[17:20:56] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:20:56] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172056.png
+[17:20:56] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:21:05] 🤖 ג'ימי החליט: FLAT | Valtos score 0 (לא ≤ -3) + מחיר נעול על CDL 30730 (תחתית יומית) — שורט לתוך תמיכ
+[17:21:07] 🤖 ג'ימי החליט: FLAT | no text response
+[17:23:05] 📈 price=30708.25 | score=-2 | CVD=-8839 | δ=-457
+[17:23:05] 📷 קורא TradingView...
+[17:23:07] 📈 price=30708.75 | score=-2 | CVD=-8891 | δ=-509
+[17:23:07] 📷 קורא TradingView...
+[17:23:40] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172340.png
+[17:23:40] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:23:41] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172341.png
+[17:23:41] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:23:46] 🤖 ג'ימי החליט: FLAT | חלון כניסה נסגר (17:23 > 17:20) — Rule 22, אין כניסה גם אם BEARISH מאושר
+[17:23:47] 🤖 ג'ימי החליט: FLAT | חלון הכניסה נסגר (17:23 > 17:20) + Valtos -2 לא הגיע לסף -3 + מחיר כבר ב-CDL אחרי נפילה אנכית, רדיפה אסורה
+[17:25:46] 📈 price=30728 | score=+1 | CVD=-5781 | δ=+861
+[17:25:46] 📷 קורא TradingView...
+[17:25:48] 📈 price=30727.75 | score=+1 | CVD=-5792 | δ=+850
+[17:25:48] 📷 קורא TradingView...
+[17:26:21] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172621.png
+[17:26:21] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:26:22] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172622.png
+[17:26:22] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:26:27] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:26 > 17:20, Rule 22) + Valtos +1 לא מספיק ו-CVD -5781 חוסם LONG
+[17:26:27] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:26 > 17:20, Rule 22) + CVD -5792 חוסם LONG
+[17:28:27] 📈 price=30708 | score=-1 | CVD=-6659 | δ=-17
+[17:28:27] 📷 קורא TradingView...
+[17:28:27] 📈 price=30708 | score=-1 | CVD=-6659 | δ=-17
+[17:28:27] 📷 קורא TradingView...
+[17:29:01] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172901.png
+[17:29:01] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:29:01] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172901.png
+[17:29:01] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:29:07] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:29 > 17:20) + CVD -6659 חוסם LONG, אין סטאפ שורט תקף עכשיו
+[17:29:09] 🤖 ג'ימי החליט: FLAT | חלון כניסה נסגר ב-17:20 (עכשיו 17:29) + CVD -6659 חוסם LONG ממילא — אין כניסה מחוץ ל-Rule 22
+[17:31:07] 📈 price=30646.25 | score=-2 | CVD=-11190 | δ=-2286
+[17:31:07] 📷 קורא TradingView...
+[17:31:09] 📈 price=30654.5 | score=-2 | CVD=-11040 | δ=-2136
+[17:31:09] 📷 קורא TradingView...
+[17:31:42] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173142.png
+[17:31:42] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:31:42] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173142.png
+[17:31:42] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:31:47] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:31, window 16:50–17:20) + Valtos -2 לא עבר סף -3
+[17:31:48] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:31, חלון 16:50–17:20 נסגר) — Rule 22
+[17:33:47] 📈 price=30609.5 | score=-2 | CVD=-11456 | δ=-2552
+[17:33:47] 📷 קורא TradingView...
+[17:33:48] 📈 price=30605.25 | score=-2 | CVD=-11516 | δ=-2612
+[17:33:48] 📷 קורא TradingView...
+[17:34:22] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173422.png
+[17:34:22] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:34:22] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173422.png
+[17:34:22] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:34:26] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:34, חלון 16:50–17:20) — Rule 22
+[17:34:31] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:34 > 17:20) — Rule 22, גם CVD -11,456 ו-delta -2,552 בקפיטולציה ללא בר סגור מאושר
+[17:36:26] 📈 price=30645 | score=+0 | CVD=-10980 | δ=+1442
+[17:36:26] 📷 קורא TradingView...
+[17:36:31] 📈 price=30644.5 | score=+0 | CVD=-11096 | δ=+1326
+[17:36:31] 📷 קורא TradingView...
+[17:37:00] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173700.png
+[17:37:00] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:37:06] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173706.png
+[17:37:06] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:37:07] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:37, חלון 16:50–17:20 נסגר) + Valtos score 0 (לא ≤-3) ו-CVD -10,980 קיצוני
+[17:37:12] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:37 > 17:20, Rule 22) + CVD -11,096 אוסר LONG ו-Valtos 0 לא נותן edge לשורט
+[17:39:07] 📈 price=30670 | score=+0 | CVD=-11413 | δ=+1009
+[17:39:07] 📷 קורא TradingView...
+[17:39:12] 📈 price=30666.25 | score=+0 | CVD=-11439 | δ=+983
+[17:39:12] 📷 קורא TradingView...
+[17:39:41] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173941.png
+[17:39:41] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:39:47] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173947.png
+[17:39:47] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:39:47] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון הכניסה (17:39 > 17:20, Rule 22) — גם CVD -11,413 חוסם לונג ו-Valtos 0 לא נותן edge לשורט
+[17:39:52] 🤖 ג'ימי החליט: FLAT | חלון כניסה נסגר (17:39 > 17:20, Rule 22) + Valtos score 0 לא עובר סף ±3
+[17:41:47] 📈 price=30697.5 | score=-1 | CVD=-9882 | δ=+1241
+[17:41:47] 📷 קורא TradingView...
+[17:41:52] 📈 price=30695.75 | score=-1 | CVD=-10176 | δ=+947
+[17:41:52] 📷 קורא TradingView...
+[17:42:21] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_174221.png
+[17:42:21] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:42:26] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:42, חלון 16:50–17:20) + Valtos -1 לא עבר סף ±3
+[17:42:27] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_174227.png
+[17:42:27] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:42:33] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:42 > 17:20) + Valtos -1 לא עבר סף -3
+[17:44:26] 📈 price=30692.5 | score=-1 | CVD=-10502 | δ=+621
+[17:44:26] 📷 קורא TradingView...
+[17:44:33] 📈 price=30691.5 | score=-1 | CVD=-10541 | δ=+582
+[17:44:33] 📷 קורא TradingView...
+[17:45:01] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_174501.png
+[17:45:01] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:45:06] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:45 > 17:20, Rule 22) + CVD -10,502 אוסר LONG וValtos -1 לא מגיע לסף SHORT
+[17:45:08] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_174508.png
+[17:45:08] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:45:13] 🤖 ג'ימי החליט: FLAT | חלון הכניסה נסגר (17:20) — 17:45 מחוץ ל-Rule 22, אין כניסות
+[17:47:06] 📈 price=30653.75 | score=-3 | CVD=-8729 | δ=-1684
+[17:47:06] 📷 קורא TradingView...
+[17:47:13] 📈 price=30654.25 | score=-3 | CVD=-8765 | δ=-1720
+[17:47:13] 📷 קורא TradingView...
+[17:47:40] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_174740.png
+[17:47:40] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:47:45] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:47, window נסגר 17:20) — Rule 22
+[17:47:47] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_174747.png
+[17:47:47] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:47:52] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:47 > 17:20, Rule 22) — למרות bias BEARISH ו-Valtos -3, אסור להיכנס
+[17:49:45] 📈 price=30631.5 | score=-3 | CVD=-8729 | δ=-1684
+[17:49:45] 📷 קורא TradingView...
+[17:49:52] 📈 price=30628 | score=-3 | CVD=-8783 | δ=-1738
+[17:49:52] 📷 קורא TradingView...
+[17:50:19] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_175019.png
+[17:50:19] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:50:25] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:50 > 17:20, Rule 22) — למרות BEARISH/Valtos -3 אסור להיכנס
+[17:50:25] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_175025.png
+[17:50:25] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:50:32] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:50 > 17:20, Rule 22) — bias BEARISH ו-Valtos -3 תומכים בשורט אך החלון נסגר
+[17:52:25] 📈 price=30643.75 | score=-1 | CVD=-9557 | δ=+698
+[17:52:25] 📷 קורא TradingView...
+[17:52:32] 📈 price=30639.5 | score=-1 | CVD=-9678 | δ=+577
+[17:52:32] 📷 קורא TradingView...
+[17:52:59] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_175259.png
+[17:52:59] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:53:05] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:53, חלון 16:50–17:20 נסגר) + CVD -9,557 ו-Valtos -1 לא מספיק לשורט
+[17:53:06] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_175306.png
+[17:53:06] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:53:10] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון הכניסה (17:53, חלון 16:50–17:20 נסגר) + CVD -9678 חוסם LONG
+[17:55:05] 📈 price=30627 | score=-3 | CVD=-11109 | δ=-4
+[17:55:05] 📷 קורא TradingView...
+[17:55:10] 📈 price=30623.75 | score=-3 | CVD=-11107 | δ=-2
+[17:55:10] 📷 קורא TradingView...
+[17:55:39] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_175539.png
+[17:55:39] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:55:44] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:55 > 17:20, Rule 22) — גם CVD -11,109 חוסם LONG ממילא
+[17:55:45] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_175545.png
+[17:55:45] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:55:50] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:55 > 17:20, Rule 22) — גם CVD -11107 אוסר LONG, ושורט דורש חלון
+[17:57:44] 📈 price=30625 | score=-3 | CVD=-11407 | δ=-302
+[17:57:44] 📷 קורא TradingView...
+[17:57:48] ⚠️ TV: TradingView לא זמין
+[17:57:48] 🤖 שולח לקלוד | TV=❌ | bias=BEARISH
+[17:57:50] 📈 price=30627.25 | score=-3 | CVD=-11392 | δ=-287
+[17:57:50] 📷 קורא TradingView...
+[17:57:52] 🤖 ג'ימי החליט: FLAT | השעה 17:57 מחוץ לחלון הכניסה (16:50–17:20), Rule 22 — לא נכנסים גם אם Valtos -3 ו-BEARISH מיושרים
+[17:57:54] ⚠️ TV: TradingView לא זמין
+[17:57:54] 🤖 שולח לקלוד | TV=❌ | bias=BEARISH
+[17:57:58] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:57, Rule 22 מאשר רק 16:50–17:20)
+[17:59:52] 📈 price=30596 | score=-3 | CVD=-12830 | δ=-1725
+[17:59:52] 📷 קורא TradingView...
+[17:59:56] ⚠️ TV: TradingView לא זמין
+[17:59:56] 🤖 שולח לקלוד | TV=❌ | bias=BEARISH
+[17:59:58] 📈 price=30598 | score=-3 | CVD=-12592 | δ=-1487
+[17:59:58] 📷 קורא TradingView...
+[18:00:00] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:59, חלון 16:50–17:20 נסגר) — Rule 22
+[18:00:02] ⚠️ TV: TradingView לא זמין
+[18:00:02] 🤖 שולח לקלוד | TV=❌ | bias=BEARISH
+[18:00:08] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (18:00, Rule 22 מתיר רק 16:50–17:20) + CVD -12,592 חוסם LONG בכל מקרה
+[18:02:00] KZ הסתיימה (18:00+). ג'ימי יוצא 👋
+[18:02:00] 🔴 Trading loop הסתיים
+[18:02:08] KZ הסתיימה (18:00+). ג'ימי יוצא 👋
+[18:02:08] 🔴 Trading loop הסתיים
+[16:04:03] ============================================================
+[16:04:03] ג'ימי 24/7 Server מתחיל 🤖
+[16:04:03] Dashboard: http://localhost:5000
+[16:04:03] ============================================================
+[16:04:03] 🌐 Dashboard פעיל: http://localhost:5000
+[16:04:08] 📺 TV tab: לא נמצא
+[16:04:12] ⚠️ TradingView: לא זמין
+[16:04:12] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[16:04:12] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[16:04:12] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[16:04:12] Ctrl+C לכיבוי מלא
+[16:04:18] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[16:30:06] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:30:06] ============================================================
+[16:30:06] ג'ימי v2.0 — MNQ Trading Agent 🤖
+[16:30:06] Dashboard: http://localhost:5000
+[16:30:06] ============================================================
+[16:30:06] 🌐 Dashboard פעיל: http://localhost:5000
+[16:30:12] ✅ TradingView CDP: מחובר
+[16:30:12] 📈 price=30519 | score=-3 | CVD=490 | δ=-185
+[16:30:12] 📷 קורא TradingView...
+[16:30:44] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163044.png
+[16:30:44] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:30:50] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:30, פתיחה רק 16:50) — Valtos -3 BEARISH מבטיח, אבל ממתינים לחלון
+[16:32:50] 📈 price=30454.5 | score=-4 | CVD=-1206 | δ=-1881
+[16:32:50] 📷 קורא TradingView...
+[16:33:22] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163322.png
+[16:33:22] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:33:32] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:33, חלון 16:50–17:20) — bias BEARISH ו-Valtos -4 מצדיקים SHORT אך אסור להיכנס לפני 16:50
+[16:35:32] 📈 price=30436.75 | score=-4 | CVD=-1849 | δ=-2524
+[16:35:32] 📷 קורא TradingView...
+[16:36:04] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163604.png
+[16:36:04] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:36:10] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:36, חלון 16:50–17:20) — bias BEARISH ו-Valtos -4 תומכים SHORT, אך מחכים לפתיחת החלון
+[16:38:10] 📈 price=30468.5 | score=+1 | CVD=-253 | δ=+1380
+[16:38:10] 📷 קורא TradingView...
+[16:38:42] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163842.png
+[16:38:42] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:38:50] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:38, פותח רק 16:50) + Valtos +1 מתחת לסף ±3 ו-HTF BEARISH לא תומך בלונג
+[16:40:50] ⏹️ עצירה התקבלה מה-Dashboard
+[16:40:50] 🔴 Trading loop הסתיים
+[12:12:51] ============================================================
+[12:12:51] ג'ימי 24/7 Server מתחיל 🤖
+[12:12:51] Dashboard: http://localhost:5000
+[12:12:51] ============================================================
+[12:12:51] 🌐 Dashboard פעיל: http://localhost:5000
+[12:12:56] 📺 TV tab: לא נמצא
+[12:13:00] ⚠️ TradingView: לא זמין
+[12:13:00] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[12:13:00] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[12:13:00] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[12:13:00] Ctrl+C לכיבוי מלא
+[12:13:06] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[12:19:48] ============================================================
+[12:19:48] ג'ימי 24/7 Server מתחיל 🤖
+[12:19:48] Dashboard: http://localhost:5000
+[12:19:48] ============================================================
+[12:19:48] 🌐 Dashboard פעיל: http://localhost:5000
+[12:19:52] 📺 TV tab: לא נמצא
+[12:19:56] ⚠️ TradingView: לא זמין
+[12:19:56] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[12:19:56] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[12:19:56] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[12:19:56] Ctrl+C לכיבוי מלא
+[12:20:00] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[16:30:27] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:30:27] ============================================================
+[16:30:27] ג'ימי v2.0 — MNQ Trading Agent 🤖
+[16:30:27] Dashboard: http://localhost:5000
+[16:30:27] ============================================================
+[16:30:27] 🌐 Dashboard פעיל: http://localhost:5000
+[16:30:31] ⚠️ TradingView CDP: לא זמין — עובד בלי TV vision
+[16:30:31] ⚠️ orderflow ישן 79924s — Rule 8: מדלג
+[16:30:46] ⚠️ orderflow ישן 79939s — Rule 8: מדלג
+[16:31:01] ⚠️ orderflow ישן 79954s — Rule 8: מדלג
+[16:31:16] ⚠️ orderflow ישן 79969s — Rule 8: מדלג
+[16:31:31] ⚠️ orderflow ישן 79984s — Rule 8: מדלג
+[16:31:46] ⚠️ orderflow ישן 79999s — Rule 8: מדלג
+[16:32:01] ⚠️ orderflow ישן 80014s — Rule 8: מדלג
+[16:32:16] ⚠️ orderflow ישן 80029s — Rule 8: מדלג
+[16:32:31] ⚠️ orderflow ישן 80044s — Rule 8: מדלג
+[16:32:46] ⚠️ orderflow ישן 80059s — Rule 8: מדלג
+[16:33:01] ⚠️ orderflow ישן 80074s — Rule 8: מדלג
+[16:33:16] ⚠️ orderflow ישן 80089s — Rule 8: מדלג
+[16:33:31] ⚠️ orderflow ישן 80104s — Rule 8: מדלג
+[16:33:46] ⚠️ orderflow ישן 80119s — Rule 8: מדלג
+[16:34:01] ⚠️ orderflow ישן 80134s — Rule 8: מדלג
+[16:34:16] ⚠️ orderflow ישן 80149s — Rule 8: מדלג
+[16:34:31] ⚠️ orderflow ישן 80164s — Rule 8: מדלג
+[16:34:46] ⚠️ orderflow ישן 80179s — Rule 8: מדלג
+[16:35:01] ⚠️ orderflow ישן 80194s — Rule 8: מדלג
+[16:35:16] ⚠️ orderflow ישן 80209s — Rule 8: מדלג
+[16:35:31] ⚠️ orderflow ישן 80224s — Rule 8: מדלג
+[16:35:46] ⚠️ orderflow ישן 80239s — Rule 8: מדלג
+[16:37:25] ⚠️ orderflow ישן 80338s — Rule 8: מדלג
+[16:37:40] ⚠️ orderflow ישן 80353s — Rule 8: מדלג
+[16:37:55] ⚠️ orderflow ישן 80368s — Rule 8: מדלג
+[16:38:10] ⚠️ orderflow ישן 80383s — Rule 8: מדלג
+[16:38:25] ⚠️ orderflow ישן 80398s — Rule 8: מדלג
+[16:38:40] ⚠️ orderflow ישן 80413s — Rule 8: מדלג
+[16:38:55] ⚠️ orderflow ישן 80428s — Rule 8: מדלג
+[16:39:10] ⚠️ orderflow ישן 80443s — Rule 8: מדלג
+[16:39:25] ⚠️ orderflow ישן 80458s — Rule 8: מדלג
+[16:39:40] ⚠️ orderflow ישן 80473s — Rule 8: מדלג
+[16:39:55] ⚠️ orderflow ישן 80488s — Rule 8: מדלג
+[16:40:10] ⚠️ orderflow ישן 80503s — Rule 8: מדלג
+[16:40:25] ⚠️ orderflow ישן 80518s — Rule 8: מדלג
+[16:40:40] ⚠️ orderflow ישן 80533s — Rule 8: מדלג
+[16:40:55] ⚠️ orderflow ישן 80548s — Rule 8: מדלג
+[16:41:10] ⚠️ orderflow ישן 80563s — Rule 8: מדלג
+[16:41:25] ⚠️ orderflow ישן 80578s — Rule 8: מדלג
+[16:41:40] ⚠️ orderflow ישן 80593s — Rule 8: מדלג
+[16:41:55] ⚠️ orderflow ישן 80608s — Rule 8: מדלג
+[16:42:10] ⚠️ orderflow ישן 80623s — Rule 8: מדלג
+[16:42:25] ⚠️ orderflow ישן 80638s — Rule 8: מדלג
+[16:42:40] ⚠️ orderflow ישן 80653s — Rule 8: מדלג
+[16:42:55] ⚠️ orderflow ישן 80668s — Rule 8: מדלג
+[16:43:10] ⚠️ orderflow ישן 80683s — Rule 8: מדלג
+[16:43:25] ⚠️ orderflow ישן 80698s — Rule 8: מדלג
+[16:43:40] ⚠️ orderflow ישן 80713s — Rule 8: מדלג
+[16:43:55] ⚠️ orderflow ישן 80728s — Rule 8: מדלג
+[16:44:10] ⚠️ orderflow ישן 80743s — Rule 8: מדלג
+[16:44:25] ⚠️ orderflow ישן 80758s — Rule 8: מדלג
+[16:44:40] ⚠️ orderflow ישן 80773s — Rule 8: מדלג
+[16:44:55] ⚠️ orderflow ישן 80788s — Rule 8: מדלג
+[16:45:10] ⚠️ orderflow ישן 80803s — Rule 8: מדלג
+[16:45:25] ⚠️ orderflow ישן 80818s — Rule 8: מדלג
+[16:45:40] ⚠️ orderflow ישן 80833s — Rule 8: מדלג
+[16:45:55] ⚠️ orderflow ישן 80848s — Rule 8: מדלג
+[16:46:10] ⚠️ orderflow ישן 80863s — Rule 8: מדלג
+[16:46:25] ⚠️ orderflow ישן 80878s — Rule 8: מדלג
+[16:46:40] ⚠️ orderflow ישן 80893s — Rule 8: מדלג
+[16:46:55] ⚠️ orderflow ישן 80908s — Rule 8: מדלג
+[16:47:10] ⚠️ orderflow ישן 80923s — Rule 8: מדלג
+[16:47:25] ⚠️ orderflow ישן 80938s — Rule 8: מדלג
+[16:47:40] ⚠️ orderflow ישן 80953s — Rule 8: מדלג
+[16:47:55] ⚠️ orderflow ישן 80968s — Rule 8: מדלג
+[16:48:10] ⚠️ orderflow ישן 80983s — Rule 8: מדלג
+[16:48:25] ⚠️ orderflow ישן 80998s — Rule 8: מדלג
+[16:48:40] ⚠️ orderflow ישן 81013s — Rule 8: מדלג
+[16:48:55] ⚠️ orderflow ישן 81028s — Rule 8: מדלג
+[16:49:10] ⚠️ orderflow ישן 81043s — Rule 8: מדלג
+[16:49:25] ⚠️ orderflow ישן 81058s — Rule 8: מדלג
+[16:49:40] ⚠️ orderflow ישן 81074s — Rule 8: מדלג
+[16:49:55] ⚠️ orderflow ישן 81089s — Rule 8: מדלג
+[16:50:10] ⚠️ orderflow ישן 81104s — Rule 8: מדלג
+[16:50:25] ⚠️ orderflow ישן 81119s — Rule 8: מדלג
+[16:50:40] ⚠️ orderflow ישן 81134s — Rule 8: מדלג
+[16:50:55] ⚠️ orderflow ישן 81149s — Rule 8: מדלג
+[16:51:10] ⚠️ orderflow ישן 81164s — Rule 8: מדלג
+[16:51:25] ⚠️ orderflow ישן 81179s — Rule 8: מדלג
+[16:51:40] ⚠️ orderflow ישן 81194s — Rule 8: מדלג
+[16:51:55] ⚠️ orderflow ישן 81209s — Rule 8: מדלג
+[16:52:10] ⚠️ orderflow ישן 81224s — Rule 8: מדלג
+[16:52:25] ⚠️ orderflow ישן 81239s — Rule 8: מדלג
+[16:52:40] ⚠️ orderflow ישן 81254s — Rule 8: מדלג
+[16:52:55] ⚠️ orderflow ישן 81269s — Rule 8: מדלג
+[16:53:10] ⚠️ orderflow ישן 81284s — Rule 8: מדלג
+[16:53:25] ⚠️ orderflow ישן 81299s — Rule 8: מדלג
+[16:53:40] ⚠️ orderflow ישן 81314s — Rule 8: מדלג
+[16:53:55] ⚠️ orderflow ישן 81329s — Rule 8: מדלג
+[16:54:10] ⚠️ orderflow ישן 81344s — Rule 8: מדלג
+[16:54:25] ⚠️ orderflow ישן 81359s — Rule 8: מדלג
+[16:54:40] ⚠️ orderflow ישן 81374s — Rule 8: מדלג
+[16:54:55] ⚠️ orderflow ישן 81389s — Rule 8: מדלג
+[16:55:10] ⚠️ orderflow ישן 81404s — Rule 8: מדלג
+[16:55:25] ⚠️ orderflow ישן 81419s — Rule 8: מדלג
+[16:55:40] ⚠️ orderflow ישן 81434s — Rule 8: מדלג
+[16:55:55] ⚠️ orderflow ישן 81449s — Rule 8: מדלג
+[16:56:10] ⚠️ orderflow ישן 81464s — Rule 8: מדלג
+[16:56:25] ⚠️ orderflow ישן 81479s — Rule 8: מדלג
+[16:56:40] ⚠️ orderflow ישן 81494s — Rule 8: מדלג
+[16:56:55] ⚠️ orderflow ישן 81509s — Rule 8: מדלג
+[16:57:10] ⚠️ orderflow ישן 81524s — Rule 8: מדלג
+[16:57:25] ⚠️ orderflow ישן 81539s — Rule 8: מדלג
+[16:57:40] ⚠️ orderflow ישן 81554s — Rule 8: מדלג
+[16:59:53] ⚠️ orderflow ישן 81687s — Rule 8: מדלג
+[17:00:08] ⚠️ orderflow ישן 81702s — Rule 8: מדלג
+[17:00:23] ⚠️ orderflow ישן 81717s — Rule 8: מדלג
+[17:00:38] ⚠️ orderflow ישן 81732s — Rule 8: מדלג
+[17:00:53] ⚠️ orderflow ישן 81747s — Rule 8: מדלג
+[17:01:08] ⚠️ orderflow ישן 81762s — Rule 8: מדלג
+[17:01:23] ⚠️ orderflow ישן 81777s — Rule 8: מדלג
+[17:01:38] ⚠️ orderflow ישן 81792s — Rule 8: מדלג
+[17:01:53] ⚠️ orderflow ישן 81807s — Rule 8: מדלג
+[17:02:08] ⚠️ orderflow ישן 81822s — Rule 8: מדלג
+[17:02:23] ⚠️ orderflow ישן 81837s — Rule 8: מדלג
+[17:02:38] ⚠️ orderflow ישן 81852s — Rule 8: מדלג
+[17:02:53] ⚠️ orderflow ישן 81867s — Rule 8: מדלג
+[17:03:08] ⚠️ orderflow ישן 81882s — Rule 8: מדלג
+[17:03:23] ⚠️ orderflow ישן 81897s — Rule 8: מדלג
+[17:03:38] ⚠️ orderflow ישן 81912s — Rule 8: מדלג
+[17:03:53] ⚠️ orderflow ישן 81927s — Rule 8: מדלג
+[17:04:08] ⚠️ orderflow ישן 81942s — Rule 8: מדלג
+[17:04:23] ⚠️ orderflow ישן 81957s — Rule 8: מדלג
+[17:04:38] ⚠️ orderflow ישן 81972s — Rule 8: מדלג
+[17:04:53] ⚠️ orderflow ישן 81987s — Rule 8: מדלג
+[17:05:08] ⚠️ orderflow ישן 82002s — Rule 8: מדלג
+[17:05:23] ⚠️ orderflow ישן 82017s — Rule 8: מדלג
+[17:05:38] ⚠️ orderflow ישן 82032s — Rule 8: מדלג
+[17:05:53] ⚠️ orderflow ישן 82047s — Rule 8: מדלג
+[17:06:08] ⚠️ orderflow ישן 82062s — Rule 8: מדלג
+[17:06:23] ⚠️ orderflow ישן 82077s — Rule 8: מדלג
+[17:06:38] ⚠️ orderflow ישן 82092s — Rule 8: מדלג
+[17:06:53] ⚠️ orderflow ישן 82107s — Rule 8: מדלג
+[17:07:08] ⚠️ orderflow ישן 82122s — Rule 8: מדלג
+[17:07:23] ⚠️ orderflow ישן 82137s — Rule 8: מדלג
+[17:07:38] ⚠️ orderflow ישן 82152s — Rule 8: מדלג
+[17:07:53] ⚠️ orderflow ישן 82167s — Rule 8: מדלג
+[17:08:08] ⚠️ orderflow ישן 82182s — Rule 8: מדלג
+[17:08:23] ⚠️ orderflow ישן 82197s — Rule 8: מדלג
+[17:08:38] ⚠️ orderflow ישן 82212s — Rule 8: מדלג
+[17:08:53] ⚠️ orderflow ישן 82227s — Rule 8: מדלג
+[17:09:08] ⚠️ orderflow ישן 82242s — Rule 8: מדלג
+[17:09:23] ⚠️ orderflow ישן 82257s — Rule 8: מדלג
+[17:09:38] ⚠️ orderflow ישן 82272s — Rule 8: מדלג
+[17:09:53] ⚠️ orderflow ישן 82287s — Rule 8: מדלג
+[17:10:08] ⚠️ orderflow ישן 82302s — Rule 8: מדלג
+[17:10:23] ⚠️ orderflow ישן 82317s — Rule 8: מדלג
+[17:10:38] ⚠️ orderflow ישן 82332s — Rule 8: מדלג
+[17:10:54] ⚠️ orderflow ישן 82347s — Rule 8: מדלג
+[17:11:09] ⚠️ orderflow ישן 82362s — Rule 8: מדלג
+[17:11:24] ⚠️ orderflow ישן 82377s — Rule 8: מדלג
+[17:11:39] ⚠️ orderflow ישן 82392s — Rule 8: מדלג
+[17:11:54] ⚠️ orderflow ישן 82407s — Rule 8: מדלג
+[17:12:09] ⚠️ orderflow ישן 82422s — Rule 8: מדלג
+[17:12:24] ⚠️ orderflow ישן 82437s — Rule 8: מדלג
+[17:12:39] ⚠️ orderflow ישן 82452s — Rule 8: מדלג
+[17:12:54] ⚠️ orderflow ישן 82467s — Rule 8: מדלג
+[17:13:09] ⚠️ orderflow ישן 82482s — Rule 8: מדלג
+[17:13:24] ⚠️ orderflow ישן 82497s — Rule 8: מדלג
+[17:13:39] ⚠️ orderflow ישן 82512s — Rule 8: מדלג
+[17:13:54] ⚠️ orderflow ישן 82527s — Rule 8: מדלג
+[17:14:09] ⚠️ orderflow ישן 82542s — Rule 8: מדלג
+[17:14:24] ⚠️ orderflow ישן 82557s — Rule 8: מדלג
+[17:14:39] ⚠️ orderflow ישן 82572s — Rule 8: מדלג
+[17:14:54] ⚠️ orderflow ישן 82587s — Rule 8: מדלג
+[17:15:09] ⚠️ orderflow ישן 82602s — Rule 8: מדלג
+[17:15:24] ⚠️ orderflow ישן 82617s — Rule 8: מדלג
+[17:15:39] ⚠️ orderflow ישן 82632s — Rule 8: מדלג
+[17:15:54] ⚠️ orderflow ישן 82647s — Rule 8: מדלג
+[17:16:09] ⚠️ orderflow ישן 82662s — Rule 8: מדלג
+[17:16:24] ⚠️ orderflow ישן 82677s — Rule 8: מדלג
+[17:16:39] ⚠️ orderflow ישן 82692s — Rule 8: מדלג
+[17:16:54] ⚠️ orderflow ישן 82707s — Rule 8: מדלג
+[17:17:09] ⚠️ orderflow ישן 82722s — Rule 8: מדלג
+[17:17:24] ⚠️ orderflow ישן 82737s — Rule 8: מדלג
+[17:17:39] ⚠️ orderflow ישן 82752s — Rule 8: מדלג
+[17:17:54] ⚠️ orderflow ישן 82767s — Rule 8: מדלג
+[17:18:09] ⚠️ orderflow ישן 82782s — Rule 8: מדלג
+[17:18:24] ⚠️ orderflow ישן 82797s — Rule 8: מדלג
+[17:18:39] ⚠️ orderflow ישן 82812s — Rule 8: מדלג
+[17:18:54] ⚠️ orderflow ישן 82827s — Rule 8: מדלג
+[17:19:09] ⚠️ orderflow ישן 82842s — Rule 8: מדלג
+[17:19:24] ⚠️ orderflow ישן 82857s — Rule 8: מדלג
+[17:19:39] ⚠️ orderflow ישן 82872s — Rule 8: מדלג
+[17:19:54] ⚠️ orderflow ישן 82887s — Rule 8: מדלג
+[17:20:09] ⚠️ orderflow ישן 82902s — Rule 8: מדלג
+[17:20:24] ⚠️ orderflow ישן 82917s — Rule 8: מדלג
+[17:20:39] ⚠️ orderflow ישן 82932s — Rule 8: מדלג
+[17:20:54] ⚠️ orderflow ישן 82947s — Rule 8: מדלג
+[17:21:09] ⚠️ orderflow ישן 82962s — Rule 8: מדלג
+[17:21:24] ⚠️ orderflow ישן 82977s — Rule 8: מדלג
+[17:21:39] ⚠️ orderflow ישן 82992s — Rule 8: מדלג
+[17:21:54] ⚠️ orderflow ישן 83007s — Rule 8: מדלג
+[17:22:09] ⚠️ orderflow ישן 83022s — Rule 8: מדלג
+[17:22:24] ⚠️ orderflow ישן 83037s — Rule 8: מדלג
+[17:22:39] ⚠️ orderflow ישן 83052s — Rule 8: מדלג
+[17:22:54] ⚠️ orderflow ישן 83067s — Rule 8: מדלג
+[17:23:09] ⚠️ orderflow ישן 83082s — Rule 8: מדלג
+[17:23:24] ⚠️ orderflow ישן 83097s — Rule 8: מדלג
+[17:23:39] ⚠️ orderflow ישן 83112s — Rule 8: מדלג
+[17:23:54] ⚠️ orderflow ישן 83127s — Rule 8: מדלג
+[17:24:09] ⚠️ orderflow ישן 83142s — Rule 8: מדלג
+[17:24:24] ⚠️ orderflow ישן 83157s — Rule 8: מדלג
+[17:24:39] ⚠️ orderflow ישן 83172s — Rule 8: מדלג
+[17:24:54] ⚠️ orderflow ישן 83187s — Rule 8: מדלג
+[17:25:09] ⚠️ orderflow ישן 83202s — Rule 8: מדלג
+[17:25:24] ⚠️ orderflow ישן 83217s — Rule 8: מדלג
+[17:25:39] ⚠️ orderflow ישן 83232s — Rule 8: מדלג
+[17:25:54] ⚠️ orderflow ישן 83247s — Rule 8: מדלג
+[17:26:09] ⚠️ orderflow ישן 83262s — Rule 8: מדלג
+[17:26:24] ⚠️ orderflow ישן 83277s — Rule 8: מדלג
+[17:26:39] ⚠️ orderflow ישן 83292s — Rule 8: מדלג
+[17:26:54] ⚠️ orderflow ישן 83307s — Rule 8: מדלג
+[17:27:09] ⚠️ orderflow ישן 83322s — Rule 8: מדלג
+[17:27:24] ⚠️ orderflow ישן 83337s — Rule 8: מדלג
+[17:27:39] ⚠️ orderflow ישן 83352s — Rule 8: מדלג
+[17:27:54] ⚠️ orderflow ישן 83367s — Rule 8: מדלג
+[17:28:09] ⚠️ orderflow ישן 83382s — Rule 8: מדלג
+[17:28:24] ⚠️ orderflow ישן 83397s — Rule 8: מדלג
+[17:28:39] ⚠️ orderflow ישן 83412s — Rule 8: מדלג
+[17:28:54] ⚠️ orderflow ישן 83427s — Rule 8: מדלג
+[17:29:09] ⚠️ orderflow ישן 83442s — Rule 8: מדלג
+[17:29:24] ⚠️ orderflow ישן 83457s — Rule 8: מדלג
+[17:29:39] ⚠️ orderflow ישן 83472s — Rule 8: מדלג
+[17:29:54] ⚠️ orderflow ישן 83487s — Rule 8: מדלג
+[17:30:09] ⚠️ orderflow ישן 83502s — Rule 8: מדלג
+[17:30:24] ⚠️ orderflow ישן 83517s — Rule 8: מדלג
+[17:30:39] ⚠️ orderflow ישן 83532s — Rule 8: מדלג
+[17:30:54] ⚠️ orderflow ישן 83547s — Rule 8: מדלג
+[17:31:09] ⚠️ orderflow ישן 83562s — Rule 8: מדלג
+[17:31:24] ⚠️ orderflow ישן 83577s — Rule 8: מדלג
+[17:31:39] ⚠️ orderflow ישן 83592s — Rule 8: מדלג
+[17:31:54] ⚠️ orderflow ישן 83607s — Rule 8: מדלג
+[17:32:09] ⚠️ orderflow ישן 83622s — Rule 8: מדלג
+[17:32:24] ⚠️ orderflow ישן 83637s — Rule 8: מדלג
+[17:32:39] ⚠️ orderflow ישן 83652s — Rule 8: מדלג
+[17:32:54] ⚠️ orderflow ישן 83667s — Rule 8: מדלג
+[17:33:09] ⚠️ orderflow ישן 83682s — Rule 8: מדלג
+[17:33:24] ⚠️ orderflow ישן 83697s — Rule 8: מדלג
+[17:33:39] ⚠️ orderflow ישן 83712s — Rule 8: מדלג
+[17:33:54] ⚠️ orderflow ישן 83727s — Rule 8: מדלג
+[17:34:09] ⚠️ orderflow ישן 83742s — Rule 8: מדלג
+[17:34:29] ⚠️ orderflow ישן 83763s — Rule 8: מדלג
+[17:34:44] ⚠️ orderflow ישן 83778s — Rule 8: מדלג
+[17:34:59] ⚠️ orderflow ישן 83793s — Rule 8: מדלג
+[17:35:14] ⚠️ orderflow ישן 83808s — Rule 8: מדלג
+[17:35:29] ⚠️ orderflow ישן 83823s — Rule 8: מדלג
+[17:35:44] ⚠️ orderflow ישן 83838s — Rule 8: מדלג
+[17:35:59] ⚠️ orderflow ישן 83853s — Rule 8: מדלג
+[17:36:14] ⚠️ orderflow ישן 83868s — Rule 8: מדלג
+[17:36:29] ⚠️ orderflow ישן 83883s — Rule 8: מדלג
+[17:36:44] ⚠️ orderflow ישן 83898s — Rule 8: מדלג
+[17:36:59] ⚠️ orderflow ישן 83913s — Rule 8: מדלג
+[17:37:14] ⚠️ orderflow ישן 83928s — Rule 8: מדלג
+[17:37:29] ⚠️ orderflow ישן 83943s — Rule 8: מדלג
+[17:37:44] ⚠️ orderflow ישן 83958s — Rule 8: מדלג
+[17:37:59] ⚠️ orderflow ישן 83973s — Rule 8: מדלג
+[17:38:14] ⚠️ orderflow ישן 83988s — Rule 8: מדלג
+[17:39:54] ⚠️ orderflow ישן 84087s — Rule 8: מדלג
+[17:40:09] ⚠️ orderflow ישן 84102s — Rule 8: מדלג
+[17:40:24] ⚠️ orderflow ישן 84117s — Rule 8: מדלג
+[17:40:39] ⚠️ orderflow ישן 84132s — Rule 8: מדלג
+[17:40:54] ⚠️ orderflow ישן 84147s — Rule 8: מדלג
+[17:41:09] ⚠️ orderflow ישן 84162s — Rule 8: מדלג
+[17:41:24] ⚠️ orderflow ישן 84177s — Rule 8: מדלג
+[17:41:39] ⚠️ orderflow ישן 84192s — Rule 8: מדלג
+[17:41:54] ⚠️ orderflow ישן 84207s — Rule 8: מדלג
+[17:42:09] ⚠️ orderflow ישן 84222s — Rule 8: מדלג
+[18:08:35] KZ הסתיימה (18:00+). ג'ימי יוצא 👋
+[18:08:35] 🔴 Trading loop הסתיים
+[23:00:45] ============================================================
+[23:00:45] ג'ימי 24/7 Server מתחיל 🤖
+[23:00:45] Dashboard: http://localhost:5000
+[23:00:45] ============================================================
+[23:00:45] 🌐 Dashboard פעיל: http://localhost:5000
+[23:00:50] 📺 TV tab: לא נמצא
+[23:00:54] ⚠️ TradingView: לא זמין
+[23:00:54] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[23:00:54] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[23:00:54] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[23:00:54] Ctrl+C לכיבוי מלא
+[23:00:57] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[14:15:53] ============================================================
+[14:15:53] ג'ימי 24/7 Server מתחיל 🤖
+[14:15:53] Dashboard: http://localhost:5000
+[14:15:53] ============================================================
+[14:15:53] 🌐 Dashboard פעיל: http://localhost:5000
+[14:15:56] 📺 TV tab: נמצא
+[14:16:02] ✅ TradingView: מחובר
+[14:16:02] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[14:16:02] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[14:16:02] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[14:16:02] Ctrl+C לכיבוי מלא
+[14:16:09] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[16:30:03] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:30:03] ============================================================
+[16:30:03] ג'ימי v2.0 — MNQ Trading Agent 🤖
+[16:30:03] Dashboard: http://localhost:5000
+[16:30:03] ============================================================
+[16:30:03] 🌐 Dashboard פעיל: http://localhost:5000
+[16:30:09] ✅ TradingView CDP: מחובר
+[16:30:09] 📈 price=30824.25 | score=+2 | CVD=-224 | δ=+81
+[16:30:09] 📷 קורא TradingView...
+[16:30:41] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163041.png
+[16:30:41] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:30:48] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:30, צריך 16:50–17:20) + Valtos +2<+3 + bias BEARISH מול מחיר בתקרת CDH
+[16:32:48] 📈 price=30873 | score=+3 | CVD=988 | δ=+1293
+[16:32:48] 📷 קורא TradingView...
+[16:33:21] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163321.png
+[16:33:21] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:33:30] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:33, פותח 16:50) + מחיר נצמד ל-CDH 30873.75 והbias BEARISH מתנגש עם Valtos +3
+[16:35:30] 📈 price=30882 | score=+3 | CVD=1833 | δ=+2138
+[16:35:30] 📷 קורא TradingView...
+[16:36:04] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163604.png
+[16:36:04] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:36:13] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:36, נפתח 16:50) + קונפליקט: bias BEARISH אך Valtos +3/CVD +1833 דוחף LONG
+[16:38:13] 📈 price=30850 | score=+3 | CVD=1013 | δ=+1318
+[16:38:13] 📷 קורא TradingView...
+[16:38:46] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163846.png
+[16:38:46] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:38:55] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:38, פותח 16:50) + bias BEARISH מתנגש עם Valtos +3 LONG — אין סטאפ תקף
+[16:40:55] 📈 price=30828 | score=+3 | CVD=1024 | δ=+1329
+[16:40:55] 📷 קורא TradingView...
+[16:41:28] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164128.png
+[16:41:28] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:41:44] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:41, פותח ב-16:50) + קונפליקט: bias BEARISH מול Valtos +3 LONG
+[16:43:44] 📈 price=30799 | score=-1 | CVD=-739 | δ=-434
+[16:43:44] 📷 קורא TradingView...
+[16:44:16] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164416.png
+[16:44:16] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:44:26] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:44, פתיחה רק 16:50) — ממתין; bias BEARISH+CVD -739 תומך SHORT אך מחיר על CDH 30800, צריך אישור סגירה
+[16:46:26] 📈 price=30772.25 | score=-1 | CVD=-1986 | δ=-1681
+[16:46:26] 📷 קורא TradingView...
+[16:46:59] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164659.png
+[16:47:00] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:47:29] ❌ שגיאה #1: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CcJQGyrSnqAEBxamV7WwC'}
+[16:48:00] 📈 price=30770.5 | score=-1 | CVD=-1880 | δ=-1575
+[16:48:00] 📷 קורא TradingView...
+[16:48:35] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164835.png
+[16:48:35] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:48:47] 🤖 ג'ימי החליט: FLAT | שעה 16:48 מחוץ לחלון כניסה (16:50–17:20) + Valtos -1 לא הגיע לסף -3
+[16:50:47] 📈 price=30775 | score=-1 | CVD=-1907 | δ=-1602
+[16:50:47] 📷 קורא TradingView...
+[16:51:20] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165120.png
+[16:51:20] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:51:33] 🤖 ג'ימי החליט: FLAT | bias BEARISH מאשר רק SHORT אך Valtos score -1 לא עבר סף -3, ופער מחיר NT8/TV (30775 מול 30884) — אין סטאפ
+[16:53:33] 📈 price=30808 | score=+0 | CVD=-826 | δ=+816
+[16:53:33] 📷 קורא TradingView...
+[16:54:06] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165406.png
+[16:54:06] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:54:13] 🤖 ג'ימי החליט: FLAT | Valtos score=0 (לא ≤-3), אין conviction ל-SHORT למרות bias BEARISH; מחיר תקוע ב-CDH 30902 resistance
+[16:56:13] 📈 price=30863.25 | score=+2 | CVD=1185 | δ=+2827
+[16:56:13] 📷 קורא TradingView...
+[16:56:45] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165645.png
+[16:56:45] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:56:55] 🤖 ג'ימי החליט: FLAT | bias BEARISH חוסם LONG, אך OrderFlow שורי (CVD +1185, delta +2827, Valtos +2) — אין SHORT תקף; קונפליקט + score לא עב
+[16:58:55] 📈 price=30885.75 | score=+2 | CVD=1451 | δ=+3093
+[16:58:55] 📷 קורא TradingView...
+[16:59:27] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165927.png
+[16:59:27] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:59:37] 🤖 ג'ימי החליט: FLAT | Valtos +2 (סף +3 לא נחצה) + HTF BEARISH אוסר LONG, אך delta +3093/CVD +1451 שורי לחלוטין — אין SHORT תקף. קונפליקט מוחלט, אין edge
+[17:01:37] 📈 price=30911 | score=+2 | CVD=2767 | δ=+4409
+[17:01:37] 📷 קורא TradingView...
+[17:02:11] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170211.png
+[17:02:11] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:02:25] 🤖 ג'ימי החליט: FLAT | Valtos +2 לא
+[17:04:25] 📈 price=30839.25 | score=-1 | CVD=801 | δ=-2643
+[17:04:25] 📷 קורא TradingView...
+[16:12:01] ============================================================
+[16:12:01] ג'ימי 24/7 Server מתחיל 🤖
+[16:12:01] Dashboard: http://localhost:5000
+[16:12:01] ============================================================
+[16:12:01] 🌐 Dashboard פעיל: http://localhost:5000
+[16:12:04] 📺 TV tab: נמצא
+[16:12:11] ✅ TradingView: מחובר
+[16:12:11] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[16:12:11] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[16:12:11] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[16:12:11] Ctrl+C לכיבוי מלא
+[16:12:19] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[16:30:11] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:30:11] ============================================================
+[16:30:11] ג'ימי v2.0 — MNQ Trading Agent 🤖
+[16:30:11] Dashboard: http://localhost:5000
+[16:30:11] ============================================================
+[16:30:11] 🌐 Dashboard פעיל: http://localhost:5000
+[16:30:17] ✅ TradingView CDP: מחובר
+[16:30:17] ⚠️ orderflow ישן 84356s — Rule 8: מדלג
+[16:30:32] ⚠️ orderflow ישן 84371s — Rule 8: מדלג
+[16:30:47] ⚠️ orderflow ישן 84386s — Rule 8: מדלג
+[16:31:02] ⚠️ orderflow ישן 84401s — Rule 8: מדלג
+[16:31:17] ⚠️ orderflow ישן 84416s — Rule 8: מדלג
+[16:31:32] ⚠️ orderflow ישן 84431s — Rule 8: מדלג
+[16:31:47] ⚠️ orderflow ישן 84446s — Rule 8: מדלג
+[16:32:02] ⚠️ orderflow ישן 84461s — Rule 8: מדלג
+[16:32:17] ⚠️ orderflow ישן 84476s — Rule 8: מדלג
+[16:32:32] ⚠️ orderflow ישן 84491s — Rule 8: מדלג
+[16:32:47] ⚠️ orderflow ישן 84506s — Rule 8: מדלג
+[16:33:02] ⚠️ orderflow ישן 84521s — Rule 8: מדלג
+[16:33:17] 📈 price=29726.5 | score=-3 | CVD=-1033 | δ=-113
+[16:33:17] 📷 קורא TradingView...
+[16:33:48] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163348.png
+[16:33:48] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:33:56] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:33, פותח 16:50) — bias BEARISH/Valtos -3 תומך SHORT אבל אסור להיכנס לפני הזמן
+[16:35:56] 📈 price=29729 | score=-3 | CVD=-1657 | δ=-986
+[16:35:56] 📷 קורא TradingView...
+[16:36:27] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163627.png
+[16:36:27] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:36:32] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:36, מותר רק 16:50–17:20) — נחכה לפתיחת החלון
+[16:38:32] 📈 price=29746.5 | score=-3 | CVD=-2103 | δ=-1432
+[16:38:32] 📷 קורא TradingView...
+[16:39:04] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_163904.png
+[16:39:04] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:39:08] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:39, נפתח רק 16:50) — Rule 22
+[16:41:08] 📈 price=29787 | score=-1 | CVD=-363 | δ=-54
+[16:41:08] 📷 קורא TradingView...
+[16:41:39] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164139.png
+[16:41:39] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:41:43] 🤖 ג'ימי החליט: FLAT | השעה 16:41 — מחוץ לחלון הכניסה (16:50–17:20), וגם Valtos -1 לא עבר סף ±3
+[16:43:43] 📈 price=29764.25 | score=-2 | CVD=-1395 | δ=-1086
+[16:43:43] 📷 קורא TradingView...
+[16:44:14] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164414.png
+[16:44:14] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:44:20] 🤖 ג'ימי החליט: FLAT | חלון כניסה נפתח 16:50 (כעת 16:44) + Valtos -2 לא עבר סף -3
+[16:46:20] 📈 price=29735.75 | score=-2 | CVD=-3037 | δ=-621
+[16:46:20] 📷 קורא TradingView...
+[16:46:51] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164651.png
+[16:46:51] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:46:56] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (16:46, פותח 16:50) + Valtos -2 לא עבר סף SHORT (-3)
+[16:48:56] 📈 price=29843.5 | score=+1 | CVD=385 | δ=+2801
+[16:48:56] 📷 קורא TradingView...
+[16:49:27] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_164927.png
+[16:49:27] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:49:34] 🤖 ג'ימי החליט: FLAT | 16:49 מחוץ לחלון כניסה (16:50–17:20) + Valtos +1 לא עבר סף ±3, ו-bias BEARISH מול דלתא +2801 = קונפליקט
+[16:51:34] 📈 price=29851.25 | score=+2 | CVD=392 | δ=+699
+[16:51:34] 📷 קורא TradingView...
+[16:52:05] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165205.png
+[16:52:05] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:52:12] 🤖 ג'ימי החליט: FLAT | Valtos +2 (לא ≤-3) ו-delta +699/ASK imb = מומנטום שורי, אבל HTF BEARISH אוסר LONG — אין יישור
+[16:54:12] 📈 price=29908.5 | score=+3 | CVD=2092 | δ=+2399
+[16:54:12] 📷 קורא TradingView...
+[16:54:47] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165447.png
+[16:54:47] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:54:56] 🤖 ג'ימי החליט: FLAT | סתירה: HTF bias BEARISH
+[16:56:56] 📈 price=29862.5 | score=+1 | CVD=1389 | δ=-37
+[16:56:56] 📷 קורא TradingView...
+[16:57:27] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_165727.png
+[16:57:27] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[16:57:35] 🤖 ג'ימי החליט: FLAT | Valtos +1 (סף ±3 לא נחצה), bias BEARISH חוסם LONG אבל CVD +1389 ודלתות +1730/+1396 חוסמים SHORT — flow מנוגד ל-bias, אין edge
+[16:59:35] 📈 price=29925.25 | score=+3 | CVD=3548 | δ=+2122
+[16:59:35] 📷 קורא TradingView...
+[17:00:09] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170009.png
+[17:00:09] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:00:19] 🤖 ג'ימי החליט: FLAT | no text response
+[17:02:19] 📈 price=29995 | score=+3 | CVD=4359 | δ=+1308
+[17:02:19] 📷 קורא TradingView...
+[17:02:54] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170254.png
+[17:02:54] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:03:05] 🤖 ג'ימי החליט: FLAT | no text response
+[17:05:05] 📈 price=29981.5 | score=+0 | CVD=3261 | δ=-61
+[17:05:05] 📷 קורא TradingView...
+[17:05:40] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170540.png
+[17:05:40] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:05:46] 🤖 ג'ימי החליט: FLAT | Valtos score=0 (לא הגיע ל-≤-3 הנדרש ל-SHORT), bias BEARISH חוסם LONG — אין edge
+[17:07:46] 📈 price=29963.75 | score=+2 | CVD=3410 | δ=+88
+[17:07:46] 📷 קורא TradingView...
+[17:08:21] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_170821.png
+[17:08:21] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:08:29] 🤖 ג'ימי החליט: FLAT | bias BEARISH חוסם LONG, אך Valtos +2 (לא ≤-3) ו-CVD +3,410 חיובי — אין אישור order flow ל-SHORT, קונפליקט מוחלט
+[17:10:29] 📈 price=29993.75 | score=+2 | CVD=5068 | δ=+1437
+[17:10:29] 📷 קורא TradingView...
+[17:11:04] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171104.png
+[17:11:04] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:11:14] 🤖 ג'ימי החליט: FLAT | HTF bias BEARISH מתיר רק SHORT, אבל Valtos +2 (לא ≤-3) ו-CVD +5068/delta +1437 בולשים — אין setup SHORT תקף נגד order flow חיובי
+[17:13:14] 📈 price=29980.5 | score=+2 | CVD=4668 | δ=+1037
+[17:13:14] 📷 קורא TradingView...
+[17:13:48] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171348.png
+[17:13:48] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:13:58] 🤖 ג'ימי החליט: FLAT | bias BEARISH חוסם LONG, אך CVD +4,668 ו-delta +1
+[17:15:58] 📈 price=29988.25 | score=+0 | CVD=4850 | δ=-174
+[17:15:58] 📷 קורא TradingView...
+[17:16:32] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171632.png
+[17:16:32] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:16:35] ❌ שגיאה #1: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLLK22WmbtPszCgPK7EU'}
+[17:17:05] 📈 price=30011.25 | score=+2 | CVD=6025 | δ=+1001
+[17:17:05] 📷 קורא TradingView...
+[17:17:39] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171739.png
+[17:17:39] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:17:41] ❌ שגיאה #2: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLLPwgxABroPoscRgMYh'}
+[17:18:11] 📈 price=30000.75 | score=+2 | CVD=5525 | δ=+501
+[17:18:11] 📷 קורא TradingView...
+[17:18:45] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_171845.png
+[17:18:45] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:18:51] 🤖 ג'ימי החליט: FLAT | bias BEARISH חוסם LONG, אך OrderFlow שורי (CVD +5525, delta +501) — אין סטאפ SHORT תקף; Valtos +2 < +3 בכל מקרה
+[17:20:51] 📈 price=30039 | score=+3 | CVD=6337 | δ=+583
+[17:20:51] 📷 קורא TradingView...
+[17:21:26] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172126.png
+[17:21:26] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:21:32] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:21 > 17:20) + קונפליקט: bias BEARISH אבל CVD +6337/Valtos +3 דוחפים LONG
+[17:23:32] 📈 price=30005 | score=+0 | CVD=4514 | δ=-1240
+[17:23:32] 📷 קורא TradingView...
+[17:24:07] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172407.png
+[17:24:07] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:24:09] ❌ שגיאה #1: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLLtZ3Emv2Pq1uA77EhN'}
+[17:24:39] 📈 price=29995.25 | score=+0 | CVD=4588 | δ=-1166
+[17:24:39] 📷 קורא TradingView...
+[17:25:14] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172514.png
+[17:25:14] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:25:16] ❌ שגיאה #2: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLLyWbnYLqVHiC1y3eKY'}
+[17:25:46] 📈 price=29988.5 | score=+0 | CVD=4145 | δ=-572
+[17:25:46] 📷 קורא TradingView...
+[17:26:21] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172621.png
+[17:26:21] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:26:24] ❌ שגיאה #3: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLM4T8a5jFptXsqo1d3z'}
+[17:26:54] 📈 price=29952.75 | score=+0 | CVD=2723 | δ=-1994
+[17:26:54] 📷 קורא TradingView...
+[17:27:29] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172729.png
+[17:27:29] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:27:31] ❌ שגיאה #4: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLM9TzJWcs96GyYC42L4'}
+[17:28:01] 📈 price=29958.75 | score=+1 | CVD=2886 | δ=-1831
+[17:28:01] 📷 קורא TradingView...
+[17:28:37] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_172837.png
+[17:28:37] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:28:43] 🤖 ג'ימי החליט: FLAT | 17:28 מחוץ לחלון כניסה (16:50–17:20, Rule 22) + Valtos +1 לא עבר סף ±3
+[17:30:43] 📈 price=29970.75 | score=+3 | CVD=6103 | δ=+33
+[17:30:43] 📷 קורא TradingView...
+[17:31:17] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173117.png
+[17:31:17] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:31:19] ❌ שגיאה #1: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLMSGnpzfmfsdoKHpe2H'}
+[17:31:49] 📈 price=29930.25 | score=+0 | CVD=4187 | δ=-1883
+[17:31:49] 📷 קורא TradingView...
+[17:32:25] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173225.png
+[17:32:25] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:32:28] ❌ שגיאה #2: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLMXKyTdREescGq5fmUf'}
+[17:32:58] 📈 price=29914.5 | score=+0 | CVD=3668 | δ=-2402
+[17:32:58] 📷 קורא TradingView...
+[17:33:33] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173333.png
+[17:33:33] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:33:38] 🤖 ג'ימי החליט: FLAT | מחוץ לחלון כניסה (17:33 > 17:20, Rule 22) + Valtos score 0 לא עובר סף ±3
+[17:35:38] 📈 price=29908.25 | score=-1 | CVD=2452 | δ=-1031
+[17:35:38] 📷 קורא TradingView...
+[17:36:13] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173613.png
+[17:36:13] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:36:16] ❌ שגיאה #1: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLMp8hmy6Bn8ybyvzzrw'}
+[17:36:46] 📈 price=29983.75 | score=+2 | CVD=5358 | δ=+1875
+[17:36:46] 📷 קורא TradingView...
+[17:37:20] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173720.png
+[17:37:20] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:37:22] ❌ שגיאה #2: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLMu2qSagZqd1N9CNgjR'}
+[17:37:52] 📈 price=29981.5 | score=+2 | CVD=5861 | δ=+2378
+[17:37:52] 📷 קורא TradingView...
+[17:38:27] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173827.png
+[17:38:27] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:38:33] ❌ שגיאה #3: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CcLMzDN6VD4i2VHcETABY'}
+[17:39:03] 📈 price=29926.5 | score=+3 | CVD=3781 | δ=+298
+[17:39:03] 📷 קורא TradingView...
+[17:39:37] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_173937.png
+[17:39:37] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:39:39] ❌ שגיאה #4: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLN57V2DQto8CrJ16x8P'}
+[17:40:09] 📈 price=29907.75 | score=+3 | CVD=1110 | δ=+146
+[17:40:09] 📷 קורא TradingView...
+[17:40:44] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_174044.png
+[17:40:44] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:40:50] ❌ שגיאה #5: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CcLNAL6ggRLiQ5Hd4xKsN'}
+[17:40:50] ⛔ יותר מדי שגיאות
+[17:40:50] 🔴 Trading loop הסתיים
+[17:41:11] 🟢 Trading loop מתחיל (KZ פתוחה)
+[17:41:11] ============================================================
+[17:41:11] ג'ימי v2.0 — MNQ Trading Agent 🤖
+[17:41:11] Dashboard: http://localhost:5000
+[17:41:11] ============================================================
+[17:41:11] 🌐 Dashboard פעיל: http://localhost:5000
+[17:41:17] ✅ TradingView CDP: מחובר
+[17:41:17] 📈 price=29900.5 | score=+0 | CVD=700 | δ=-264
+[17:41:17] 📷 קורא TradingView...
+[17:41:52] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_174152.png
+[17:41:52] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:41:54] ❌ שגיאה #1: Error code: 500 - {'type': 'error', 'error': {'type': 'api_error', 'message': 'Internal server error'}, 'request_id': 'req_011CcLNF62EiqFN3HjbNtn5c'}
+[17:42:24] 📈 price=29888.25 | score=+0 | CVD=755 | δ=-209
+[17:42:25] 📷 קורא TradingView...
+[17:42:59] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_174259.png
+[17:42:59] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:43:05] ❌ שגיאה #2: Error code: 529 - {'type': 'error', 'error': {'type': 'overloaded_error', 'message': 'Overloaded'}, 'request_id': 'req_011CcLNLG9qGSAZ1mDxAr9Sa'}
+[17:43:35] 📈 price=29925.5 | score=+2 | CVD=2130 | δ=+1166
+[17:43:35] 📷 קורא TradingView...
+[17:44:10] 📷 Screenshot: C:\Users\DELL\New folder\ninjatrader-mcp\data\screenshots\jimmy_chart_174410.png
+[17:44:10] 🤖 שולח לקלוד | TV=✅ | bias=BEARISH
+[17:44:15] 🤖 ג'ימי החליט: FLAT | 17:44 מחוץ לחלון כניסה (16:50–17:20) — Rule 22 חוסם, גם Valtos +2 מתחת לסף +3
+[14:28:20] ============================================================
+[14:28:20] ג'ימי 24/7 Server מתחיל 🤖
+[14:28:20] Dashboard: http://localhost:5000
+[14:28:20] ============================================================
+[14:28:20] ❌ ANTHROPIC_API_KEY לא מוגדר!
+[14:28:20] הגדר: $env:ANTHROPIC_API_KEY='sk-ant-...'
+[14:28:57] ============================================================
+[14:28:57] ג'ימי 24/7 Server מתחיל 🤖
+[14:28:57] Dashboard: http://localhost:5000
+[14:28:57] ============================================================
+[14:28:57] ❌ ANTHROPIC_API_KEY לא מוגדר!
+[14:28:57] הגדר: $env:ANTHROPIC_API_KEY='sk-ant-...'
+[15:49:18] ============================================================
+[15:49:18] ג'ימי 24/7 Server מתחיל 🤖
+[15:49:18] Dashboard: http://localhost:5000
+[15:49:18] ============================================================
+[15:49:18] 🌐 Dashboard פעיל: http://localhost:5000
+[15:49:20] ⚠️ TradingView startup error: cannot import name 'health_check' from 'jimmy_tv' (C:\Users\regev\New folder\ninjatrader-mcp\jimmy_tv.py)
+[15:49:21] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[15:49:21] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[15:49:21] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[15:49:21] Ctrl+C לכיבוי מלא
+[15:49:34] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[16:30:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:30:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:30:21] 🔴 Trading loop הסתיים
+[16:30:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:30:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:30:51] 🔴 Trading loop הסתיים
+[16:31:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:31:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:31:21] 🔴 Trading loop הסתיים
+[16:31:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:31:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:31:51] 🔴 Trading loop הסתיים
+[16:32:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:32:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:32:21] 🔴 Trading loop הסתיים
+[16:32:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:32:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:32:51] 🔴 Trading loop הסתיים
+[16:33:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:33:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:33:21] 🔴 Trading loop הסתיים
+[16:33:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:33:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:33:51] 🔴 Trading loop הסתיים
+[16:34:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:34:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:34:21] 🔴 Trading loop הסתיים
+[16:34:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:34:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:34:51] 🔴 Trading loop הסתיים
+[16:35:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:35:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:35:21] 🔴 Trading loop הסתיים
+[16:35:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:35:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:35:51] 🔴 Trading loop הסתיים
+[16:36:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:36:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:36:21] 🔴 Trading loop הסתיים
+[16:36:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:36:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:36:51] 🔴 Trading loop הסתיים
+[16:37:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:37:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:37:21] 🔴 Trading loop הסתיים
+[16:37:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:37:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:37:51] 🔴 Trading loop הסתיים
+[16:38:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:38:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:38:21] 🔴 Trading loop הסתיים
+[16:38:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:38:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:38:51] 🔴 Trading loop הסתיים
+[16:39:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:39:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:39:21] 🔴 Trading loop הסתיים
+[16:39:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:39:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:39:51] 🔴 Trading loop הסתיים
+[16:40:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:40:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:40:21] 🔴 Trading loop הסתיים
+[16:40:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:40:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:40:51] 🔴 Trading loop הסתיים
+[16:41:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:41:21] ❌ Trading loop שגיאה: cannot import name 'get_full_tv_context' from 'jimmy_tv' (C:\Users\regev\New folder\ninjatrader-mcp\jimmy_tv.py)
+[16:41:21] 🔴 Trading loop הסתיים
+[16:41:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:41:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:41:51] 🔴 Trading loop הסתיים
+[16:42:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:42:21] ❌ Trading loop שגיאה: cannot import name 'get_full_tv_context' from 'jimmy_tv' (C:\Users\regev\New folder\ninjatrader-mcp\jimmy_tv.py)
+[16:42:21] 🔴 Trading loop הסתיים
+[16:42:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:42:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:42:51] 🔴 Trading loop הסתיים
+[16:43:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:43:21] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:43:21] 🔴 Trading loop הסתיים
+[16:43:51] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:43:51] ❌ Trading loop שגיאה: No module named 'websocket'
+[16:43:51] 🔴 Trading loop הסתיים
+[16:44:21] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:44:21] ============================================================
+[16:44:21] ג'ימי v2.0 — MNQ Trading Agent 🤖
+[16:44:21] Dashboard: http://localhost:5000
+[16:44:21] ============================================================
+[16:44:21] 🌐 Dashboard פעיל: http://localhost:5000
+[16:44:25] ⚠️ TradingView CDP: לא זמין — עובד בלי TV vision
+[16:44:25] ⚠️ orderflow ישן 514699s — Rule 8: מדלג
+[16:44:40] ⚠️ orderflow ישן 514714s — Rule 8: מדלג
+[16:44:55] ⚠️ orderflow ישן 514729s — Rule 8: מדלג
+[16:45:10] ⚠️ orderflow ישן 514744s — Rule 8: מדלג
+[16:45:25] ⚠️ orderflow ישן 514759s — Rule 8: מדלג
+[16:45:50] ============================================================
+[16:45:50] ג'ימי 24/7 Server מתחיל 🤖
+[16:45:50] Dashboard: http://localhost:5000
+[16:45:50] ============================================================
+[16:45:50] 🌐 Dashboard פעיל: http://localhost:5000
+[16:45:50] 📋 תכנית סשן קיימת טעונה
+[16:45:55] 📺 TV tab: לא נמצא
+[16:45:59] ⚠️ TradingView: לא זמין
+[16:45:59] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[16:45:59] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[16:45:59] 🟢 Trading loop מתחיל (KZ פתוחה)
+[16:45:59] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[16:45:59] Ctrl+C לכיבוי מלא
+[16:45:59] ============================================================
+[16:45:59] ג'ימי v2.0 — MNQ Trading Agent 🤖
+[16:45:59] Dashboard: http://localhost:5000
+[16:45:59] ============================================================
+[16:45:59] 🌐 Dashboard פעיל: http://localhost:5000
+[16:46:03] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל
+[16:46:03] ⚠️ TradingView CDP: לא זמין — עובד בלי TV vision
+[16:46:03] ⚠️ orderflow ישן 514798s — Rule 8: מדלג
+[16:46:18] ⚠️ orderflow ישן 514813s — Rule 8: מדלג
+[16:46:33] ⚠️ orderflow ישן 514828s — Rule 8: מדלג
+[16:46:48] ⚠️ orderflow ישן 514843s — Rule 8: מדלג
+[16:47:03] ⚠️ orderflow ישן 514858s — Rule 8: מדלג
+[16:47:18] ⚠️ orderflow ישן 514873s — Rule 8: מדלג
+[16:47:33] ⚠️ orderflow ישן 514888s — Rule 8: מדלג
+[16:47:48] ⚠️ orderflow ישן 514903s — Rule 8: מדלג
+[16:48:03] ⚠️ orderflow ישן 514918s — Rule 8: מדלג
+[16:48:18] ⚠️ orderflow ישן 514933s — Rule 8: מדלג
+[16:48:33] ⚠️ orderflow ישן 514948s — Rule 8: מדלג
+[16:48:48] ⚠️ orderflow ישן 514963s — Rule 8: מדלג
+[16:49:03] ⚠️ orderflow ישן 514978s — Rule 8: מדלג
+[16:49:18] ⚠️ orderflow ישן 514993s — Rule 8: מדלג
+[16:49:33] ⚠️ orderflow ישן 515008s — Rule 8: מדלג
+[16:49:48] ⚠️ orderflow ישן 515023s — Rule 8: מדלג
+[16:50:03] ⚠️ orderflow ישן 515038s — Rule 8: מדלג
+[16:50:18] ⚠️ orderflow ישן 515053s — Rule 8: מדלג
+[16:50:33] ⚠️ orderflow ישן 515068s — Rule 8: מדלג
+[16:50:48] ⚠️ orderflow ישן 515083s — Rule 8: מדלג
+[16:51:03] ⚠️ orderflow ישן 515098s — Rule 8: מדלג
+[16:51:18] ⚠️ orderflow ישן 515113s — Rule 8: מדלג
+[16:51:33] ⚠️ orderflow ישן 515128s — Rule 8: מדלג
+[16:51:48] ⚠️ orderflow ישן 515143s — Rule 8: מדלג
+[16:52:03] ⚠️ orderflow ישן 515158s — Rule 8: מדלג
+[16:52:18] ⚠️ orderflow ישן 515173s — Rule 8: מדלג
+[16:52:33] ⚠️ orderflow ישן 515188s — Rule 8: מדלג
+[16:52:48] ⚠️ orderflow ישן 515203s — Rule 8: מדלג
+[16:53:03] ⚠️ orderflow ישן 515218s — Rule 8: מדלג
+[16:53:18] ⚠️ orderflow ישן 515233s — Rule 8: מדלג
+[16:53:33] ⚠️ orderflow ישן 515248s — Rule 8: מדלג
+[16:53:48] ⚠️ orderflow ישן 515263s — Rule 8: מדלג
+[16:54:03] ⚠️ orderflow ישן 515278s — Rule 8: מדלג
+[16:54:18] ⚠️ orderflow ישן 515293s — Rule 8: מדלג
+[16:54:33] ⚠️ orderflow ישן 515308s — Rule 8: מדלג
+[16:54:48] ⚠️ orderflow ישן 515323s — Rule 8: מדלג
+[16:55:03] ⚠️ orderflow ישן 515338s — Rule 8: מדלג
+[16:55:18] ⚠️ orderflow ישן 515353s — Rule 8: מדלג
+[16:55:33] ⚠️ orderflow ישן 515368s — Rule 8: מדלג
+[16:55:48] ⚠️ orderflow ישן 515383s — Rule 8: מדלג
+[16:56:03] ⚠️ orderflow ישן 515398s — Rule 8: מדלג
+[16:56:18] ⚠️ orderflow ישן 515413s — Rule 8: מדלג
+[16:56:33] ⚠️ orderflow ישן 515428s — Rule 8: מדלג
+[16:56:48] ⚠️ orderflow ישן 515443s — Rule 8: מדלג
+[16:57:03] ⚠️ orderflow ישן 515458s — Rule 8: מדלג
+[16:57:18] ⚠️ orderflow ישן 515473s — Rule 8: מדלג
+[16:57:33] ⚠️ orderflow ישן 515488s — Rule 8: מדלג
+[16:57:48] ⚠️ orderflow ישן 515503s — Rule 8: מדלג
+[16:58:03] ⚠️ orderflow ישן 515518s — Rule 8: מדלג
+[16:58:18] ⚠️ orderflow ישן 515533s — Rule 8: מדלג
+[16:58:33] ⚠️ orderflow ישן 515548s — Rule 8: מדלג
+[16:58:49] ⚠️ orderflow ישן 515563s — Rule 8: מדלג
+[16:59:04] ⚠️ orderflow ישן 515578s — Rule 8: מדלג
+[16:59:19] ⚠️ orderflow ישן 515593s — Rule 8: מדלג
+[16:59:34] ⚠️ orderflow ישן 515608s — Rule 8: מדלג
+[16:59:49] ⚠️ orderflow ישן 515623s — Rule 8: מדלג
+[17:00:04] ⚠️ orderflow ישן 515638s — Rule 8: מדלג
+[17:00:19] ⚠️ orderflow ישן 515653s — Rule 8: מדלג
+[17:00:34] ⚠️ orderflow ישן 515668s — Rule 8: מדלג
+[17:00:49] ⚠️ orderflow ישן 515683s — Rule 8: מדלג
+[17:01:04] ⚠️ orderflow ישן 515698s — Rule 8: מדלג
+[17:01:19] ⚠️ orderflow ישן 515713s — Rule 8: מדלג
+[17:01:34] ⚠️ orderflow ישן 515728s — Rule 8: מדלג
+[17:01:49] ⚠️ orderflow ישן 515743s — Rule 8: מדלג
+[17:02:04] ⚠️ orderflow ישן 515758s — Rule 8: מדלג
+[17:02:19] ⚠️ orderflow ישן 515773s — Rule 8: מדלג
+[17:02:34] ⚠️ orderflow ישן 515788s — Rule 8: מדלג
+[17:02:49] ⚠️ orderflow ישן 515803s — Rule 8: מדלג
+[17:03:04] ⚠️ orderflow ישן 515818s — Rule 8: מדלג
+[17:03:19] ⚠️ orderflow ישן 515833s — Rule 8: מדלג
+[17:03:34] ⚠️ orderflow ישן 515848s — Rule 8: מדלג
+[17:03:49] ⚠️ orderflow ישן 515863s — Rule 8: מדלג
+[17:04:04] ⚠️ orderflow ישן 515878s — Rule 8: מדלג
+[17:04:19] ⚠️ orderflow ישן 515893s — Rule 8: מדלג
+[17:04:34] ⚠️ orderflow ישן 515908s — Rule 8: מדלג
+[17:04:49] ⚠️ orderflow ישן 515923s — Rule 8: מדלג
+[17:05:04] ⚠️ orderflow ישן 515938s — Rule 8: מדלג
+[17:05:19] ⚠️ orderflow ישן 515953s — Rule 8: מדלג
+[17:05:34] ⚠️ orderflow ישן 515968s — Rule 8: מדלג
+[17:05:49] ⚠️ orderflow ישן 515983s — Rule 8: מדלג
+[17:06:04] ⚠️ orderflow ישן 515998s — Rule 8: מדלג
+[17:06:19] ⚠️ orderflow ישן 516013s — Rule 8: מדלג
+[17:06:34] ⚠️ orderflow ישן 516028s — Rule 8: מדלג
+[17:06:49] ⚠️ orderflow ישן 516043s — Rule 8: מדלג
+[17:07:04] ⚠️ orderflow ישן 516058s — Rule 8: מדלג
+[17:07:19] ⚠️ orderflow ישן 516073s — Rule 8: מדלג
+[17:07:34] ⚠️ orderflow ישן 516088s — Rule 8: מדלג
+[17:07:49] ⚠️ orderflow ישן 516103s — Rule 8: מדלג
+[17:08:04] ⚠️ orderflow ישן 516118s — Rule 8: מדלג
+[17:08:19] ⚠️ orderflow ישן 516133s — Rule 8: מדלג
+[17:08:34] ⚠️ orderflow ישן 516148s — Rule 8: מדלג
+[17:08:49] ⚠️ orderflow ישן 516163s — Rule 8: מדלג
+[17:09:04] ⚠️ orderflow ישן 516178s — Rule 8: מדלג
+[17:09:19] ⚠️ orderflow ישן 516193s — Rule 8: מדלג
+[17:09:34] ⚠️ orderflow ישן 516208s — Rule 8: מדלג
+[17:09:49] ⚠️ orderflow ישן 516223s — Rule 8: מדלג
+[17:10:04] 📈 price=29500 | score=-2 | CVD=-6476 | δ=-92
+[17:10:04] 📷 קורא TradingView...
+[17:10:08] ⚠️ TV: TradingView לא זמין
+[17:10:08] 🤖 שולח לקלוד | TV=❌ | bias=BEARISH
+[17:10:14] 🤖 ג'ימי החליט: FLAT | Valtos score -2 לא עבר סף SHORT (-3) — bias BEARISH מאשר כיוון אך אין conviction לכניסה
+[17:12:14] ⚠️ orderflow ישן 129s — Rule 8: מדלג
+[17:12:29] ⚠️ orderflow ישן 144s — Rule 8: מדלג
+[17:12:44] ⚠️ orderflow ישן 159s — Rule 8: מדלג
+[17:12:59] ⚠️ orderflow ישן 174s — Rule 8: מדלג
+[17:13:14] ⚠️ orderflow ישן 189s — Rule 8: מדלג
+[17:13:29] ⚠️ orderflow ישן 204s — Rule 8: מדלג
+[17:13:44] ⚠️ orderflow ישן 219s — Rule 8: מדלג
+[17:13:59] ⚠️ orderflow ישן 234s — Rule 8: מדלג
+[17:14:14] ⚠️ orderflow ישן 249s — Rule 8: מדלג
+[17:14:29] ⚠️ orderflow ישן 264s — Rule 8: מדלג
+[17:14:44] ⚠️ orderflow ישן 279s — Rule 8: מדלג
+[17:14:59] ⚠️ orderflow ישן 294s — Rule 8: מדלג
+[17:15:14] ⚠️ orderflow ישן 309s — Rule 8: מדלג
+[17:15:29] ⚠️ orderflow ישן 324s — Rule 8: מדלג
+[17:15:44] ⚠️ orderflow ישן 339s — Rule 8: מדלג
+[17:15:59] ⚠️ orderflow ישן 354s — Rule 8: מדלג
+[17:16:14] ⚠️ orderflow ישן 369s — Rule 8: מדלג
+[17:16:29] ⚠️ orderflow ישן 384s — Rule 8: מדלג
+[17:16:44] ⚠️ orderflow ישן 399s — Rule 8: מדלג
+[17:16:59] ⚠️ orderflow ישן 414s — Rule 8: מדלג
+[17:17:14] ⚠️ orderflow ישן 429s — Rule 8: מדלג
+[17:17:29] ⚠️ orderflow ישן 444s — Rule 8: מדלג
+[17:17:44] ⚠️ orderflow ישן 459s — Rule 8: מדלג
+[17:17:59] ⚠️ orderflow ישן 474s — Rule 8: מדלג
+[17:18:14] ⚠️ orderflow ישן 489s — Rule 8: מדלג
+[17:18:29] ⚠️ orderflow ישן 504s — Rule 8: מדלג
+[17:18:44] ⚠️ orderflow ישן 519s — Rule 8: מדלג
+[17:18:59] ⚠️ orderflow ישן 534s — Rule 8: מדלג
+[17:19:14] ⚠️ orderflow ישן 549s — Rule 8: מדלג
+[17:19:29] ⚠️ orderflow ישן 564s — Rule 8: מדלג
+[17:19:44] ⚠️ orderflow ישן 579s — Rule 8: מדלג
+[17:19:59] ⚠️ orderflow ישן 594s — Rule 8: מדלג
+[17:20:14] ⚠️ orderflow ישן 609s — Rule 8: מדלג
+[17:20:29] ⚠️ orderflow ישן 624s — Rule 8: מדלג
+[17:20:44] ⚠️ orderflow ישן 639s — Rule 8: מדלג
+[17:20:59] ⚠️ orderflow ישן 654s — Rule 8: מדלג
+[17:21:14] ⚠️ orderflow ישן 669s — Rule 8: מדלג
+[17:21:29] ⚠️ orderflow ישן 684s — Rule 8: מדלג
+[17:21:44] ⚠️ orderflow ישן 699s — Rule 8: מדלג
+[17:21:59] ⚠️ orderflow ישן 714s — Rule 8: מדלג
+[17:22:14] ⚠️ orderflow ישן 729s — Rule 8: מדלג
+[17:22:29] ⚠️ orderflow ישן 744s — Rule 8: מדלג
+[17:22:44] ⚠️ orderflow ישן 759s — Rule 8: מדלג
+[17:22:59] ⚠️ orderflow ישן 774s — Rule 8: מדלג
+[17:23:14] ⚠️ orderflow ישן 789s — Rule 8: מדלג
+[17:23:29] ⚠️ orderflow ישן 804s — Rule 8: מדלג
+[17:23:44] ⚠️ orderflow ישן 819s — Rule 8: מדלג
+[17:23:59] ⚠️ orderflow ישן 834s — Rule 8: מדלג
+[17:24:14] ⚠️ orderflow ישן 849s — Rule 8: מדלג
+[17:24:29] ⚠️ orderflow ישן 864s — Rule 8: מדלג
+[17:24:44] ⚠️ orderflow ישן 879s — Rule 8: מדלג
+[17:24:59] ⚠️ orderflow ישן 894s — Rule 8: מדלג
+[17:25:14] ⚠️ orderflow ישן 909s — Rule 8: מדלג
+[17:25:29] ⚠️ orderflow ישן 924s — Rule 8: מדלג
+[17:25:44] ⚠️ orderflow ישן 939s — Rule 8: מדלג
+[17:25:59] ⚠️ orderflow ישן 954s — Rule 8: מדלג
+[17:26:14] ⚠️ orderflow ישן 969s — Rule 8: מדלג
+[17:26:29] ⚠️ orderflow ישן 984s — Rule 8: מדלג
+[17:26:44] ⚠️ orderflow ישן 999s — Rule 8: מדלג
+[17:26:59] ⚠️ orderflow ישן 1014s — Rule 8: מדלג
+[12:37:41] ============================================================
+[12:37:41] ג'ימי 24/7 Server מתחיל 🤖
+[12:37:41] Dashboard: http://localhost:5000
+[12:37:41] ============================================================
+[12:37:41] 🌐 Dashboard פעיל: http://localhost:5000
+[12:37:46] 📺 TV tab: לא נמצא
+[12:37:50] ⚠️ TradingView: לא זמין
+[12:37:50] 📅 Scheduler פעיל — ג'ימי ידלק אוטומטית ב-16:30
+[12:37:50] 🔍 Research scheduler פעיל — מחקר בוקר ב-09:00 כל יום
+[12:37:50] ✅ ג'ימי דלוק 24/7 — צ'אט זמין תמיד, מסחר אוטומטי ב-KZ
+[12:37:50] Ctrl+C לכיבוי מלא
+[12:38:08] 📅 לוח כלכלי: לא נמצאו אירועים HIGH IMPACT — מסחר רגיל

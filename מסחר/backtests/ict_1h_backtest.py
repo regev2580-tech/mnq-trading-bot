@@ -7,7 +7,7 @@ Shows every trade with entry/SL/TP/outcome + points won/lost
 import json, sys, statistics
 from datetime import datetime, timezone, timedelta
 
-DATA_FILE = r"C:\Users\DELL\.claude\projects\c--Users-DELL-New-folder\74a98524-849f-42d9-804f-d413c554c8fe\tool-results\bk2qttcd1.txt"
+DATA_FILE = r"C:\Users\regev\.claude\projects\c--Users-DELL-New-folder\74a98524-849f-42d9-804f-d413c554c8fe\tool-results\bk2qttcd1.txt"
 
 def load_bars():
     with open(DATA_FILE, "r", encoding="utf-8") as f:

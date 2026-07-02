@@ -10,7 +10,7 @@ import sys
 import statistics
 from datetime import datetime, timezone
 
-MCP_DIR = r"C:\Users\DELL\New folder\tradingview-mcp"
+MCP_DIR = r"C:\Users\regev\New folder\tradingview-mcp"
 
 def run_cli(*args):
     result = subprocess.run(
