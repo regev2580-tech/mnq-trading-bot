@@ -4,6 +4,8 @@ Dashboard: http://localhost:5002
 """
 import json
 import os
+import threading
+import time
 from pathlib import Path
 from datetime import datetime, timezone, timedelta
 
@@ -142,6 +144,46 @@ def fetch_all():
         "conv_per_biz": conv_per_biz,
         "total_conversations": len(conversations or []),
     }
+
+
+# ── ניטור מערכות — שון בודק כל 3 דקות שהכל חי ─────────────────────────────
+HEALTH = {"checks": {}, "checked_at": None, "all_ok": None}
+HEALTH_INTERVAL_SEC = 180
+
+def run_health_check():
+    checks = {}
+    # 1. שרת beautyai
+    try:
+        r = requests.get(f"{BEAUTYAI_URL}/health", timeout=5)
+        checks["server"] = {"ok": r.ok, "label": "שרת BeautyAI"}
+    except Exception:
+        checks["server"] = {"ok": False, "label": "שרת BeautyAI"}
+    # 2. וואטסאפ (Green API דרך השרת)
+    try:
+        r = requests.get(f"{BEAUTYAI_URL}/api/whatsapp/status", timeout=8)
+        connected = bool(r.json().get("connected")) if r.ok else False
+        checks["whatsapp"] = {"ok": connected, "label": "וואטסאפ"}
+    except Exception:
+        checks["whatsapp"] = {"ok": False, "label": "וואטסאפ"}
+    # 3. מסד נתונים Supabase
+    biz = sb_get("businesses", {"select": "id", "limit": "1"})
+    checks["database"] = {"ok": bool(biz), "label": "מסד נתונים"}
+
+    HEALTH["checks"] = checks
+    HEALTH["checked_at"] = datetime.now(ISRAEL_TZ).isoformat()
+    HEALTH["all_ok"] = all(c["ok"] for c in checks.values())
+    if not HEALTH["all_ok"]:
+        bad = [c["label"] for c in checks.values() if not c["ok"]]
+        write_status(f"⚠️ בעיה: {', '.join(bad)}")
+    return HEALTH
+
+def health_loop():
+    while True:
+        try:
+            run_health_check()
+        except Exception as e:
+            print(f"[Health] שגיאה: {e}")
+        time.sleep(HEALTH_INTERVAL_SEC)
 
 
 def write_status(last_action="online"):
@@ -310,6 +352,11 @@ tr:hover td{background:#fdf8fa}
 
 <!-- OVERVIEW -->
 <div class="panel active" id="panel-overview">
+  <div id="health-strip" style="display:flex;gap:14px;flex-wrap:wrap;align-items:center;background:#fff;border:1px solid #ece7ea;border-radius:10px;padding:10px 16px">
+    <span style="font-size:11px;font-weight:700;color:#8a8fa3;letter-spacing:.5px">🩺 ניטור מערכות</span>
+    <span id="hs-items" style="display:flex;gap:14px;flex-wrap:wrap;font-size:12px">טוען...</span>
+    <span id="hs-time" style="margin-right:auto;font-size:10px;color:#8a8fa3"></span>
+  </div>
   <div class="stats" id="stats-row">
     <div class="stat-card"><div class="num" id="s-biz">—</div><div class="lbl">קליניקות רשומות</div></div>
     <div class="stat-card"><div class="num" id="s-open" style="color:#d6456f">—</div><div class="lbl">שאלות פתוחות</div></div>
@@ -713,8 +760,29 @@ function addMsg(role, text, id) {
   box.scrollTop = box.scrollHeight;
 }
 
+async function loadHealth() {
+  try {
+    const h = await (await fetch('/api/health')).json();
+    const items = Object.values(h.checks || {}).map(c =>
+      `<span style="display:inline-flex;align-items:center;gap:5px">
+        <span style="width:8px;height:8px;border-radius:50%;background:${c.ok ? '#22c55e' : '#ef4444'};${c.ok ? '' : 'box-shadow:0 0 0 3px rgba(239,68,68,.18)'}"></span>
+        <span style="color:${c.ok ? '#1c1f2e' : '#ef4444'};font-weight:${c.ok ? '500' : '700'}">${c.label}</span>
+      </span>`).join('');
+    document.getElementById('hs-items').innerHTML = items || 'אין נתונים';
+    if (h.checked_at) {
+      const t = new Date(h.checked_at);
+      document.getElementById('hs-time').textContent = 'נבדק ' + t.toLocaleTimeString('he-IL', {hour:'2-digit',minute:'2-digit'});
+    }
+    document.getElementById('badge').textContent = h.all_ok ? 'online · הכל תקין' : '⚠️ יש בעיה';
+    document.getElementById('badge').style.background = h.all_ok ? '#dcfce7' : '#fee2e2';
+    document.getElementById('badge').style.color = h.all_ok ? '#16a34a' : '#dc2626';
+  } catch(e) {}
+}
+
 loadData();
+loadHealth();
 setInterval(loadData, 15000);
+setInterval(loadHealth, 60000);
 
 // ── Knowledge management ──────────────────────────────────────────────────
 let allKnowledge = [];
@@ -837,6 +905,13 @@ def api_status():
         "timestamp": datetime.now(ISRAEL_TZ).isoformat(),
         "url": "http://localhost:5002",
     })
+
+
+@app.route("/api/health")
+def api_health():
+    if HEALTH["checked_at"] is None:
+        run_health_check()
+    return jsonify(HEALTH)
 
 
 @app.route("/api/chat", methods=["POST"])
@@ -1020,6 +1095,8 @@ def api_treatment_delete(row_id):
 
 if __name__ == "__main__":
     write_status("מופעל")
+    threading.Thread(target=health_loop, daemon=True).start()
     print("💄 שון — BeautyAI Manager")
     print("🌐 http://localhost:5002")
+    print(f"🩺 ניטור מערכות פעיל — בדיקה כל {HEALTH_INTERVAL_SEC // 60} דקות")
     app.run(host="0.0.0.0", port=5002, debug=False, use_reloader=False)
