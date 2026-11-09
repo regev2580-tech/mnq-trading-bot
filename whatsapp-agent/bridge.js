@@ -83,6 +83,10 @@ const GROQ_MODEL = process.env.GROQ_MODEL ?? ENV.GROQ_MODEL ?? 'whisper-large-v3
 const CLAUDE_BIN = process.env.CLAUDE_BIN
   ?? path.join(process.env.APPDATA ?? '', 'npm', 'node_modules', '@anthropic-ai', 'claude-code', 'bin', 'claude.exe')
 const PYTHON = process.env.PYTHON_BIN ?? 'python'
+// The agents run on Regev's claude.ai subscription. A machine-wide ANTHROPIC_API_KEY (set for
+// other projects) would switch Claude Code to API-key billing and hide the claude.ai connectors
+// (Gmail / Calendar), so it is removed for the agents only.
+const CLAUDE_ENV = Object.fromEntries(Object.entries(process.env).filter(([k]) => !['ANTHROPIC_API_KEY', 'ANTHROPIC_AUTH_TOKEN'].includes(k.toUpperCase())))
 
 function systemPrompt(agent, isGroup) {
   const team = AGENTS.map(a => `- ${a.name}: ${a.role}`).join('\n')
@@ -153,9 +157,9 @@ async function api(agentId, p, method = 'GET', body) {
   return r.json()
 }
 
-function runProcess(bin, args, { cwd, input, timeoutMs }) {
+function runProcess(bin, args, { cwd, input, timeoutMs, env }) {
   return new Promise((resolve, reject) => {
-    const child = spawn(bin, args, { cwd, windowsHide: true })
+    const child = spawn(bin, args, { cwd, windowsHide: true, ...(env ? { env } : {}) })
     let out = Buffer.alloc(0), err = ''
     const timer = setTimeout(() => { child.kill(); reject(new Error('timeout')) }, timeoutMs)
     child.stdout.on('data', d => { out = Buffer.concat([out, d]) })
@@ -176,7 +180,7 @@ async function runClaude(agent, prompt, resumeId, isGroup) {
     '--output-format', 'json',
     ...(resumeId ? ['--resume', resumeId] : []),
   ]
-  const { code, out, err } = await runProcess(CLAUDE_BIN, args, { cwd: PROJECT_ROOT, input: prompt, timeoutMs: CLAUDE_TIMEOUT_MS })
+  const { code, out, err } = await runProcess(CLAUDE_BIN, args, { cwd: PROJECT_ROOT, input: prompt, timeoutMs: CLAUDE_TIMEOUT_MS, env: CLAUDE_ENV })
   try {
     const j = JSON.parse(out)
     if (j.is_error && !j.result) throw new Error(j.subtype ?? 'claude error')
