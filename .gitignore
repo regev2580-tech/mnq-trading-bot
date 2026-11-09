@@ -66,3 +66,9 @@ docs/mcp_test*.txt
 
 # launcher bats with embedded API keys — never commit
 *הפעל את גימי*.bat
+
+# WhatsApp agents: media Regev sends (private)
+whatsapp-media/
+
+# WhatsApp agents private memory
+agents-team/

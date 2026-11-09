@@ -1,0 +1,103 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>חיבור סוכן וואטסאפ</title>
+<style>
+  :root { --bg:#f5f5f7; --card:#fff; --ink:#1d1d1f; --muted:#6e6e73; --green:#1f9d55; --red:#c0392b; --line:#e5e5ea; }
+  * { box-sizing: border-box; }
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center; background:var(--bg); color:var(--ink); font-family: "Heebo", system-ui, -apple-system, "Segoe UI", Arial, sans-serif; padding:16px; }
+  .card { background:var(--card); border-radius:24px; padding:36px 32px; width:100%; max-width:440px; box-shadow:0 10px 40px rgba(0,0,0,.08); text-align:center; }
+  h1 { font-size:1.6rem; margin:0 0 6px; font-weight:800; letter-spacing:-.01em; }
+  .sub { color:var(--muted); margin:0 0 24px; }
+  .qr { width:300px; height:300px; max-width:100%; margin:0 auto 18px; border:1px solid var(--line); border-radius:18px; display:flex; align-items:center; justify-content:center; overflow:hidden; background:#fafafa; }
+  .qr img { width:100%; height:100%; }
+  .status { font-weight:700; margin:0 0 18px; }
+  .status.ok { color:var(--green); } .status.err { color:var(--red); }
+  ol { text-align:right; color:var(--muted); line-height:1.8; padding-inline-start:20px; margin:0 0 20px; }
+  .warn { background:#fff6e5; border-radius:12px; padding:12px 14px; font-size:.92rem; text-align:right; margin-bottom:20px; }
+  button { font:inherit; border:0; border-radius:999px; padding:12px 22px; font-weight:700; cursor:pointer; background:var(--ink); color:#fff; transition: transform .15s; }
+  button:active { transform:scale(.97); }
+  button.ghost { background:transparent; color:var(--red); border:1px solid var(--line); margin-top:10px; }
+  .hidden { display:none; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h1>סוכן הוואטסאפ של רגב</h1>
+  <p class="sub">סריקה חד-פעמית מחברת את הסוכן לוואטסאפ שלך</p>
+
+  <div class="qr" id="qr"><span style="color:var(--muted)">טוען...</span></div>
+  <p class="status" id="status">מתחבר לשרת...</p>
+
+  <div id="howto">
+    <ol>
+      <li>פתח וואטסאפ בטלפון</li>
+      <li>הגדרות ← מכשירים מקושרים ← קישור מכשיר</li>
+      <li>סרוק את הברקוד</li>
+    </ol>
+    <div class="warn">הסוכן עונה רק בצ'אט "הודעה לעצמי". הוא לא עונה לחברים, לקבוצות או לסטטוסים.</div>
+  </div>
+
+  <button class="ghost hidden" id="logout">ניתוק הסוכן מהוואטסאפ</button>
+</div>
+
+<script src="config.local.js"></script>
+<script>
+  const cfg = window.AGENT_CONFIG || {}
+  const qrEl = document.getElementById('qr')
+  const statusEl = document.getElementById('status')
+  const howto = document.getElementById('howto')
+  const logoutBtn = document.getElementById('logout')
+  const headers = { 'x-api-secret': cfg.secret || '', 'Content-Type': 'application/json' }
+  // connect.html?session=yaniv → links another agent; default is Regev's main agent
+  const sessionId = new URLSearchParams(location.search).get('session') || cfg.sessionId || 'regev'
+  if (sessionId !== 'regev') document.title = `חיבור הסוכן ${sessionId}`
+  const base = `${(cfg.url || '').replace(/\/$/, '')}/session/${sessionId}`
+  let lastQr = null
+
+  function setStatus(text, cls) { statusEl.textContent = text; statusEl.className = 'status ' + (cls || '') }
+
+  function render(s) {
+    if (s.status === 'connected') {
+      qrEl.innerHTML = '<span style="font-size:4rem;color:var(--green)">&#10003;</span>'
+      setStatus(`מחובר${s.phone ? ' למספר ' + s.phone : ''}. שלח לעצמך הודעה כדי לבדוק.`, 'ok')
+      howto.classList.add('hidden'); logoutBtn.classList.remove('hidden')
+    } else if (s.qr) {
+      if (s.qr !== lastQr) { qrEl.innerHTML = `<img alt="ברקוד" src="${s.qr}">`; lastQr = s.qr }
+      setStatus('ממתין לסריקה...')
+      howto.classList.remove('hidden'); logoutBtn.classList.add('hidden')
+    } else {
+      setStatus('מכין ברקוד...')
+    }
+  }
+
+  async function call(path, method) {
+    const r = await fetch(base + path, { method: method || 'GET', headers })
+    if (r.status === 401) throw new Error('סיסמת השרת שגויה (config.local.js)')
+    return r.json()
+  }
+
+  async function poll() {
+    try {
+      let s = await call('/status')
+      if (s.status === 'disconnected') s = await call('/start', 'POST')
+      render(s)
+    } catch (e) {
+      setStatus('אין חיבור לשרת: ' + e.message, 'err')
+    }
+    setTimeout(poll, 3000)
+  }
+
+  logoutBtn.onclick = async () => {
+    if (!confirm('לנתק את הסוכן מהוואטסאפ?')) return
+    await call('', 'DELETE').catch(() => {})
+    lastQr = null
+  }
+
+  if (!cfg.url) setStatus('חסר קובץ config.local.js עם כתובת השרת', 'err')
+  else poll()
+</script>
+</body>
+</html>
