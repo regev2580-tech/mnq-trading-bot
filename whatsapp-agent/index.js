@@ -8,10 +8,10 @@
 // if it's in its area); everything else said there is kept only as conversation context. Statuses/channels are dropped.
 import 'dotenv/config'
 import express from 'express'
-import { makeWASocket, DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion, downloadMediaMessage } from '@whiskeysockets/baileys'
+import { makeWASocket, DisconnectReason, useMultiFileAuthState, fetchLatestBaileysVersion, downloadMediaMessage, jidEncode, jidNormalizedUser } from '@whiskeysockets/baileys'
 import QRCode from 'qrcode'
 import pino from 'pino'
-import { mkdir, readdir, rm } from 'fs/promises'
+import { mkdir, readdir, rm, readFile, writeFile } from 'fs/promises'
 import path from 'path'
 
 const app = express()
@@ -54,6 +54,8 @@ const BRIDGE_OFFLINE_MS = 90_000
 const OFFLINE_NOTICE_EVERY_MS = 10 * 60_000
 // IDs of messages the agent itself sent
 const sentByAgent = new Set()
+// Recently sent messages, so a recipient's retry request can be answered (see getMessage)
+const sentStore = new Map()
 // Recently processed message IDs, to dedupe Baileys re-emits
 const processedMessages = new Map()
 const DEDUP_TTL_MS = 60_000
@@ -81,6 +83,24 @@ const SESSION_ID_RE = /^[a-z0-9][a-z0-9-]{1,63}$/i
 
 await mkdir(SESSIONS_DIR, { recursive: true })
 
+// People an agent messaged (via /send, after Regev approved it on the PC). Their replies are
+// NOT answered: they are queued to the bridge only as 'contact-reply', so it can tell Regev
+// who answered and what they wrote. Anyone else writing to an agent is still dropped silently.
+// Kept on the volume (next to sessions/) so a redeploy doesn't forget them.
+const CONTACTED_FILE = path.join(SESSIONS_DIR, '..', 'contacted.json')
+const CONTACT_REPLY_TTL_MS = 30 * 24 * 60 * 60_000
+let contacted = {}
+try { contacted = JSON.parse(await readFile(CONTACTED_FILE, 'utf8')) } catch {}
+function markContacted(sessionId, phone) {
+  contacted[`${sessionId}|${phone}`] = Date.now()
+  for (const [k, t] of Object.entries(contacted)) if (Date.now() - t > CONTACT_REPLY_TTL_MS) delete contacted[k]
+  writeFile(CONTACTED_FILE, JSON.stringify(contacted)).catch(e => dlog(`contacted save failed: ${e.message}`))
+}
+function wasContacted(sessionId, phone) {
+  const t = contacted[`${sessionId}|${phone}`]
+  return !!t && Date.now() - t < CONTACT_REPLY_TTL_MS
+}
+
 async function startSession(sessionId) {
   const existing = sessions.get(sessionId)
   if (existing && existing.status !== 'disconnected') return
@@ -90,7 +110,13 @@ async function startSession(sessionId) {
   const { state, saveCreds } = await useMultiFileAuthState(sessionDir)
   const { version } = await fetchLatestBaileysVersion()
 
-  const sock = makeWASocket({ version, auth: state, logger, printQRInTerminal: false, markOnlineOnConnect: false })
+  // getMessage: when a recipient's phone can't decrypt a message, it asks us to resend it.
+  // Baileys' default returns nothing, so the message stays "waiting for this message" forever
+  // (this is what broke Roni's private replies to Regev). We serve it from sentStore instead.
+  const sock = makeWASocket({
+    version, auth: state, logger, printQRInTerminal: false, markOnlineOnConnect: false,
+    getMessage: async key => sentStore.get(`${sessionId}|${key.id}`),
+  })
   sock.__sessionId = sessionId
   sessions.set(sessionId, { socket: sock, qr: null, status: 'connecting', phone: null })
 
@@ -137,8 +163,9 @@ async function startSession(sessionId) {
       const isGroup = remoteJid.endsWith('@g.us')
       // 1:1 chats + the one allowed group. Other groups, broadcasts, channels, statuses: dropped
       if (!isGroup && !remoteJid.endsWith('@s.whatsapp.net') && !remoteJid.endsWith('@lid')) continue
-      // Group-only agents (Roni = Regev's BUSINESS number): private chats are never touched,
-      // not even Regev's. No queue, no reply, no "offline" notice, not marked as read.
+      // Group-only agents: private chats are never touched, not even Regev's.
+      // No queue, no reply, no "offline" notice, not marked as read.
+      // (Private chats with anyone other than the owner are dropped below for every agent.)
       if (!isGroup && GROUP_ONLY_SESSIONS.has(sessionId)) continue
       if (isGroup && !(await isAllowedGroup(sock, remoteJid))) continue
 
@@ -162,6 +189,17 @@ async function startSession(sessionId) {
 
       if (senderPhone !== OWNER_NUMBER) {
         if (!rawSender) dlog(`[${sessionId}] message from unknown sender ignored (group=${isGroup})`)
+        // A reply from someone this agent messaged: forward to the bridge as information only
+        // (it is never run as a task and never answered). Not marked as read.
+        else if (!isGroup && wasContacted(sessionId, senderPhone) && !isDuplicate(`${sessionId}|${msg.key.id}`)) {
+          const body = (text || mediaLabel(inner) || '').slice(0, 3000)
+          if (body) {
+            const inbox = inboxes.get(sessionId) ?? []
+            inbox.push({ kind: 'contact-reply', id: msg.key.id, jid: remoteJid, from: senderPhone, name: (msg.pushName ?? '').slice(0, 60), text: body, ts: Date.now() })
+            inboxes.set(sessionId, inbox)
+            dlog(`[${sessionId}] contact reply queued len=${body.length}`)
+          }
+        }
         continue
       }
       // Per agent: the same group message legitimately reaches every agent's session
@@ -265,8 +303,9 @@ function mediaLabel(message) {
 }
 // sessionId → the name that wakes that agent up in the group
 const AGENT_NAMES = { regev: ['רוני', 'סוכן ראשי', 'הסוכן הראשי'], yaniv: ['יניב'] }
-// Agents that work ONLY inside the allowed group and ignore every private chat
-const GROUP_ONLY_SESSIONS = new Set(['regev'])
+// Agents that work ONLY inside the allowed group and ignore every private chat.
+// Empty since 2026-11-10: Regev asked to talk to Roni privately too (owner only, like Yaniv).
+const GROUP_ONLY_SESSIONS = new Set([])
 function nameRegex(sessionId) {
   const names = AGENT_NAMES[sessionId] ?? [sessionId]
   return new RegExp(`(^|[^\\p{L}])(${names.join('|')})(?=$|[^\\p{L}])`, 'u')
@@ -323,7 +362,26 @@ function extractText(message) {
     ?? ''
 }
 
+// 1:1 chats: build a fresh encryption session with every device of the recipient before sending.
+// A stale session made Regev's phone show Roni's private messages as "waiting for this message"
+// (2026-11-10), while the group (sender keys) worked. Volume is tiny, so the extra fetch is free.
+async function freshSessions(sock, jid) {
+  if (jid.endsWith('@g.us')) return
+  try {
+    const isLid = jid.endsWith('@lid')
+    const user = userPart(jid)
+    const devices = await sock.getUSyncDevices([jid], false, false)
+    const targets = devices
+      .filter(d => String(d.user) === user)
+      .map(d => jidEncode(d.user, isLid ? 'lid' : 's.whatsapp.net', d.device))
+    if (!targets.length) targets.push(jidNormalizedUser(jid))
+    await sock.assertSessions(targets, true)
+    dlog(`[${sock.__sessionId}] fresh sessions for ${targets.length} device(s)`)
+  } catch (e) { dlog(`[${sock.__sessionId}] freshSessions failed: ${e.message}`) }
+}
+
 async function sendText(sock, jid, text, quotedId) {
+  await freshSessions(sock, jid)
   const quoted = quotedId ? recentMessages.get(quotedId) : undefined
   const sent = await sock.sendMessage(jid, { text }, quoted ? { quoted } : undefined)
   if (jid.endsWith('@g.us') && sock.__sessionId) {
@@ -332,6 +390,10 @@ async function sendText(sock, jid, text, quotedId) {
   if (sent?.key?.id) {
     sentByAgent.add(sent.key.id)
     if (sentByAgent.size > 500) sentByAgent.delete(sentByAgent.values().next().value)
+    if (sent.message && sock.__sessionId) {
+      sentStore.set(`${sock.__sessionId}|${sent.key.id}`, sent.message)
+      if (sentStore.size > 500) sentStore.delete(sentStore.keys().next().value)
+    }
   }
 }
 
@@ -394,6 +456,8 @@ app.post('/session/:sessionId/send', async (req, res) => {
   if (!target || !text) return res.status(400).json({ ok: false, error: 'to/jid and text required' })
   await sendText(s.socket, target, String(text), replyTo)
   dlog(`[${req.params.sessionId}] SEND len=${String(text).length}`)
+  const targetPhone = userPart(target)
+  if (target.endsWith('@s.whatsapp.net') && targetPhone && targetPhone !== OWNER_NUMBER) markContacted(req.params.sessionId, targetPhone)
   res.json({ ok: true })
 })
 
