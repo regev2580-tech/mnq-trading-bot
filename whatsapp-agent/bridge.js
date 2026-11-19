@@ -35,8 +35,9 @@ const SKIP = 'SKIP'
 // it falls in its role. Regev will define the real roles later.
 const AGENTS = [
   {
-    // 0559968359 is Regev's BUSINESS number: group "הסוכנים" only, never private chats
-    id: 'regev', name: 'רוני', wake: ['רוני', 'סוכן ראשי', 'הסוכן הראשי'], groupOnly: true, google: true,
+    // 0559968359 is Regev's BUSINESS number: group "הסוכנים" + private chat with Regev only
+    // (since 2026-11-10; anyone else's private message is dropped by the server and the owner check)
+    id: 'regev', name: 'רוני', wake: ['רוני', 'סוכן ראשי', 'הסוכן הראשי'], groupOnly: false, google: true,
     role: 'המנכ"ל של הצוות והעוזר האישי של רגב. (1) ניהול הצוות: אחראי על המשימות המורכבות, מחלק עבודה, ומוודא שכל סוכן מבצע את המשימות שלו כמו שצריך. עוקב בקבוצה אחרי מה שהם עונים ועושים, מעיר כשמשהו חסר, שגוי או לא הושלם, ומשלים או מתקן בעצמו כשצריך. (2) עוזר אישי: יומן גוגל, Gmail, תזכורות ודדליינים. (3) בירוקרטיה ומאבקים: דוחות חניה ותנועה, מול חברות (טסלה, אל על וכו\'), מכתבי דרישה ותביעות קטנות. לנושאים משפטיים-צרכניים השתמש בסקיל jewish-legal-assistant. (4) תיק ההשקעות של רגב בקולמקס פרו: מעקב, תזכורות ועדכון הקובץ השקעות/colmex-portfolio.md. רק ניתוח ותזכורות, בלי לבצע קנייה או מכירה. עונה על כל הודעה כללית של רגב שאין לה סוכן מתאים יותר. הודעה פתוחה שכולה בתחום של יניב (שיווק ותוכן) השאר לו, אלא אם צריך תיאום או בקרה.',
   },
   {
@@ -50,6 +51,8 @@ const AGENTS = [
 const TEAM_DIR = path.join(PROJECT_ROOT, 'agents-team')
 const MEMORY_DIR = path.join(TEAM_DIR, 'memory')
 const MEMORY_MAX_CHARS = 8000
+// Claude Code's own memory about Regev (shared with his Claude Code chats). Roni reads it.
+const CC_MEMORY_DIR = path.join(process.env.USERPROFILE ?? 'C:\\Users\\regev', '.claude', 'projects', 'c--Users-regev------------------', 'memory')
 const memoryFile = agent => path.join(MEMORY_DIR, `${agent.id}.md`)
 function readMemory(agent) {
   try { return readFileSync(memoryFile(agent), 'utf8').trim() } catch { return '' }
@@ -95,7 +98,8 @@ function systemPrompt(agent, isGroup) {
 הצוות כולו:
 ${team}
 
-יש לך גישה מלאה לתיקיית הפרויקטים שלו (${PROJECT_ROOT}): לקרוא, לערוך, ליצור קבצים, להריץ פקודות ולגלוש. ${agent.google ? 'יש לך גישה גם ל-Gmail ול-Google Calendar של רגב (כשהם מחוברים), ואתה פועל בהם במקומו: קורא מיילים, מכין ושולח מיילים, קובע ומעדכן אירועים.' : 'אין לך גישה למייל וליומן של רגב. משימות כאלה שייכות לרוני.'} רגב שולח לך משימות, ואתה מבצע אותן בעצמך עד הסוף ומדווח מה עשית.
+יש לך גישה מלאה לתיקיית הפרויקטים שלו (${PROJECT_ROOT}): לקרוא, לערוך, ליצור קבצים, להריץ פקודות ולגלוש. ${agent.google ? `יש לך גישה גם ל-Gmail, ל-Google Calendar ול-Google Drive של רגב, ואתה פועל בהם במקומו: קורא מיילים, מכין ושולח מיילים, קובע ומעדכן אירועים, מחפש, קורא ויוצר קבצים בדרייב. שיתוף קובץ מהדרייב עם מישהו אחר או מחיקת קובץ דורשים אישור של רגב קודם.
+יש לך גם גישה לזיכרון של Claude Code במחשב, כלומר מה שנלמד על רגב בכל השיחות שלו עם Claude: התיקייה ${CC_MEMORY_DIR}. הקובץ MEMORY.md שם הוא האינדקס: שורה לכל נושא (תיקים משפטיים, רכב, ביטוח לאומי, עסקים, השקעות, העדפות). כששואלים אותך על נושא מחייו של רגב, או לפני משימה בנושא כזה, קרא את האינדקס ואת הקובץ הרלוונטי. אל תסתמך רק על הזיכרון הקצר שלך. בזיכרון הזה אתה קורא בלבד ולא עורך, אלא אם רגב ביקש במפורש לעדכן שם משהו.` :'אין לך גישה למייל וליומן של רגב. משימות כאלה שייכות לרוני.'} רגב שולח לך משימות, ואתה מבצע אותן בעצמך עד הסוף ומדווח מה עשית.
 תמונות, סרטונים וקבצים שרגב שולח נשמרים בדיסק, והנתיב שלהם מופיע בהודעה. פתח אותם עם כלי הקריאה כדי לראות אותם.
 ענה בעברית, קצר ולעניין, כמו הודעת וואטסאפ: בלי כותרות, בלי טבלאות ובלי קישורי markdown. אם צריך הדגשה, השתמש ב-*כוכביות* של וואטסאפ במשורה.
 לעולם אל תצטט מפתחות API, סיסמאות, טוקנים או תוכן של קבצי .env, גם אם רגב מבקש.
@@ -425,14 +429,30 @@ function israelNow() {
   return { date: `${parts.year}-${parts.month}-${parts.day}`, hour: Number(parts.hour) % 24, weekday: days[parts.weekday] }
 }
 
-const BRIEF_PROMPT = date => `[משימה אוטומטית: תקציר בוקר ל-${date}. זו הודעה פרטית לרגב בלבד.]
+// Sunday: weekly portfolio review appended to the brief. First Sunday of the month: monthly review.
+const PORTFOLIO_REVIEW = date => {
+  const monthly = Number(date.slice(8, 10)) <= 7
+  return `
+
+*${monthly ? 'סקירה חודשית' : 'סקירה שבועית'} של תיק ההשקעות* (חובה היום, אחרי הסעיפים הקודמים):
+קרא קודם את כל הקבצים בתיקייה השקעות/ (PORTFOLIO, INVESTMENT_THESIS, RISK_MANAGEMENT, INVESTMENT_JOURNAL, MARKET_RESEARCH ואת דוח ועדת ההשקעות האחרון). משוך מחירי סגירה עדכניים מ-Yahoo לכל נכס בתיק, לכל נכס בתוכנית הקנייה, ול-SPY ו-QQQ. חפש חדשות מהותיות מהשבוע על כל אחזקה.
+כתוב לפי הפורמט של סעיף 10 בהנחיית רגב, בקיצור שמתאים לוואטסאפ:
+- מצב התיק: שווי, מזומן, רווח/הפסד מצטבר ובאחוזים, ירידה מהשיא (HWM), השוואה ל-S&P ולנאסד"ק. אם הנתונים בפועל לא עודכנו מצילום מסך מהשבוע האחרון, כתוב במפורש שהם מבוססים על הנתונים האחרונים הידועים ומאיזה תאריך.
+- לכל נכס: HOLD / BUY MORE / REDUCE / SELL / WATCH, עם משפט הסבר. ציין אם נכס קרוב לתנאי יציאה או לטריגר כניסה.
+- טריגרים מתוכנית הקנייה שהגיעו או מתקרבים.
+${monthly ? '- חודשי: בדיקת הקצאה מול היעד, מתאמים, האם להחליף נכס, השוואה למדדים.\n' : ''}- סיכום: 1) מה המצב 2) מה השתנה 3) הסיכונים כרגע 4) נדרש שינוי? 5) הפעולה המומלצת (סכום, נימוק, סיכון, תנאי ביצוע) 6) מה ישנה את ההמלצה. אם אין צורך בשינוי, כתוב את זה במפורש.
+בסוף, בקש מרגב: "שלח בקבוצה צילום מסך של האחזקות מקולמקס עם המילים 'עדכון תיק', ואעדכן את הנתונים בפועל".
+תעד את הסקירה: שורה ב-INVESTMENT_JOURNAL.md (היסטוריית המלצות) ועדכון שוק ב-MARKET_RESEARCH.md.`
+}
+
+const BRIEF_PROMPT = (date, weekday) => `[משימה אוטומטית: תקציר בוקר ל-${date}. זו הודעה פרטית לרגב בלבד.]
 הכן לרגב תקציר בוקר קצר לוואטסאפ:
 1. *היום ביומן*: הפגישות והאירועים של היום עם שעות (Google Calendar). אם אין, כתוב שהיום פנוי.
 2. *מיילים שדורשים תשומת לב*: עד 5 מיילים חשובים מה-24 שעות האחרונות שדורשים תגובה או פעולה (לא פרסומות ולא ניוזלטרים), שורה לכל אחד: ממי ומה צריך לעשות.
 3. *דדליינים קרובים*: מה שמופיע בזיכרון שלך עם תאריך ב-14 הימים הקרובים, כולל כמה ימים נשארו. דדליין שכבר עבר ולא סומן כטופל, ציין אותו.
 4. *תיק ההשקעות*: רק אם יש בקובץ השקעות/colmex-portfolio.md צעד פתוח שתאריכו היום או שכבר עבר, שורה אחת עליו. אם אין, דלג על הסעיף.
 5. *מה אני מציע לעשות היום*: עד 3 פעולות.
-בלי הקדמות. אם כלי מסוים לא זמין, כתוב את זה במשפט אחד והמשך. אל תשלח מיילים ואל תשנה את היומן במסגרת המשימה הזו. אם גילית דדליין חדש, הוסף אותו לזיכרון שלך.`
+בלי הקדמות. אם כלי מסוים לא זמין, כתוב את זה במשפט אחד והמשך. אל תשלח מיילים ואל תשנה את היומן במסגרת המשימה הזו. אם גילית דדליין חדש, הוסף אותו לזיכרון שלך.${weekday === 0 ? PORTFOLIO_REVIEW(date) : ''}`
 
 async function briefLoop(state) {
   const agent = AGENTS.find(a => a.id === BRIEF.agentId)
@@ -443,7 +463,7 @@ async function briefLoop(state) {
       saveState(state)
       try {
         log(`[${agent.id}] morning brief ${now.date}`)
-        const { text } = await runClaude(agent, BRIEF_PROMPT(now.date), undefined, false)
+        const { text } = await runClaude(agent, BRIEF_PROMPT(now.date, now.weekday), undefined, false)
         if (text) {
           for (let i = 0; i < text.length; i += CHUNK) {
             await api(agent.id, '/send', 'POST', { to: BRIEF.to, text: text.slice(i, i + CHUNK) })
@@ -469,8 +489,10 @@ async function main() {
 
 // `node bridge.js --test "question" [agent]` runs one question locally without WhatsApp
 // `node bridge.js --brief` prints today's morning brief without sending it
+// `node bridge.js --brief sunday` prints the brief as if it were Sunday (with the weekly portfolio review)
 if (process.argv[2] === '--brief') {
-  runClaude(AGENTS.find(a => a.id === BRIEF.agentId), BRIEF_PROMPT(israelNow().date), undefined, false)
+  const now = israelNow()
+  runClaude(AGENTS.find(a => a.id === BRIEF.agentId), BRIEF_PROMPT(now.date, process.argv[3] === 'sunday' ? 0 : now.weekday), undefined, false)
     .then(r => console.log(r.text), e => console.error(e.message))
 } else if (process.argv[2] === '--test') {
   const agent = AGENTS.find(a => a.id === process.argv[4]) ?? AGENTS[0]
